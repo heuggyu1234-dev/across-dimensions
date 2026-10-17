@@ -43,7 +43,18 @@ a { color: inherit; }
 .bar .wrap { display: flex; justify-content: space-between; align-items: center; height: 54px; }
 .bar a, .bar span { pointer-events: auto; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.06em; text-decoration: none; }
 .bar nav { display: flex; gap: 1.6rem; }
-@media (max-width: 680px) { .bar nav { display: none; } }
+.bar { transition: background-color 250ms, color 250ms; }
+/* Past the black opener the bar turns solid so page text never shows through it */
+.bar.solid { mix-blend-mode: normal; color: var(--ink); background: color-mix(in srgb, var(--paper) 92%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--rule); }
+.bar-right { display: flex; align-items: center; gap: 1rem; }
+.menu-btn { display: none; pointer-events: auto; font: inherit; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.06em; color: inherit; background: none; border: 1px solid currentColor; padding: 0.45rem 0.7rem; cursor: pointer; border-radius: 0; }
+@media (max-width: 680px) { .bar nav { display: none; } .menu-btn { display: inline-block; } }
+.sheet { position: fixed; inset: 0; z-index: 40; background: var(--night); color: #FFFFFF; display: grid; align-content: start; padding: calc(env(safe-area-inset-top, 0px) + 1rem) max(20px, env(safe-area-inset-right, 0px)) calc(env(safe-area-inset-bottom, 0px) + 2rem) max(20px, env(safe-area-inset-left, 0px)); }
+.sheet-top { display: flex; justify-content: space-between; align-items: center; height: 38px; margin-bottom: 2.5rem; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.06em; }
+.sheet-top button { font: inherit; color: #FFFFFF; background: none; border: 1px solid #FFFFFF; padding: 0.45rem 0.7rem; cursor: pointer; border-radius: 0; }
+.sheet nav { display: grid; border-top: 1px solid rgba(255,255,255,0.18); }
+.sheet nav a { display: flex; justify-content: space-between; align-items: baseline; padding: 1.1rem 0; border-bottom: 1px solid rgba(255,255,255,0.18); text-decoration: none; font-size: 1.6rem; font-weight: 500; letter-spacing: -0.02em; }
+.sheet nav a small { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.06em; color: rgba(255,255,255,0.55); }
 
 /* Opener */
 .opener { background: var(--night); color: #fff; height: 170vh; position: relative; }
@@ -54,6 +65,12 @@ a { color: inherit; }
 .opener-labels span { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em; }
 .opener-hint { position: absolute; bottom: calc(1.4rem + env(safe-area-inset-bottom, 0px)); left: 50%; transform: translateX(-50%); font-size: 0.7rem; letter-spacing: 0.08em; color: rgba(255,255,255,0.55); }
 @media (prefers-reduced-motion: reduce) { .opener { height: auto; } .opener-stage { position: relative; height: auto; padding-block: 6rem 4rem; } }
+/* Phones: labels sit below the frame instead of across it, the opener scrolls a shorter distance */
+@media (max-width: 680px) {
+  .opener { height: 150vh; }
+  .opener-labels { top: auto; bottom: calc(3.6rem + env(safe-area-inset-bottom, 0px)); transform: none; mix-blend-mode: normal; color: rgba(255,255,255,0.85); }
+  .opener-labels span:nth-child(2) { display: none; }
+}
 
 /* Section scaffolding */
 .sec { padding-block: clamp(4rem, 8vw, 7rem) 0; scroll-margin-top: 54px; }
@@ -85,6 +102,12 @@ h2.title { margin: 0; font-size: clamp(1.6rem, 3vw, 2.3rem); font-weight: 500; l
 .row-head { display: flex; justify-content: space-between; align-items: end; gap: 1rem; margin-bottom: 1.8rem; flex-wrap: wrap; }
 .vrow { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(15rem, 1fr); gap: 0.9rem; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 1rem; }
 .vcard { scroll-snap-align: start; min-width: 0; }
+@media (max-width: 680px) {
+  .vrow { grid-auto-columns: 74%; margin-right: calc(-1 * max(20px, env(safe-area-inset-right, 0px))); padding-right: max(20px, env(safe-area-inset-right, 0px)); scrollbar-width: none; }
+  .vrow::-webkit-scrollbar { display: none; }
+}
+.swipe-hint { display: none; font-size: 0.75rem; color: var(--ink-2); margin: 0.2rem 0 0; }
+@media (max-width: 680px) { .swipe-hint { display: block; } .row-head .muted { display: none; } }
 .vcard button { display: block; width: 100%; padding: 0; border: 0; background: var(--paper-2); cursor: zoom-in; aspect-ratio: 4 / 5; overflow: hidden; }
 .vcard img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 700ms cubic-bezier(.2,.7,.2,1); }
 .vcard button:hover img { transform: scale(1.04); }
@@ -104,11 +127,30 @@ table.compare { width: 100%; min-width: 40rem; border-collapse: collapse; font-s
 .compare td { color: var(--ink-3); }
 .compare td.y { color: var(--ink); }
 .compare td .r { color: var(--hot); }
+/* Phones: the comparison becomes one card per version (tap a version to switch) */
+.cmp-m { display: none; }
+@media (max-width: 680px) {
+  .compare-wrap .compare { display: none; }
+  .cmp-m { display: block; }
+}
+.cmp-tabs { display: flex; gap: 0.3rem; overflow-x: auto; margin-bottom: 0.8rem; scrollbar-width: none; }
+.cmp-tabs::-webkit-scrollbar { display: none; }
+.cmp-tabs button { flex: 0 0 auto; font: inherit; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.03em; padding: 0.55rem 0.85rem; border: 1px solid var(--rule); background: transparent; color: var(--ink-2); border-radius: 0; cursor: pointer; }
+.cmp-tabs button[aria-selected="true"] { background: var(--ink); border-color: var(--ink); color: #FFFFFF; }
+.cmp-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--ink); }
+.cmp-list li { display: flex; justify-content: space-between; gap: 1rem; padding: 0.75rem 0; border-bottom: 1px solid var(--rule); font-size: 0.9rem; }
+.cmp-list li span:last-child { text-align: right; }
+.cmp-list li.no span:last-child { color: var(--ink-3); }
+.cmp-list .r { color: var(--hot); }
 
 /* Interlude band */
 .band { position: relative; margin-top: clamp(4rem, 8vw, 7rem); background: var(--night); }
-.band img { display: block; width: 100%; aspect-ratio: 2.6 / 1; object-fit: cover; max-width: 100%; }
-@media (max-width: 680px) { .band img { aspect-ratio: 4 / 3; } }
+.band img { display: block; width: 100%; height: auto; aspect-ratio: 2.6 / 1; object-fit: cover; max-width: 100%; }
+@media (max-width: 680px) {
+  .band img { aspect-ratio: 1907 / 627; }
+  .band-cap { position: static; justify-items: start; text-align: left; color: #FFFFFF; padding: 1rem max(20px, env(safe-area-inset-left, 0px)) 1.2rem; }
+  .band-cap strong, .band-cap span { text-shadow: none; }
+}
 .band-cap { position: absolute; right: max(20px, env(safe-area-inset-right, 0px)); bottom: clamp(1.2rem, 4vw, 3rem); display: grid; justify-items: end; gap: 0.5rem; color: #fff; text-align: right; }
 .band-cap strong { font-size: clamp(1.4rem, 3vw, 2.4rem); font-weight: 500; letter-spacing: -0.02em; text-shadow: 0 1px 18px rgba(80, 40, 120, 0.4); }
 .band-cap span { font-size: 0.78rem; text-shadow: 0 1px 10px rgba(80, 40, 120, 0.45); }
@@ -150,7 +192,10 @@ table.compare { width: 100%; min-width: 40rem; border-collapse: collapse; font-s
 .srow.next { background: color-mix(in srgb, var(--hot) 7%, transparent); }
 .srow.next .st { color: var(--hot); border: 1px solid var(--hot); }
 .srow.today .st { color: #FFFFFF; background: var(--hot); border: 1px solid var(--hot); }
-@media (max-width: 560px) { .srow { grid-template-columns: 3.8rem minmax(0, 1fr); } .srow .st { grid-column: 2; justify-self: start; } }
+@media (max-width: 560px) { .srow { grid-template-columns: 3.8rem minmax(0, 1fr); padding: 0.8rem 0; } .srow .st { grid-column: 2; justify-self: start; } .srow .st:empty { display: none; } }
+.slist.collapsed .srow.done { display: none; }
+.past-toggle { font: inherit; font-size: 0.8rem; font-weight: 600; color: var(--ink-2); background: none; border: 0; border-bottom: 1px solid var(--rule); width: 100%; text-align: left; padding: 0.8rem 0; cursor: pointer; }
+.past-toggle:hover { color: var(--ink); }
 
 /* Goods guide (current) */
 .g-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: 1rem 4rem; align-items: end; margin-bottom: 2.4rem; }
@@ -295,8 +340,22 @@ footer .fsmall { display: flex; justify-content: space-between; gap: 1rem; flex-
       <a href="#collect">GOODS</a>
       <a href="#news">NEWS</a>
     </nav>
-    <span class="num" id="dday">D-</span>
+    <div class="bar-right">
+      <span class="num" id="dday">D-</span>
+      <button type="button" class="menu-btn" id="menu-open" aria-controls="sheet" aria-expanded="false">MENU</button>
+    </div>
   </div>
+</div>
+
+<div class="sheet" id="sheet" hidden role="dialog" aria-modal="true" aria-label="메뉴">
+  <div class="sheet-top"><span>ACROSS DIMENSIONS</span><button type="button" id="menu-close">닫기</button></div>
+  <nav aria-label="섹션">
+    <a href="#versions">버전 <small>VERSIONS</small></a>
+    <a href="#schedule">공개 일정 <small>SCHEDULE</small></a>
+    <a href="#collect">굿즈 올클 <small>GOODS</small></a>
+    <a href="#news">최신 소식 <small>NEWS</small></a>
+    <a href="#links">바로가기 <small>LINKS</small></a>
+  </nav>
 </div>
 
 <header class="opener" id="top">
@@ -328,10 +387,15 @@ footer .fsmall { display: flex; justify-content: space-between; gap: 1rem; flex-
       <span class="muted" style="font-size:0.8rem">이미지를 누르면 전체가 보여요</span>
     </div>
     <div class="vrow" id="vrow"></div>
+    <p class="swipe-hint">옆으로 넘겨 보세요. 누르면 전체 이미지가 열려요.</p>
     <p class="credit">공식 이미지 ⓒ 패러블엔터테인먼트</p>
     <div class="compare-wrap">
       <div class="compare-cap">구성 비교</div>
       <table class="compare" id="compare"></table>
+      <div class="cmp-m">
+        <div class="cmp-tabs" role="tablist" aria-label="버전" id="cmp-tabs"></div>
+        <ul class="cmp-list" id="cmp-list" role="tabpanel"></ul>
+      </div>
     </div>
   </section>
 
@@ -511,13 +575,24 @@ footer .fsmall { display: flex; justify-content: space-between; gap: 1rem; flex-
     const e = p < 0.5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2;
     const narrow = innerWidth < 680, minW = narrow ? 62 : 32;
     frame.style.setProperty("--fw", (minW + (100 - minW) * e) + "%");
-    const startAr = 0.78, endAr = narrow ? 1.1 : 1907 / 627;
+    // ends at the cover's own ratio so the whole logo shows on every screen
+    const startAr = 0.78, endAr = narrow ? 16 / 9 : 1907 / 627;
     frame.style.setProperty("--far", (startAr + (endAr - startAr) * e).toFixed(3));
     frame.style.setProperty("--fs", (1.25 - 0.25 * e).toFixed(3));
     // fade the opener labels out so they never cross the fixed top bar
     labels.style.opacity = String(Math.max(0, 1 - e * 1.6));
+    bar.classList.toggle("solid", opener.getBoundingClientRect().bottom <= 54);
     revealWords();
   }
+  const bar = document.querySelector(".bar");
+
+  /* ---------- Phone menu ---------- */
+  const sheet = document.getElementById("sheet"), menuOpen = document.getElementById("menu-open");
+  const closeSheet = () => { sheet.hidden = true; menuOpen.setAttribute("aria-expanded", "false"); document.body.style.overflow = ""; };
+  menuOpen.addEventListener("click", () => { sheet.hidden = false; menuOpen.setAttribute("aria-expanded", "true"); document.body.style.overflow = "hidden"; document.getElementById("menu-close").focus(); });
+  document.getElementById("menu-close").addEventListener("click", () => { closeSheet(); menuOpen.focus(); });
+  sheet.querySelectorAll("nav a").forEach(a => a.addEventListener("click", closeSheet));
+  addEventListener("keydown", e => { if (e.key === "Escape" && !sheet.hidden) { closeSheet(); menuOpen.focus(); } });
   addEventListener("scroll", onScroll, { passive: true }); addEventListener("resize", onScroll);
   onScroll();
 
@@ -572,6 +647,28 @@ footer .fsmall { display: flex; justify-content: space-between; gap: 1rem; flex-
   });
   tbl.append(tbody);
 
+  // Phone version of the comparison: one version at a time
+  const cmpTabs = document.getElementById("cmp-tabs"), cmpList = document.getElementById("cmp-list");
+  function showCmp(vi) {
+    [...cmpTabs.children].forEach((b, j) => { b.setAttribute("aria-selected", String(j === vi)); b.tabIndex = j === vi ? 0 : -1; });
+    cmpList.replaceChildren();
+    COMPARE.forEach(([name, ...cells]) => {
+      const c = cells[vi], li = el("li", c ? null : "no");
+      const val = el("span");
+      if (!c) val.textContent = "없음";
+      else if (c[0] === "r") val.append(el("span", "r", "랜덤 "), document.createTextNode(c.slice(1)));
+      else val.textContent = c;
+      li.append(el("span", null, name), val); cmpList.append(li);
+    });
+  }
+  VERSIONS.forEach((v, i) => {
+    const b = el("button", null, v.name); b.type = "button"; b.setAttribute("role", "tab");
+    b.addEventListener("click", () => showCmp(i));
+    b.addEventListener("keydown", e => { if (e.key === "ArrowRight" || e.key === "ArrowLeft") { e.preventDefault(); const n = (i + (e.key === "ArrowRight" ? 1 : -1) + VERSIONS.length) % VERSIONS.length; showCmp(n); cmpTabs.children[n].focus(); } });
+    cmpTabs.append(b);
+  });
+  showCmp(0);
+
   /* ---------- Schedule + countdown ---------- */
   const CATS = { sale: ["예약 판매", "#8C8A84"], photo: ["컨셉 포토", "#5B5FD6"], music: ["음악·영상", "#D93A63"] };
   const SCHEDULE = [
@@ -603,6 +700,18 @@ footer .fsmall { display: flex; justify-content: space-between; gap: 1rem; flex-
     mid.append(cat, el("div", "tt", s.title), el("div", "ds", s.desc));
     s.st = el("span", "st"); li.append(day, mid, s.st); schedEl.append(li); s.li = li;
   });
+  // Past items fold away behind one row so the list starts at what's coming
+  let showPast = false;
+  const pastBtn = el("button", "past-toggle"); pastBtn.type = "button";
+  pastBtn.addEventListener("click", () => { showPast = !showPast; syncPast(); });
+  schedEl.before(pastBtn);
+  function syncPast() {
+    const n = SCHEDULE.filter(s => s.li.classList.contains("done")).length;
+    pastBtn.hidden = n === 0;
+    schedEl.classList.toggle("collapsed", !showPast);
+    pastBtn.textContent = showPast ? "지난 일정 접기" : `지난 일정 ${n}개 보기`;
+    pastBtn.setAttribute("aria-expanded", String(showPast));
+  }
   const kstDay = t => new Date(t + 9 * 36e5).toISOString().slice(5, 10);
   const countEl = document.getElementById("count"), countCap = document.getElementById("count-cap"), dday = document.getElementById("dday");
   const unit = (n, u) => { const d = el("div"); d.append(el("b", null, n), el("small", null, u)); return d; };
@@ -615,6 +724,7 @@ footer .fsmall { display: flex; justify-content: space-between; gap: 1rem; flex-
       s.li.classList.toggle("done", dn); s.li.classList.toggle("next", nx && !isToday); s.li.classList.toggle("today", isToday);
       s.st.textContent = isToday ? "오늘" : dn ? "공개됨" : nx ? "다음" : "";
     });
+    syncPast();
     if (upcoming !== lastNext) {
       lastNext = upcoming; nextBox.replaceChildren();
       if (upcoming) {
