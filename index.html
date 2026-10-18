@@ -219,6 +219,7 @@ table.compare { width: 100%; min-width: 40rem; border-collapse: collapse; font-s
 .u-rules li::before { content: ""; display: inline-block; width: 6px; height: 6px; background: var(--ink); margin-right: 0.5rem; vertical-align: 0.15em; }
 .u-cap { display: flex; align-items: center; gap: 0.55rem; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.07em; margin: 0 0 1rem; }
 .u-cap::before { content: ""; width: 7px; height: 7px; background: var(--ink); }
+.u-cap-note { font-weight: 500; letter-spacing: 0; color: var(--ink-2); }
 .u-list { list-style: none; margin: 0 0 3rem; padding: 0; border-top: 1px solid var(--ink); }
 /* each task: big start and end dates, what it is, a status pill and a button to go do it */
 .u-row { display: grid; grid-template-columns: 15rem minmax(0, 1fr) auto; gap: 1rem 2rem; align-items: center; padding: 1.3rem 0; border-bottom: 1px solid var(--rule); }
@@ -258,6 +259,7 @@ table.compare { width: 100%; min-width: 40rem; border-collapse: collapse; font-s
 .how li b { font-weight: 600; font-size: 0.95rem; }
 .how li span { font-size: 0.82rem; color: var(--ink-2); }
 .how .u-btn { justify-self: start; }
+.u-today-go { display: flex; flex-direction: column; gap: 0.35rem; }
 .u-today .u-btn { background: #FFFFFF; color: var(--ink); padding: 0.5rem 0.7rem; }
 .u-today .u-btn:hover { background: #E7E5E0; }
 .u-partners { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin-bottom: 1.4rem; }
@@ -571,12 +573,15 @@ footer .fsmall { display: flex; justify-content: space-between; gap: 1rem; flex-
       <li>캡처에 휴대폰 시간이 보이게</li>
     </ul>
 
+    <div class="u-cap">이세계아이돌 투표 <small class="u-cap-note">연합 팬덤도 같이 해 줘요</small></div>
+    <ul class="u-list" id="u-for"></ul>
+
     <div class="u-cap">이파리가 할 일 전체</div>
     <ul class="u-list" id="u-list"></ul>
 
     <div class="u-cap">연합 팬덤별 정리</div>
     <div class="u-partners" id="u-partners"></div>
-    <p class="u-src">출처: 이세계차트 <a href="https://x.com/isegyechart/status/2111786168253899138" target="_blank" rel="noopener">연합 정리</a>, <a href="https://x.com/isegyechart/status/2111787485173084326" target="_blank" rel="noopener">인증 안내</a> (@isegyechart, 10.18). 포스터 이미지는 이세계차트와 각 팬덤 총공팀이 만든 거예요. 아이브·리센느 부문별 투표 링크는 10.30 투표가 열리면 이세계차트가 다시 알려 줘요.</p>
+    <p class="u-src">출처: 이세계차트 <a href="https://x.com/isegyechart/status/2111786168253899138" target="_blank" rel="noopener">연합 정리</a>, <a href="https://x.com/isegyechart/status/2111787485173084326" target="_blank" rel="noopener">인증 안내</a> (@isegyechart, 10.18). 포스터 이미지는 이세계차트와 각 팬덤 총공팀이 만든 거예요. 아이브·리센느 부문별 투표 링크는 10.30 투표가 열리면 이세계차트가 다시 알려 줘요. 이세계아이돌 투표 일정은 <a href="https://www.starnewskorea.com/star/2026/09/04/2026090414043351811" target="_blank" rel="noopener">AAA</a>·<a href="https://www.startuptimes.kr/article/2026-%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD-%ED%95%9C%EB%A5%98%EC%97%B0%EC%98%88%EB%8C%80%EC%83%81-%EA%B8%80%EB%A1%9C%EB%B2%8C-%ED%8C%AC-%ED%88%AC%ED%91%9C-%EA%B0%9C%EB%A7%89-8%EA%B0%9C-%EB%B6%80%EB%AC%B8-%EA%B2%BD%EC%9F%81" target="_blank" rel="noopener">한류연예대상</a> 기사 기준이에요.</p>
   </section>
 
   <section class="sec wrap" id="collect" aria-labelledby="h-collect">
@@ -915,11 +920,20 @@ footer .fsmall { display: flex; justify-content: space-between; gap: 1rem; flex-
     { p: "aespa", kind: "투표", title: "MMA TOP 10, 에스파", where: "멜론", whereNote: "MMA2026 TOP10 투표", from: "10-15", to: "10-29", links: [{ label: "MMA TOP 10 투표하러 가기", url: "https://melon.com/mma/2026/vote/top10/" }] },
     { p: "rescene", kind: "투표", title: "MMA GLOBAL TOP 10, 리센느", where: "멜론", whereNote: "MMA2026 부문별 투표", from: "10-30", to: "11-13", links: [L_MMA] },
     { p: "ive", kind: "투표", title: "MMA 올해의 노래, 아이브", where: "멜론", whereNote: "MMA2026 부문별 투표", from: "10-30", to: "11-13", links: [L_MMA] },
-    { p: "ive", kind: "투표", title: "MMA 베스트 여자 그룹, 아이브", where: "멜론", whereNote: "MMA2026 부문별 투표", from: "10-30", to: "11-13", links: [L_MMA] }
+    { p: "ive", kind: "투표", title: "MMA 베스트 여자 그룹, 아이브", where: "멜론", whereNote: "MMA2026 부문별 투표", from: "10-30", to: "11-13", links: [L_MMA] },
+    // Votes for 이세계아이돌 itself (the partners' side of the deal); 이파리 vote too.
+    { p: "self", kind: "투표", title: "AAA 2026 인기상 결선 (여자 그룹), 이세계아이돌", where: "아이돌챔프 앱", whereNote: "매일 무료 투표, 11.04 밤 11시 59분 마감", helpers: "마이·다이브·리마인", from: "10-08", to: "11-04",
+      links: [{ label: "아이돌챔프 앱 받기", url: "https://idolchamp.co.kr" }] },
+    { p: "self", kind: "투표", title: "한류연예대상 KPOP 아이돌 인기상 (여) 예선, 이세계아이돌", where: "JK Fandom · 스타 리매치 앱", whereNote: "두 앱 표를 합산, 앱마다 매일 1회 무료, 10.23 오후 3시 마감", helpers: "다이브", from: "10-12", to: "10-23", toTime: "15:00",
+      links: [{ label: "JK Fandom 앱 받기", url: "https://apps.apple.com/kr/app/id6759591440", android: "https://play.google.com/store/search?q=JK%20Fandom&c=apps" }, { label: "스타 리매치 앱 받기", url: "https://apps.apple.com/kr/app/id6738113791", android: "https://play.google.com/store/search?q=%EC%8A%A4%ED%83%80%20%EB%A6%AC%EB%A7%A4%EC%B9%98&c=apps", ghost: true }] }
   ];
+  const SELF = { name: "이세계아이돌", fandom: "이파리", color: "#6C5CE7", hash: "" };
+  const partnerOf = t => PARTNERS[t.p] || SELF;
+  const endOf = t => t.toTime ? new Date(`2026-${t.to}T${t.toTime}:00+09:00`).getTime() : dayEnd(t.to);
   const DOWS = ["일", "월", "화", "수", "목", "금", "토"];
   const dowOf = d => DOWS[new Date(`2026-${d}T12:00:00+09:00`).getUTCDay()];
-  const goLinks = (links, cls) => { const box = el("div", cls); links.forEach(l => { const a = el("a", "u-btn" + (l.ghost ? " ghost" : ""), l.label); a.href = l.url; a.target = "_blank"; a.rel = "noopener"; box.append(a); }); return box; };
+  const IS_ANDROID = /Android/i.test(navigator.userAgent);
+  const goLinks = (links, cls) => { const box = el("div", cls); links.forEach(l => { const a = el("a", "u-btn" + (l.ghost ? " ghost" : ""), l.label); a.href = l.android && IS_ANDROID ? l.android : l.url; a.target = "_blank"; a.rel = "noopener"; box.append(a); }); return box; };
   const U_RETURN = {
     nmixx: [["이세계아이돌 신곡 스트리밍", "11.09 ~ 11.22, 뮤직웨이브"]],
     rescene: [["AAA 여자 인기상 결선, 이세계아이돌", "~ 11.04, 아이돌챔프"]],
@@ -929,15 +943,15 @@ footer .fsmall { display: flex; justify-content: space-between; gap: 1rem; flex-
   const dayStart = d => new Date(`2026-${d}T00:00:00+09:00`).getTime();
   const dayEnd = d => new Date(`2026-${d}T23:59:59+09:00`).getTime();
   const perText = t => `${t.from ? t.from.replace("-", ".") : "지금"} ~ ${t.to.replace("-", ".")}`;
-  const uList = document.getElementById("u-list"), uToday = document.getElementById("u-today"), uPartners = document.getElementById("u-partners");
+  const uList = document.getElementById("u-list"), uFor = document.getElementById("u-for"), uToday = document.getElementById("u-today"), uPartners = document.getElementById("u-partners");
   U_TASKS.forEach(t => {
-    const P = PARTNERS[t.p], li = el("li", "u-row"), what = el("div", "u-what"), b = el("b"), tag = el("span", "u-tag", t.kind);
+    const P = partnerOf(t), li = el("li", "u-row"), what = el("div", "u-what"), b = el("b"), tag = el("span", "u-tag", t.kind);
     tag.style.setProperty("--u-c", P.color); b.append(tag, t.title);
     t.pill = el("span", "u-pill");
-    what.append(b, el("span", "sub", `${t.where}, ${t.whereNote}`), el("span", "sub", `${P.fandom}(${P.name}) 연합`), t.pill);
+    what.append(b, el("span", "sub", `${t.where}, ${t.whereNote}`), el("span", "sub", t.helpers ? `이파리 + ${t.helpers} 같이 투표` : `${P.fandom}(${P.name}) 연합`), t.pill);
     const per = el("div", "u-per"), mk = (lab, d) => { const x = el("span", "u-d"); x.append(el("small", null, lab), el("b", null, d.replace("-", ".")), el("i", null, `${dowOf(d)}요일`)); return x; };
     per.append(mk("시작", t.from), el("span", "u-arr"), mk("마감", t.to));
-    li.append(per, what, goLinks(t.links, "u-go")); uList.append(li); t.li = li;
+    li.append(per, what, goLinks(t.links, "u-go")); (t.p === "self" ? uFor : uList).append(li); t.li = li;
   });
   Object.entries(PARTNERS).forEach(([k, P]) => {
     const card = el("article", "u-p"), h = el("h3", null, P.name); h.append(el("small", null, `팬덤 ${P.fandom}`));
@@ -958,7 +972,7 @@ footer .fsmall { display: flex; justify-content: space-between; gap: 1rem; flex-
     const now = Date.now();
     const active = [], upcoming = [];
     U_TASKS.forEach(t => {
-      const s = t.from ? dayStart(t.from) : 0, e = dayEnd(t.to);
+      const s = t.from ? dayStart(t.from) : 0, e = endOf(t);
       const state = now > e ? "done" : now >= s ? "on" : "soon";
       ["done", "on", "soon"].forEach(c => t.li.classList.toggle(c, state === c));
       const leftDays = Math.ceil((e - now) / 864e5), startIn = Math.ceil((s - now) / 864e5);
@@ -972,12 +986,12 @@ footer .fsmall { display: flex; justify-content: space-between; gap: 1rem; flex-
       uToday.append(el("h3", null, `매일 ${active.length}가지예요`));
       const ul = el("ul");
       active.forEach(t => {
-        const P = PARTNERS[t.p], li = el("li"), kind = el("span", "kind", `${t.kind} · ${P.name}`), what = el("div", "u-what");
+        const P = partnerOf(t), li = el("li"), kind = el("span", "kind", `${t.kind} · ${P.name}`), what = el("div", "u-what");
         kind.style.setProperty("--u-c", P.color);
-        what.append(el("b", null, t.title.replace(/, .*$/, "") + (t.kind === "투표" ? ` (${t.title.split(", ")[1]})` : "")), el("span", null, `${t.where}, ${P.hash}`));
-        const left = Math.ceil((dayEnd(t.to) - now) / 864e5);
+        what.append(el("b", null, t.p === "self" ? t.title.replace(/, 이세계아이돌$/, "") : t.title.replace(/, .*$/, "") + (t.kind === "투표" ? ` (${t.title.split(", ")[1]})` : "")), el("span", null, P.hash ? `${t.where}, ${P.hash}` : t.where));
+        const left = Math.ceil((endOf(t) - now) / 864e5);
         what.append(el("span", null, `${t.from.replace("-", ".")} ~ ${t.to.replace("-", ".")}, 마감까지 ${left}일`));
-        li.append(kind, what, goLinks([t.links[0]], "u-today-go")); ul.append(li);
+        li.append(kind, what, goLinks(t.p === "self" ? t.links : [t.links[0]], "u-today-go")); ul.append(li);
       });
       uToday.append(ul);
     } else {
