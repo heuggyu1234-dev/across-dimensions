@@ -233,6 +233,14 @@ table.compare { width: 100%; min-width: 40rem; border-collapse: collapse; font-s
 .u-p dt { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.04em; color: var(--ink-2); }
 .u-p dd { margin: 0.1rem 0 0; font-size: 0.88rem; }
 .u-p .hash { font-size: 0.78rem; color: var(--ink-2); overflow-wrap: anywhere; }
+.u-poster { display: block; width: 100%; padding: 0; border: 0; background: var(--paper-2); cursor: zoom-in; aspect-ratio: 583 / 680; overflow: hidden; }
+.u-poster img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.u-credit { font-size: 0.7rem; color: var(--ink-3); overflow-wrap: anywhere; }
+@media (max-width: 760px) {
+  .u-p { grid-template-columns: 6.5rem minmax(0, 1fr); column-gap: 1rem; }
+  .u-p > * { grid-column: 2; }
+  .u-p .u-poster { grid-column: 1; grid-row: 1 / span 4; align-self: start; }
+}
 .u-src { font-size: 0.78rem; color: var(--ink-2); margin: 0; }
 .u-src a { color: var(--ink); }
 
@@ -499,7 +507,7 @@ footer .fsmall { display: flex; justify-content: space-between; gap: 1rem; flex-
 
     <div class="u-cap">연합 팬덤별 정리</div>
     <div class="u-partners" id="u-partners"></div>
-    <p class="u-src">출처: 이세계차트 <a href="https://x.com/isegyechart" target="_blank" rel="noopener">@isegyechart</a> 연합 안내. MMA는 멜론에서 여는 시상식이라 멜론 앱에서 투표해요. 일정이 바뀌면 이세계차트 공지를 따라 주세요.</p>
+    <p class="u-src">출처: 이세계차트 <a href="https://x.com/isegyechart" target="_blank" rel="noopener">@isegyechart</a> 연합 안내. 포스터 이미지는 이세계차트와 각 팬덤 총공팀이 만든 거예요. MMA는 멜론에서 여는 시상식이라 멜론 앱에서 투표해요. 일정이 바뀌면 이세계차트 공지를 따라 주세요.</p>
   </section>
 
   <section class="sec wrap" id="collect" aria-labelledby="h-collect">
@@ -829,10 +837,10 @@ footer .fsmall { display: flex; justify-content: space-between; gap: 1rem; flex-
   /* ---------- Union: what 이파리 do, where, until when ---------- */
   // from = null means already open when announced. Dates are KST, inclusive.
   const PARTNERS = {
-    nmixx: { name: "엔믹스", fandom: "엔써", color: "#2F8F6B", hash: "#엔써와_이파리_차원을_넘어" },
-    rescene: { name: "리센느", fandom: "리마인", color: "#C46BA8", hash: "#리마인과_이파리_차원을_넘어" },
-    aespa: { name: "에스파", fandom: "마이", color: "#4B4FC9", hash: "#마이with이파리" },
-    ive: { name: "아이브", fandom: "다이브", color: "#D93A63", hash: "#이파리와_함께_다이브" }
+    nmixx: { name: "엔믹스", fandom: "엔써", color: "#2F8F6B", hash: "#엔써와_이파리_차원을_넘어", img: "union-nmixx.jpg", kind: "연합 스트리밍 안내", credit: "이세계차트(@isegyechart) × 엔믹스 응원총공팀(@NMIXX_xstream)" },
+    rescene: { name: "리센느", fandom: "리마인", color: "#C46BA8", hash: "#리마인과_이파리_차원을_넘어", img: "union-rescene.jpg", kind: "연합 투표 안내", credit: "이세계차트(@isegyechart) × 리센느 음원총공팀(@ResceneStream)" },
+    aespa: { name: "에스파", fandom: "마이", color: "#4B4FC9", hash: "#마이with이파리", img: "union-aespa.jpg", kind: "연합 투표 안내", credit: "이세계차트(@isegyechart) × 에스파 투표팀(@aespavote1117)" },
+    ive: { name: "아이브", fandom: "다이브", color: "#D93A63", hash: "#이파리와_함께_다이브", img: "union-ive.jpg", kind: "연합 투표 안내", credit: "이세계차트(@isegyechart) × 아이브(@ive_strm)" }
   };
   const U_TASKS = [
     { p: "nmixx", kind: "스밍", title: "NMIXX '긴 소원' 스트리밍", where: "뮤직웨이브", whereNote: "총공팀 안내 따라", from: "10-19", to: "11-01" },
@@ -865,7 +873,12 @@ footer .fsmall { display: flex; justify-content: space-between; gap: 1rem; flex-
     const get = el("dd"); get.textContent = U_RETURN[k].map(([a, w]) => `${a.replace(/, 이세계아이돌$/, "")} (${w})`).join(" / ");
     dl.append(el("dt", null, `이파리가 ${P.name}에게`), give, el("dt", null, `${P.fandom}가 이세계아이돌에게`), get);
     card.style.borderTop = `3px solid ${P.color}`;
-    card.append(h, dl, el("div", "hash", P.hash)); uPartners.append(card);
+    // the official union poster, tap to see it full size
+    const pb = el("button", "u-poster"); pb.type = "button"; pb.setAttribute("aria-label", `${P.name} ${P.kind} 이미지 크게 보기`);
+    const pi = el("img"); pi.src = P.img; pi.alt = `이세계아이돌 × ${P.name} ${P.kind}`; pi.loading = "lazy"; pi.width = 583; pi.height = 680;
+    pb.append(pi);
+    pb.addEventListener("click", () => { viewerImg.src = P.img; viewerImg.alt = pi.alt; if (viewer.showModal) { viewer.showModal(); viewer.querySelector(".viewer-inner").scrollTop = 0; } });
+    card.append(pb, h, dl, el("div", "hash", P.hash), el("div", "u-credit", `이미지 출처: ${P.credit}`)); uPartners.append(card);
   });
   let uLastKey = "";
   function uTick() {
