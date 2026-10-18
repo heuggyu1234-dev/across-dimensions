@@ -42,5 +42,10 @@
 - 공식 스케줄러: 10/20~23 STAR 컨셉 포토(단체·유닛·개인1·개인2), 10/26~29 RACE 컨셉 포토, 10/30 트랙리스트, 11/02 하이라이트 메들리, 11/04 MV 티저, 11/06 발매 전 스포일러, 11/09 MV와 앨범 발매
 
 ## 자동 업데이트
-- 사용자 PC의 Claude 앱에 매일 아침 예약 작업(`across-dimensions-daily-news`)이 있다. PC가 켜져 있을 때만 돌고, 원본을 PC의 `C:\Users\User\이세돌 두번쨰 미니앨범\site\dev\`에서 고친 뒤 푸시한다.
-- 다른 기기(클라우드 세션)에서 작업했다면 끝에 꼭 푸시해서, PC 쪽이 다음 실행 때 `git pull`로 최신을 받게 한다.
+- claude.ai 클라우드 예약 작업 "이세돌 Across Dimensions 매일 소식"(https://claude.ai/code/routines/trig_01Pnr4rHjsaZezNR5iAG5MWT)이 매일 08:10 KST에 돈다. PC가 꺼져 있어도 된다. 지침 원본은 `dev/cloud-daily-news.md`. 이 저장소를 받아 스냅샷을 고치고 빌드한 뒤 `main`에 푸시한다.
+- 예전 PC 예약 작업(`across-dimensions-daily-news`)은 겹치지 않게 꺼 두었다.
+- 클라우드에서는 claude.ai 아티팩트 DB·publish 도구가 없을 수 있다. 그때는 공개 사이트(스냅샷)만 갱신하고, claude.ai 페이지는 PC에서 다음에 작업할 때 맞춘다.
+- 어느 기기에서 작업하든 시작할 때 `git pull origin main`, 끝에 꼭 `git push origin main`.
+
+## 남은 일 (2026-10-18 기준)
+- 예약 판매가 열리면(10/19 15:00 KST) 판매처 링크와 특전 정보를 찾는다. 공식 Berriz 공지 https://berriz.in/ko/isegyeidol/notice/2596 에 판매처 주소가 추가될 예정. 찾은 내용은 **사이트에 넣기 전에 사용자에게 먼저 보여 주고**, 허락받으면 links(group "store")와 스냅샷에 넣는다.
