@@ -3,7 +3,8 @@
 이세계아이돌(ISEGYE IDOL) 미니 2집 [Across Dimensions]의 비공식 팬 사이트. 사용자와는 한국어로 대화한다.
 
 ## 주소
-- 공개 사이트: https://mini2isegye.pages.dev (Cloudflare Pages가 이 저장소 `main`을 자동 배포, 1~2분)
+- 공개 사이트: https://mini2isegye.hehezone.com (Cloudflare Pages 프로젝트 `mini2isegye`가 이 저장소 `main`을 자동 배포, 1~2분. 예전 주소 https://mini2isegye.pages.dev 도 같은 사이트)
+- 도메인 `hehezone.com`은 사용자의 Cloudflare 계정에 있다. 다른 사이트(예: 짭난투)도 서브도메인으로 붙일 수 있다.
 - claude.ai 페이지(같은 내용, 로그인 사용자는 실시간 소식 DB를 봄): https://claude.ai/artifact/GqUmUotJNZrRRVMBw8cttR
 - GitHub Pages는 꺼 둠. 다시 켜지 않는다.
 
@@ -20,7 +21,7 @@
 1. `dev/across-dimensions.html` 수정
 2. 스크립트 문법 확인: `awk '/<script>/{f=1;next}/<\/script>/{f=0}f' dev/across-dimensions.html > /tmp/c.js && node --check /tmp/c.js`
 3. `node dev/build-site.js dev/across-dimensions.html index.html`
-4. 커밋 후 `git push origin main` → mini2isegye.pages.dev에 자동 반영
+4. 커밋 후 `git push origin main` → mini2isegye.hehezone.com에 자동 반영
 5. claude.ai 페이지도 맞추려면 Artifact 도구 publish, `url`은 위 아티팩트 주소, `file_path`는 `dev/across-dimensions.html` (files·capabilities·icon은 넘기지 않음). 아티팩트 도구가 없는 환경이면 건너뛰고 사용자에게 알린다.
 
 ## 소식 데이터
