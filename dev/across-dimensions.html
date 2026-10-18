@@ -171,25 +171,40 @@ table.compare { width: 100%; min-width: 40rem; border-collapse: collapse; font-s
 .sched-next .ds { font-size: 0.85rem; color: rgba(255,255,255,0.7); }
 .sched-legend { display: flex; gap: 1.2rem; flex-wrap: wrap; margin-bottom: 1rem; font-size: 0.75rem; color: var(--ink-2); }
 .sched-legend span { display: inline-flex; align-items: center; gap: 0.4rem; }
-.sched-legend i, .srow .cat i { width: 8px; height: 8px; display: inline-block; background: var(--c); }
-.slist { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--ink); }
-.srow { display: grid; grid-template-columns: 4.6rem minmax(0, 1fr) auto; gap: 1.1rem; align-items: center; padding: 1rem 0; border-bottom: 1px solid var(--rule); }
-.srow .day { display: grid; line-height: 1.15; }
-.srow .day b { font-size: 1.15rem; font-weight: 600; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
-.srow .day small { font-size: 0.72rem; color: var(--ink-2); }
-.srow .cat { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.72rem; font-weight: 600; color: var(--ink-2); margin-bottom: 0.15rem; }
-.srow .tt { font-size: 1rem; font-weight: 600; }
-.srow .ds { font-size: 0.84rem; color: var(--ink-2); }
-.srow .st { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.03em; white-space: nowrap; padding: 0.2rem 0.5rem; color: var(--ink-3); }
-.srow.done { opacity: 0.45; }
-.srow.next { background: color-mix(in srgb, var(--hot) 7%, transparent); }
-.srow.next .st { color: var(--hot); border: 1px solid var(--hot); }
-.srow.today .st { color: #FFFFFF; background: var(--hot); border: 1px solid var(--hot); }
-@media (max-width: 560px) { .srow { grid-template-columns: 3.8rem minmax(0, 1fr); padding: 0.8rem 0; } .srow .st { grid-column: 2; justify-self: start; } .srow .st:empty { display: none; } }
-.slist.collapsed .srow.done, .slist.short .srow.later { display: none; }
-.more-toggle { border-bottom: 0; color: var(--ink); }
-.past-toggle { font: inherit; font-size: 0.8rem; font-weight: 600; color: var(--ink-2); background: none; border: 0; border-bottom: 1px solid var(--rule); width: 100%; text-align: left; padding: 0.8rem 0; cursor: pointer; }
-.past-toggle:hover { color: var(--ink); }
+.sched-legend i { width: 8px; height: 8px; display: inline-block; background: var(--c); }
+
+/* Schedule calendar */
+.cal { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); border-top: 1px solid var(--ink); border-left: 1px solid var(--rule); margin-top: 0.4rem; }
+.cal-dow { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.04em; color: var(--ink-2); text-align: center; padding: 0.55rem 0; border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+.cal-dow.sun, .cal-day.sun .cal-num { color: var(--hot); }
+.cal-day { font: inherit; color: inherit; text-align: left; background: transparent; border: 0; border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule); border-radius: 0; min-height: 5.6rem; padding: 0.45rem 0.4rem; display: flex; flex-direction: column; gap: 0.25rem; min-width: 0; }
+.cal-day.has { cursor: pointer; }
+.cal-day.has:hover { background: var(--paper-2); }
+.cal-num { font-size: 0.8rem; font-weight: 500; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.cal-day.past .cal-num { color: var(--ink-3); }
+.cal-day.today .cal-num { display: inline-grid; place-items: center; align-self: flex-start; min-width: 1.6rem; height: 1.6rem; padding: 0 0.3rem; border-radius: 999px; background: var(--ink); color: #FFFFFF; }
+.cal-ev { display: block; font-size: 0.72rem; font-weight: 600; line-height: 1.25; padding: 0.2rem 0.3rem; background: color-mix(in srgb, var(--c) 14%, transparent); border-left: 2px solid var(--c); color: var(--ink); overflow-wrap: anywhere; }
+.cal-ev .short { display: none; }
+.cal-day.done .cal-ev { opacity: 0.45; }
+.cal-day.next .cal-ev { background: var(--c); color: #FFFFFF; }
+.cal-day.picked { box-shadow: inset 0 0 0 2px var(--ink); }
+.cal-detail { border-bottom: 1px solid var(--rule); }
+.cd-row { padding: 1rem 0; border-bottom: 1px solid var(--rule); }
+.cd-row:last-child { border-bottom: 0; }
+.cd-when { display: flex; align-items: center; gap: 0.45rem; font-size: 0.75rem; font-weight: 600; color: var(--ink-2); }
+.cd-when i { width: 8px; height: 8px; background: var(--c); }
+.cd-st { margin-left: auto; font-size: 0.7rem; padding: 0.1rem 0.45rem; border: 1px solid var(--rule); color: var(--ink-3); }
+.cd-st.on { background: var(--hot); border-color: var(--hot); color: #FFFFFF; }
+.cd-tt { font-size: 1.05rem; font-weight: 600; margin-top: 0.25rem; }
+.cd-ds { font-size: 0.85rem; color: var(--ink-2); }
+@media (max-width: 680px) {
+  .cal-day { min-height: 3.6rem; padding: 0.3rem 0.2rem; align-items: center; }
+  .cal-num { font-size: 0.75rem; }
+  .cal-day.today .cal-num { min-width: 1.4rem; height: 1.4rem; }
+  .cal-ev { font-size: 0.62rem; padding: 0.1rem 0.15rem; border-left: 0; border-top: 2px solid var(--c); text-align: center; width: 100%; letter-spacing: -0.02em; }
+  .cal-ev .full { display: none; }
+  .cal-ev .short { display: inline; }
+}
 
 /* Union: streaming and voting partnerships */
 .u-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: 1rem 4rem; align-items: end; margin-bottom: 2.4rem; }
@@ -542,12 +557,13 @@ footer .fsmall { display: flex; justify-content: space-between; gap: 1rem; flex-
     <div class="split">
       <div>
         <h2 class="title" id="h-schedule">공개 일정</h2>
-        <p class="lead">공식 스케줄러 기준이에요. 시간이 적힌 일정 말고는 날짜만 공지됐어요.</p>
+        <p class="lead">공식 스케줄러 기준이에요. 날짜를 누르면 무엇이 공개되는지 보여요.</p>
       </div>
       <div>
         <div class="sched-next" id="sched-next"></div>
         <div class="sched-legend" id="sched-legend"></div>
-        <ol class="slist" id="sched"></ol>
+        <div class="cal" id="cal" role="group" aria-label="10월 11일부터 11월 14일까지 공개 일정 달력"></div>
+        <div class="cal-detail" id="cal-detail" aria-live="polite"></div>
       </div>
     </div>
   </section>
@@ -853,8 +869,15 @@ footer .fsmall { display: flex; justify-content: space-between; gap: 1rem; flex-
   });
   showCmp(0);
 
-  /* ---------- Schedule + countdown ---------- */
+  /* ---------- Schedule calendar + countdown ---------- */
   const CATS = { sale: ["예약 판매", "#8C8A84"], photo: ["컨셉 포토", "#5B5FD6"], music: ["음악·영상", "#D93A63"] };
+  // calendar chip text: [wide screens, phones]
+  const CHIP = {
+    "10-17": ["판매 공지", "공지"], "10-19": ["예약 판매 15:00", "예판"],
+    "10-20": ["STAR 단체", "단체"], "10-21": ["STAR 유닛", "유닛"], "10-22": ["STAR 개인 1", "개인1"], "10-23": ["STAR 개인 2", "개인2"],
+    "10-26": ["RACE 단체", "단체"], "10-27": ["RACE 유닛", "유닛"], "10-28": ["RACE 개인 1", "개인1"], "10-29": ["RACE 개인 2", "개인2"],
+    "10-30": ["트랙리스트", "트랙"], "11-02": ["하이라이트 메들리", "메들리"], "11-04": ["MV 티저", "티저"], "11-06": ["스포일러", "스포"], "11-09": ["앨범 발매 18:00", "발매"]
+  };
   const SCHEDULE = [
     ["10-17", "18:00", "sale", "예약 판매 공지", "판매 일정과 4가지 버전 안내"],
     ["10-19", "15:00", "sale", "예약 판매 시작", "온라인 음반 판매처에서 주문 시작", 1],
@@ -871,61 +894,69 @@ footer .fsmall { display: flex; justify-content: space-between; gap: 1rem; flex-
     ["11-04", "", "music", "뮤직비디오 티저", "타이틀곡 뮤직비디오 예고편"],
     ["11-06", "", "music", "발매 전 스포일러", "발매 직전 미리보기 콘텐츠"],
     ["11-09", "18:00", "music", "앨범 발매", "음원과 뮤직비디오 공개, 실물 앨범 발매", 1]
-  ].map(([d, time, c, title, desc, timed]) => ({ d, time, c, title, desc, timed: !!timed, start: new Date(`2026-${d}T${time || "00:00"}:00+09:00`).getTime(), end: new Date(`2026-${d}T23:59:59+09:00`).getTime() }));
+  ].map(([d, time, c, title, desc, timed]) => ({ d, time, c, title, desc, chip: CHIP[d], timed: !!timed, start: new Date(`2026-${d}T${time || "00:00"}:00+09:00`).getTime(), end: new Date(`2026-${d}T23:59:59+09:00`).getTime() }));
   const T1 = SCHEDULE[SCHEDULE.length - 1].start;
   const DOW = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];
-  const schedEl = document.getElementById("sched"), legendEl = document.getElementById("sched-legend"), nextBox = document.getElementById("sched-next");
+  const calEl = document.getElementById("cal"), calDetail = document.getElementById("cal-detail"), legendEl = document.getElementById("sched-legend"), nextBox = document.getElementById("sched-next");
   Object.values(CATS).forEach(([n, c]) => { const s = el("span"), i = el("i"); i.style.setProperty("--c", c); s.append(i, n); legendEl.append(s); });
-  SCHEDULE.forEach(s => {
-    const dow = DOW[new Date(`2026-${s.d}T12:00:00+09:00`).getUTCDay()]; s.dow = dow;
-    const li = el("li", "srow"), day = el("span", "day"), mid = el("div"), cat = el("span", "cat"), i = el("i");
-    day.append(el("b", null, s.d.replace("-", ".")), el("small", null, dow + (s.time ? " " + s.time : "")));
-    i.style.setProperty("--c", CATS[s.c][1]); cat.append(i, CATS[s.c][0]);
-    mid.append(cat, el("div", "tt", s.title), el("div", "ds", s.desc));
-    s.st = el("span", "st"); li.append(day, mid, s.st); schedEl.append(li); s.li = li;
-  });
-  // Past items fold away behind one row so the list starts at what's coming
-  let showPast = false;
-  const pastBtn = el("button", "past-toggle"); pastBtn.type = "button";
-  pastBtn.addEventListener("click", () => { showPast = !showPast; syncPast(); });
-  schedEl.before(pastBtn);
-  // ...and only the next few upcoming items show until "더 보기"
-  const SHOW_AHEAD = 4;
-  let showMore = false;
-  const moreBtn = el("button", "past-toggle more-toggle"); moreBtn.type = "button";
-  moreBtn.addEventListener("click", () => { showMore = !showMore; syncPast(); });
-  schedEl.after(moreBtn);
-  function syncPast() {
-    const n = SCHEDULE.filter(s => s.li.classList.contains("done")).length;
-    pastBtn.hidden = n === 0;
-    schedEl.classList.toggle("collapsed", !showPast);
-    pastBtn.textContent = showPast ? "지난 일정 접기" : `지난 일정 ${n}개 보기`;
-    pastBtn.setAttribute("aria-expanded", String(showPast));
-    const m = SCHEDULE.filter(s => s.li.classList.contains("later")).length;
-    moreBtn.hidden = m === 0;
-    schedEl.classList.toggle("short", !showMore);
-    moreBtn.textContent = showMore ? "일정 접기" : `남은 일정 ${m}개 더 보기`;
-    moreBtn.setAttribute("aria-expanded", String(showMore));
+  // Five Sunday-first weeks, 10.11 to 11.14, covering every announced date
+  const CAL_START = new Date("2026-10-11T12:00:00+09:00").getTime();
+  "일월화수목금토".split("").forEach((d, i) => calEl.append(el("span", "cal-dow" + (i === 0 ? " sun" : i === 6 ? " sat" : ""), d)));
+  const days = [];
+  for (let n = 0; n < 35; n++) {
+    const t = CAL_START + n * 864e5, md = new Date(t + 9 * 36e5).toISOString().slice(5, 10), [m, dd] = md.split("-").map(Number);
+    const evs = SCHEDULE.filter(s => s.d === md), wd = n % 7;
+    const cell = el(evs.length ? "button" : "div", "cal-day" + (wd === 0 ? " sun" : wd === 6 ? " sat" : "") + (evs.length ? " has" : ""));
+    const num = el("span", "cal-num", dd === 1 || n === 0 ? `${m}월 ${dd}` : String(dd));
+    cell.append(num);
+    evs.forEach(s => { const c = el("span", "cal-ev"); c.style.setProperty("--c", CATS[s.c][1]); c.append(el("span", "full", s.chip[0]), el("span", "short", s.chip[1])); cell.append(c); });
+    if (evs.length) {
+      cell.type = "button"; cell.setAttribute("aria-label", `${m}월 ${dd}일 ${DOW[wd]}, ${evs.map(s => s.title).join(", ")}`);
+      cell.addEventListener("click", () => pick(md));
+    }
+    days.push({ md, cell, evs });
+    calEl.append(cell);
+  }
+  let picked = null, autoPick = true;
+  function pick(md, auto) {
+    if (!auto) autoPick = false;
+    picked = md;
+    days.forEach(d => { d.cell.classList.toggle("picked", d.md === md); if (d.evs.length) d.cell.setAttribute("aria-pressed", String(d.md === md)); });
+    const d = days.find(x => x.md === md); calDetail.replaceChildren();
+    if (!d) return;
+    const now = Date.now();
+    d.evs.forEach(s => {
+      const row = el("div", "cd-row"), dot = el("i"); dot.style.setProperty("--c", CATS[s.c][1]);
+      const head = el("div", "cd-when"); head.append(dot, `${s.d.replace("-", ".")} ${DOW[new Date(`2026-${s.d}T12:00:00+09:00`).getUTCDay()]}${s.time ? " " + s.time : ""} · ${CATS[s.c][0]}`);
+      const done = s.time ? s.start <= now : s.end < now;
+      if (done) head.append(el("span", "cd-st", "공개됨")); else if (s.d === kstDay(now)) head.append(el("span", "cd-st on", "오늘"));
+      row.append(head, el("div", "cd-tt", s.title), el("div", "cd-ds", s.desc)); calDetail.append(row);
+    });
   }
   const kstDay = t => new Date(t + 9 * 36e5).toISOString().slice(5, 10);
   const countEl = document.getElementById("count"), countCap = document.getElementById("count-cap"), dday = document.getElementById("dday");
   const unit = (n, u) => { const d = el("div"); d.append(el("b", null, n), el("small", null, u)); return d; };
-  let lastNext = null;
+  let lastNext = null, lastDay = "";
   function tick() {
     const now = Date.now(), today = kstDay(now), done = s => s.time ? s.start <= now : s.end < now;
-    let seen = false, upcoming = null, ahead = 0;
-    SCHEDULE.forEach(s => {
-      const dn = done(s), isToday = s.d === today && !dn, nx = !dn && !seen; if (nx) { seen = true; upcoming = s; }
-      s.li.classList.toggle("done", dn); s.li.classList.toggle("next", nx && !isToday); s.li.classList.toggle("today", isToday);
-      s.li.classList.toggle("later", !dn && ahead++ >= SHOW_AHEAD);
-      s.st.textContent = isToday ? "오늘" : dn ? "공개됨" : nx ? "다음" : "";
-    });
-    syncPast();
+    const upcoming = SCHEDULE.find(s => !done(s)) || null;
+    if (today !== lastDay || upcoming !== lastNext) {
+      lastDay = today;
+      days.forEach(d => {
+        d.cell.classList.toggle("today", d.md === today);
+        d.cell.classList.toggle("past", d.md < today);
+        d.cell.classList.toggle("done", d.evs.length > 0 && d.evs.every(done));
+        d.cell.classList.toggle("next", !!upcoming && d.md === upcoming.d);
+      });
+      // show today's items, or else the next date with something on it
+      if (autoPick) pick(days.some(d => d.md === today && d.evs.length) ? today : (upcoming ? upcoming.d : SCHEDULE[SCHEDULE.length - 1].d), true);
+    }
     if (upcoming !== lastNext) {
       lastNext = upcoming; nextBox.replaceChildren();
       if (upcoming) {
         const dLeft = Math.round((new Date(`2026-${upcoming.d}T00:00:00+09:00`).getTime() - new Date(`2026-${today}T00:00:00+09:00`).getTime()) / 864e5);
-        const right = el("div"); right.append(el("div", "tt", upcoming.title), el("div", "ds", `${upcoming.d.replace("-", ".")} ${upcoming.dow}${upcoming.time ? " " + upcoming.time : ""}, ${upcoming.desc}`));
+        const dow = DOW[new Date(`2026-${upcoming.d}T12:00:00+09:00`).getUTCDay()];
+        const right = el("div"); right.append(el("div", "tt", upcoming.title), el("div", "ds", `${upcoming.d.replace("-", ".")} ${dow}${upcoming.time ? " " + upcoming.time : ""}, ${upcoming.desc}`));
         nextBox.append(el("span", "k", "다음 공개"), el("span", "dd", dLeft <= 0 ? "오늘" : `D-${dLeft}`), right);
       } else nextBox.append(el("span", "k", "모든 일정이 끝났어요"), el("span", "dd", "OUT NOW"), el("div", "tt", "Across Dimensions 발매 완료"));
     }
