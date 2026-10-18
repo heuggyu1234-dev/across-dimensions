@@ -75,9 +75,12 @@ h2.title { margin: 0; font-size: clamp(1.6rem, 3vw, 2.3rem); font-weight: 500; l
 .btn:hover { background: #2B2B2B; }
 
 /* Statement */
-.statement { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 2rem; }
+.statement { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 2rem clamp(2rem, 5vw, 5rem); align-items: center; }
 .statement > div { grid-column: 2; }
-@media (max-width: 820px) { .statement { grid-template-columns: 1fr; } .statement > div { grid-column: 1; } }
+.group { grid-column: 1; grid-row: 1; margin: 0; }
+.group img { display: block; width: 100%; height: auto; aspect-ratio: 1000 / 562; object-fit: cover; }
+.group figcaption { margin-top: 0.6rem; font-size: 0.7rem; color: var(--ink-3); }
+@media (max-width: 820px) { .statement { grid-template-columns: 1fr; } .statement > div, .group { grid-column: 1; grid-row: auto; } }
 .big { margin: 0 0 2.6rem; font-size: clamp(1.5rem, 2.6vw, 2.15rem); font-weight: 500; line-height: 1.24; letter-spacing: -0.025em; max-width: 30ch; }
 .big .w { color: var(--ink-3); transition: color 200ms linear; }
 .big .w.on { color: var(--ink); }
@@ -207,23 +210,46 @@ table.compare { width: 100%; min-width: 40rem; border-collapse: collapse; font-s
 .u-cap { display: flex; align-items: center; gap: 0.55rem; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.07em; margin: 0 0 1rem; }
 .u-cap::before { content: ""; width: 7px; height: 7px; background: var(--ink); }
 .u-list { list-style: none; margin: 0 0 3rem; padding: 0; border-top: 1px solid var(--ink); }
-.u-row { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr) 8rem 5rem; gap: 1rem; align-items: center; padding: 1rem 0; border-bottom: 1px solid var(--rule); }
-.u-row .per { font-size: 0.84rem; font-variant-numeric: tabular-nums; color: var(--ink-2); }
-.u-row .u-what b { display: block; font-weight: 600; }
-.u-row .u-what span { font-size: 0.82rem; color: var(--ink-2); }
-.u-row .where { font-size: 0.84rem; }
-.u-row .where small { display: block; font-size: 0.72rem; color: var(--ink-2); }
-.u-row .st { font-size: 0.7rem; font-weight: 600; text-align: right; color: var(--ink-3); white-space: nowrap; }
-.u-row.on .st { color: var(--hot); }
+/* each task: big start and end dates, what it is, a status pill and a button to go do it */
+.u-row { display: grid; grid-template-columns: 15rem minmax(0, 1fr) auto; gap: 1rem 2rem; align-items: center; padding: 1.3rem 0; border-bottom: 1px solid var(--rule); }
+.u-per { display: grid; grid-template-columns: auto auto auto; align-items: end; justify-content: start; gap: 0.7rem; }
+.u-d { display: grid; gap: 0.15rem; }
+.u-d small { font-size: 0.66rem; font-weight: 600; letter-spacing: 0.06em; color: var(--ink-2); }
+.u-d b { font-size: 1.6rem; font-weight: 500; letter-spacing: -0.03em; line-height: 1; font-variant-numeric: tabular-nums; }
+.u-d i { font-style: normal; font-size: 0.72rem; color: var(--ink-2); }
+.u-arr { width: 1.4rem; height: 1px; background: var(--ink-3); margin-bottom: 1.45rem; position: relative; }
+.u-arr::after { content: ""; position: absolute; right: 0; top: -3px; width: 7px; height: 7px; border-top: 1px solid var(--ink-3); border-right: 1px solid var(--ink-3); transform: rotate(45deg); }
+.u-row .u-what b { display: block; font-weight: 600; font-size: 1.02rem; }
+.u-row .u-what .sub { display: block; font-size: 0.82rem; color: var(--ink-2); margin-top: 0.15rem; }
+.u-pill { display: inline-block; margin-top: 0.5rem; font-size: 0.72rem; font-weight: 600; padding: 0.15rem 0.55rem; border: 1px solid var(--rule); color: var(--ink-2); }
+.u-row.on .u-pill { border-color: var(--hot); color: #FFFFFF; background: var(--hot); }
+.u-row.soon .u-pill { border-color: var(--ink); color: var(--ink); }
 .u-row.done { opacity: 0.45; }
-.u-tag { display: inline-block; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.03em; padding: 0.05rem 0.4rem; margin-right: 0.4rem; color: #FFFFFF; background: var(--u-c); vertical-align: 0.1em; }
+.u-go { display: flex; flex-direction: column; gap: 0.4rem; align-items: stretch; }
+.u-btn { display: inline-flex; justify-content: space-between; align-items: center; gap: 1.2rem; font-size: 0.78rem; font-weight: 600; padding: 0.65rem 0.85rem; background: var(--ink); color: #FFFFFF; text-decoration: none; white-space: nowrap; }
+.u-btn::after { content: ""; width: 0.36rem; height: 0.36rem; border-top: 1.5px solid currentColor; border-right: 1.5px solid currentColor; transform: rotate(45deg); }
+.u-btn:hover { background: #2B2B2B; }
+.u-btn.ghost { background: transparent; color: var(--ink); border: 1px solid var(--ink); }
+.u-tag { display: inline-block; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.03em; padding: 0.05rem 0.4rem; margin-right: 0.4rem; color: #FFFFFF; background: var(--u-c); vertical-align: 0.12em; }
 @media (max-width: 760px) {
-  .u-row { grid-template-columns: minmax(0, 1fr) auto; gap: 0.25rem 1rem; }
-  .u-row .u-what { grid-column: 1 / -1; order: -1; }
-  .u-row .per { grid-column: 1; }
-  .u-row .where { grid-column: 1; }
-  .u-row .st { grid-column: 2; grid-row: 2 / span 2; align-self: center; }
+  .u-row { grid-template-columns: 1fr; gap: 0.8rem; }
+  .u-go { flex-direction: row; flex-wrap: wrap; }
+  .u-btn { flex: 1 1 auto; }
 }
+.u-today .u-what span { display: block; }
+/* beginner how-to: two step lists side by side */
+.howto { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin-bottom: 2.4rem; }
+@media (max-width: 760px) { .howto { grid-template-columns: 1fr; } }
+.how { background: var(--paper); padding: 1.3rem 1.3rem 1.4rem; display: grid; gap: 1rem; align-content: start; min-width: 0; }
+.how h3 { margin: 0; font-size: 1.1rem; font-weight: 600; letter-spacing: -0.02em; }
+.how ol { list-style: none; margin: 0; padding: 0; counter-reset: h; display: grid; gap: 0; border-top: 1px solid var(--ink); }
+.how li { counter-increment: h; display: grid; grid-template-columns: 1.8rem minmax(0, 1fr); gap: 0 0.6rem; padding: 0.7rem 0; border-bottom: 1px solid var(--rule); }
+.how li::before { content: counter(h); grid-row: 1 / span 2; width: 1.4rem; height: 1.4rem; border-radius: 50%; background: var(--ink); color: #FFFFFF; font-size: 0.72rem; font-weight: 600; display: grid; place-items: center; margin-top: 0.1rem; }
+.how li b { font-weight: 600; font-size: 0.95rem; }
+.how li span { font-size: 0.82rem; color: var(--ink-2); }
+.how .u-btn { justify-self: start; }
+.u-today .u-btn { background: #FFFFFF; color: var(--ink); padding: 0.5rem 0.7rem; }
+.u-today .u-btn:hover { background: #E7E5E0; }
 .u-partners { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin-bottom: 1.4rem; }
 @media (max-width: 760px) { .u-partners { grid-template-columns: 1fr; } }
 .u-p { background: var(--paper); padding: 1.2rem 1.2rem 1.3rem; display: grid; gap: 0.75rem; align-content: start; min-width: 0; }
@@ -437,6 +463,10 @@ footer .fsmall { display: flex; justify-content: space-between; gap: 1rem; flex-
   <section class="sec wrap" aria-labelledby="h-intro">
     <div class="label">ACROSS DIMENSIONS</div>
     <div class="statement">
+      <figure class="group">
+        <img src="group.webp" alt="이세계아이돌 멤버 6명 단체 사진" width="1000" height="562">
+        <figcaption>이미지 ⓒ 이세계아이돌 공식(ISEGYE IDOL OFFICIAL)</figcaption>
+      </figure>
       <div>
         <h1 class="big" id="h-intro" data-reveal>이세계아이돌의 두 번째 미니 앨범. 네 가지 버전과 열다섯 번의 공개를 지나, 11월 9일 오후 6시에 만나요.</h1>
         <div class="count-cap" id="count-cap">예약 오픈까지</div>
@@ -494,10 +524,36 @@ footer .fsmall { display: flex; justify-content: space-between; gap: 1rem; flex-
       <p class="lead">다른 팬덤과 서로 밀어 주는 약속이에요. 이파리가 다른 가수를 스밍·투표해 주면, 그 팬덤은 이세계아이돌을 투표해 줘요.</p>
     </div>
 
+    <div class="u-cap">처음이라면 이렇게 하세요</div>
+    <div class="howto">
+      <article class="how">
+        <h3><span class="u-tag" style="--u-c:#4B4FC9">투표</span>멜론에서 MMA 투표하기</h3>
+        <ol>
+          <li><b>멜론 앱 설치하고 로그인</b><span>멜론 아이디가 없으면 새로 만들어요.</span></li>
+          <li><b>본인 인증하기</b><span>본인 인증한 아이디만 투표할 수 있어요.</span></li>
+          <li><b>MMA 투표 화면 열기</b><span>아래 버튼을 누르거나, 멜론 앱 첫 화면의 MMA 배너를 눌러요.</span></li>
+          <li><b>부문과 가수 골라 투표</b><span>아래 '이파리가 할 일'에 적힌 부문과 가수를 골라요.</span></li>
+          <li><b>내일 또 하기</b><span>매일 0시에 초기화돼요. 무료는 1표, 유료 이용권은 3표.</span></li>
+        </ol>
+        <a class="u-btn" href="https://www.melon.com/mma/index.htm" target="_blank" rel="noopener">멜론 MMA 투표하러 가기</a>
+      </article>
+      <article class="how">
+        <h3><span class="u-tag" style="--u-c:#2F8F6B">스밍</span>멜론 뮤직웨이브로 스트리밍하기</h3>
+        <ol>
+          <li><b>멜론 스트리밍 이용권 준비</b><span>이용권이 있어야 들어갈 수 있어요.</span></li>
+          <li><b>총공팀 채널 링크 누르기</b><span>엔믹스 총공팀 X 계정에 올라온 뮤직웨이브 링크를 눌러요.</span></li>
+          <li><b>그냥 틀어 두기</b><span>재생목록을 만들거나 채팅할 필요 없어요. 듣기만 해도 반영돼요.</span></li>
+          <li><b>매일 인증하기</b><span>듣는 화면을 캡처해서 #엔써와_이파리_차원을_넘어 를 달아 올려요.</span></li>
+        </ol>
+        <a class="u-btn" href="https://x.com/NMIXX_xstream" target="_blank" rel="noopener">총공팀 채널 링크 받기</a>
+      </article>
+    </div>
+
     <div class="u-today" id="u-today"></div>
 
     <ul class="u-rules">
-      <li>투표는 매일 1계정 1번 (MMA는 유료 이용권 계정 3번)</li>
+      <li>MMA 투표는 매일 0시에 초기화, 무료 1표 · 유료 이용권 3표</li>
+      <li>멜론 본인 인증한 아이디로만 투표 가능</li>
       <li>스트리밍은 매일 인증</li>
       <li>인증할 때 연합 해시태그 달기</li>
     </ul>
@@ -842,13 +898,20 @@ footer .fsmall { display: flex; justify-content: space-between; gap: 1rem; flex-
     aespa: { name: "에스파", fandom: "마이", color: "#4B4FC9", hash: "#마이with이파리", img: "union-aespa.jpg", kind: "연합 투표 안내", credit: "이세계차트(@isegyechart) × 에스파 투표팀(@aespavote1117)" },
     ive: { name: "아이브", fandom: "다이브", color: "#D93A63", hash: "#이파리와_함께_다이브", img: "union-ive.jpg", kind: "연합 투표 안내", credit: "이세계차트(@isegyechart) × 아이브(@ive_strm)" }
   };
+  // Where to go. MMA voting lives in Melon's MMA page (app: MMA banner); Music Wave is Melon's group-listening channel
+  // whose channel link each stream team posts on X.
+  const L_MMA = { label: "멜론 MMA 투표하러 가기", url: "https://www.melon.com/mma/index.htm" };
   const U_TASKS = [
-    { p: "nmixx", kind: "스밍", title: "NMIXX '긴 소원' 스트리밍", where: "뮤직웨이브", whereNote: "총공팀 안내 따라", from: "10-19", to: "11-01" },
-    { p: "aespa", kind: "투표", title: "MMA TOP 10, 에스파", where: "멜론", whereNote: "2026 MMA 투표", from: null, to: "10-29" },
-    { p: "rescene", kind: "투표", title: "MMA GLOBAL TOP 10, 리센느", where: "멜론", whereNote: "2026 MMA 투표", from: "10-30", to: "11-13" },
-    { p: "ive", kind: "투표", title: "MMA 올해의 노래, 아이브", where: "멜론", whereNote: "2026 MMA 투표", from: "10-30", to: "11-13" },
-    { p: "ive", kind: "투표", title: "MMA 베스트 여자 그룹, 아이브", where: "멜론", whereNote: "2026 MMA 투표", from: "10-30", to: "11-13" }
+    { p: "nmixx", kind: "스밍", title: "NMIXX '긴 소원' 스트리밍", where: "멜론 뮤직웨이브", whereNote: "멜론 스밍권 필요, 총공팀이 올린 채널에서 듣기", from: "10-19", to: "11-01",
+      links: [{ label: "총공팀 채널 링크 받기", url: "https://x.com/NMIXX_xstream" }, { label: "멜론 뮤직웨이브", url: "https://musicwave.melon.com/", ghost: true }] },
+    { p: "aespa", kind: "투표", title: "MMA TOP 10, 에스파", where: "멜론", whereNote: "MMA2026 TOP10 투표", from: "10-15", to: "10-29", links: [L_MMA] },
+    { p: "rescene", kind: "투표", title: "MMA GLOBAL TOP 10, 리센느", where: "멜론", whereNote: "MMA2026 부문별 투표", from: "10-30", to: "11-13", links: [L_MMA] },
+    { p: "ive", kind: "투표", title: "MMA 올해의 노래, 아이브", where: "멜론", whereNote: "MMA2026 부문별 투표", from: "10-30", to: "11-13", links: [L_MMA] },
+    { p: "ive", kind: "투표", title: "MMA 베스트 여자 그룹, 아이브", where: "멜론", whereNote: "MMA2026 부문별 투표", from: "10-30", to: "11-13", links: [L_MMA] }
   ];
+  const DOWS = ["일", "월", "화", "수", "목", "금", "토"];
+  const dowOf = d => DOWS[new Date(`2026-${d}T12:00:00+09:00`).getUTCDay()];
+  const goLinks = (links, cls) => { const box = el("div", cls); links.forEach(l => { const a = el("a", "u-btn" + (l.ghost ? " ghost" : ""), l.label); a.href = l.url; a.target = "_blank"; a.rel = "noopener"; box.append(a); }); return box; };
   const U_RETURN = {
     nmixx: [["이세계아이돌 신곡 스트리밍", "11.09 ~ 11.22, 뮤직웨이브"]],
     rescene: [["AAA 여자 인기상 결선, 이세계아이돌", "~ 11.04, 아이돌챔프"]],
@@ -862,9 +925,11 @@ footer .fsmall { display: flex; justify-content: space-between; gap: 1rem; flex-
   U_TASKS.forEach(t => {
     const P = PARTNERS[t.p], li = el("li", "u-row"), what = el("div", "u-what"), b = el("b"), tag = el("span", "u-tag", t.kind);
     tag.style.setProperty("--u-c", P.color); b.append(tag, t.title);
-    what.append(b, el("span", null, `${P.fandom}(${P.name}) 연합`));
-    const where = el("div", "where", t.where); where.append(el("small", null, t.whereNote));
-    t.st = el("span", "st"); li.append(el("span", "per", perText(t)), what, where, t.st); uList.append(li); t.li = li;
+    t.pill = el("span", "u-pill");
+    what.append(b, el("span", "sub", `${t.where}, ${t.whereNote}`), el("span", "sub", `${P.fandom}(${P.name}) 연합`), t.pill);
+    const per = el("div", "u-per"), mk = (lab, d) => { const x = el("span", "u-d"); x.append(el("small", null, lab), el("b", null, d.replace("-", ".")), el("i", null, `${dowOf(d)}요일`)); return x; };
+    per.append(mk("시작", t.from), el("span", "u-arr"), mk("마감", t.to));
+    li.append(per, what, goLinks(t.links, "u-go")); uList.append(li); t.li = li;
   });
   Object.entries(PARTNERS).forEach(([k, P]) => {
     const card = el("article", "u-p"), h = el("h3", null, P.name); h.append(el("small", null, `팬덤 ${P.fandom}`));
@@ -887,8 +952,9 @@ footer .fsmall { display: flex; justify-content: space-between; gap: 1rem; flex-
     U_TASKS.forEach(t => {
       const s = t.from ? dayStart(t.from) : 0, e = dayEnd(t.to);
       const state = now > e ? "done" : now >= s ? "on" : "soon";
-      t.li.classList.toggle("done", state === "done"); t.li.classList.toggle("on", state === "on");
-      t.st.textContent = state === "done" ? "끝남" : state === "on" ? "진행 중" : `${Math.ceil((s - now) / 864e5)}일 뒤 시작`;
+      ["done", "on", "soon"].forEach(c => t.li.classList.toggle(c, state === c));
+      const leftDays = Math.ceil((e - now) / 864e5), startIn = Math.ceil((s - now) / 864e5);
+      t.pill.textContent = state === "done" ? "끝났어요" : state === "on" ? `진행 중, 마감까지 ${leftDays}일` : `${startIn}일 뒤 시작`;
       if (state === "on") active.push(t); else if (state === "soon") upcoming.push({ t, s });
     });
     const key = active.map(t => t.title).join("|") + "#" + (upcoming[0] ? upcoming[0].t.title : "");
@@ -902,7 +968,8 @@ footer .fsmall { display: flex; justify-content: space-between; gap: 1rem; flex-
         kind.style.setProperty("--u-c", P.color);
         what.append(el("b", null, t.title.replace(/, .*$/, "") + (t.kind === "투표" ? ` (${t.title.split(", ")[1]})` : "")), el("span", null, `${t.where}, ${P.hash}`));
         const left = Math.ceil((dayEnd(t.to) - now) / 864e5);
-        li.append(kind, what, el("span", "left", `${t.to.replace("-", ".")}까지${left <= 3 ? `, ${left}일 남음` : ""}`)); ul.append(li);
+        what.append(el("span", null, `${t.from.replace("-", ".")} ~ ${t.to.replace("-", ".")}, 마감까지 ${left}일`));
+        li.append(kind, what, goLinks([t.links[0]], "u-today-go")); ul.append(li);
       });
       uToday.append(ul);
     } else {
