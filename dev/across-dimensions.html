@@ -865,7 +865,7 @@ footer .fsmall { display: flex; justify-content: space-between; gap: 1rem; flex-
   const VERSIONS = [
     { key: "star", name: "STAR", img: "ver-star.jpg", top: "6%", concept: "별자리와 우주를 담은 남색 패키지" },
     { key: "race", name: "RACE", img: "ver-race.jpg", top: "6%", concept: "레이스 트랙 위의 흰 패키지" },
-    { key: "letter", name: "LOVE LETTER", img: "ver-letter.jpg", top: "13%", concept: "하트 창이 난 편지봉투, 여섯 가지 색" },
+    { key: "letter", name: "LOVE LETTER", img: "ver-letter.jpg", top: "13%", concept: "하트 창이 난 편지봉투, 멤버별 6가지 버전" },
     { key: "stayg", name: "STAYG", img: "ver-stayg.jpg", top: "4%", concept: "NFC로 듣는 작은 디지털 앨범" }
   ];
   const viewer = document.getElementById("viewer"), viewerImg = document.getElementById("viewer-img");
@@ -883,7 +883,7 @@ footer .fsmall { display: flex; justify-content: space-between; gap: 1rem; flex-
 
   // Rows are components, columns follow VERSIONS. "" = not included, "r..." = random.
   const COMPARE = [
-    ["아웃박스", "포함", "포함, 슬리브", "편지봉투, 6색", "패키지"],
+    ["아웃박스", "포함", "포함, 슬리브", "편지봉투, 멤버별 6종", "패키지"],
     ["CD", "CD-R", "CD-R", "CD-R", "NFC"],
     ["포토북 / 북클릿", "포토북 80쪽", "포토북 80쪽", "북클릿", ""],
     ["포토카드", "r6종 중 1", "r6종 중 1", "r6종 중 1", "r18종 중 3"],
@@ -1149,8 +1149,8 @@ footer .fsmall { display: flex; justify-content: space-between; gap: 1rem; flex-
   const PROD = {
     sr: { img: ["guide/pack-star.webp", "guide/pack-race.webp"], name: "STAR/RACE 2종 중 1종 랜덤", price: 25200, n: 1, note: "STAR와 RACE 중 하나가 무작위로 와요" },
     srset: { img: ["guide/pack-star.webp", "guide/pack-race.webp"], name: "STAR/RACE 2종 세트", price: 50400, n: 2, note: "STAR 1장 + RACE 1장" },
-    ll: { img: ["guide/pack-letter.webp"], name: "LOVE LETTER 6종 중 1종 랜덤", price: 15600, n: 1, note: "6가지 색 중 하나가 무작위로 와요" },
-    llset: { img: ["guide/pack-letter.webp"], name: "LOVE LETTER 6종 세트", price: 93600, n: 6, note: "6가지 색 1장씩, 셀카 포카 6종 세트" },
+    ll: { img: ["guide/pack-letter.webp"], name: "LOVE LETTER 6종 중 1종 랜덤", price: 15600, n: 1, note: "멤버 6명 버전(색) 중 하나가 무작위로 와요" },
+    llset: { img: ["guide/pack-letter.webp"], name: "LOVE LETTER 6종 세트", price: 93600, n: 6, note: "멤버 버전 6종 1장씩, 셀카 포카 6종 세트" },
     stayg: { img: ["guide/pack-stayg.webp"], name: "STAYG", price: 11100, n: 1, note: "가장 싼 버전 (NFC 앨범)" }
   };
   // [product key, quantity, where]
@@ -1161,21 +1161,33 @@ footer .fsmall { display: flex; justify-content: space-between; gap: 1rem; flex-
       tips: ["셀카 포카는 판매처마다 그림이 달라요. 마음에 드는 판매처를 '판매처별 특전'에서 골라 보세요."] },
     { key: "min", chip: "최소 금액", sub: "4개 버전 다", title: "최소 금액으로 4개 버전 다 갖기", desc: "STAR · RACE · LOVE LETTER · STAYG를 한 장씩 가장 싸게 모아요.",
       cart: [["srset", 1, "STAR/RACE를 확정으로 받으려면 세트"], ["ll", 1, "색은 랜덤"], ["stayg", 1, ""]],
-      get: ["4개 버전 실물 앨범 1장씩 (러브레터 색은 랜덤)", "앨범 안 포카 6장 (STAR·RACE·러브레터 1장씩 + STAYG 3장)", "셀카 포카 4장 (랜덤)"],
-      tips: ["STAR/RACE 단품(25,200원)은 둘 중 랜덤이라 두 버전을 다 원하면 꼭 '2종 세트'로 담으세요.", "한 판매처에서 같이 사면 배송비가 한 번만 들어요. 5만 원 이상 무료배송인 곳이 많아요."] },
-    { key: "bias", chip: "셀카 최애 확정", sub: "6장", title: "판매처 셀카 포카에서 최애 확정", desc: "한 판매처에서 앨범 6장을 사면 그 판매처 셀카 6종이 한 세트로 와요.",
+      get: ["4개 버전 실물 앨범 1장씩 (러브레터는 멤버 버전 랜덤)", "앨범 안 포카 6장 (STAR·RACE·러브레터 1장씩 + STAYG 3장)", "셀카 포카 4장 (랜덤)"],
+      tips: ["STAR/RACE 단품(25,200원)은 둘 중 랜덤이라 두 버전을 다 원하면 꼭 '2종 세트'로 담으세요.", "한 판매처에서 같이 사면 배송비가 한 번만 들어요."] },
+    { key: "bias", chip: "최애 확정", sub: "6장", title: "최애 러브레터 ver. + 셀카 최애 확정", desc: "러브레터는 멤버별 버전이라 6종 세트를 사면 최애 ver.도, 그 판매처 셀카 최애도 확정이에요.",
       cart: [["llset", 1, "가장 확실: 상품 이름에 '셀카 6종 세트 증정'"]], alt: [["stayg", 6, "가장 싸게: 버전 상관없이 6장"]],
-      get: ["그 판매처 셀카 포카 6종 1세트 → 최애 확정", "러브레터 6색 앨범 (STAYG로 사면 STAYG 6장)"],
+      get: ["최애 러브레터 ver. 앨범 (멤버 버전 6종 1장씩)", "그 판매처 셀카 포카 6종 1세트 → 최애 확정"], maybe: ["STAYG 6장으로 사면 셀카 최애는 받지만 최애 러브레터 ver.은 없어요"],
       tips: ["공식 공지: 버전 상관없이 6의 배수로 사면 셀카 1세트 증정.", "STAYG 6장처럼 묶음 상품이 아닌 경우, 결제 전 판매처 Q&A에 '6장 구매 시 6종 세트로 받는지' 한 번 물어보면 안전해요."] },
+    { key: "photobook", chip: "포토북 2종", sub: "50,400원", title: "포토북 2종 (STAR + RACE)", desc: "포토북 80쪽이 든 STAR와 RACE를 하나씩 확실하게 받아요.",
+      cart: [["srset", 1, ""]],
+      get: ["STAR · RACE 앨범 1장씩 (포토북 80쪽)", "버전마다 포카·미니 스탠드·접지 포스터 1개씩 (랜덤)", "셀카 포카 2장 (랜덤)"],
+      tips: ["단품(25,200원)은 STAR와 RACE 중 랜덤이에요. 둘 다 원하면 꼭 '2종 세트'."] },
+    { key: "two", chip: "셀카 2곳 최애", sub: "160,200원", title: "판매처 2곳 셀카에서 최애 확정", desc: "판매처마다 셀카 그림이 달라요. 마음에 드는 두 곳에서 6장씩 사요.",
+      cart: [["llset", 1, "판매처 A"], ["stayg", 6, "판매처 B"]],
+      get: ["판매처 A·B 셀카 포카 최애 2종 확정", "최애 러브레터 ver. (A의 6종 세트)", "STAYG 6장 → 앨범 포카 18장"],
+      tips: ["예: 사운드웨이브에서 러브레터 6종 세트, 맵달서울에서 STAYG 6장."] },
+    { key: "value", chip: "포카 가성비", sub: "33,300원", title: "적은 돈으로 포카 많이", desc: "STAYG는 1장에 앨범 포카가 3장이라 포카당 가격이 가장 싸요.",
+      cart: [["stayg", 3, ""]],
+      get: ["앨범 포카 9장 (18종 중 랜덤)", "셀카 포카 3장 (랜덤)", "셀카 포함 포카 12장, 1장당 약 2,800원"],
+      tips: ["겹친 포카는 교환으로 최애와 바꾸기 좋아요."] },
     { key: "albumall", chip: "앨범 올클", sub: "24장", title: "앨범 구성품 올클", desc: "버전마다 6장씩, 앨범 안 랜덤 포카·스탠드·포스터를 멤버 6명 다 모으는 기준이에요.",
-      cart: [["srset", 6, "STAR 6 + RACE 6"], ["llset", 1, "러브레터 6색"], ["stayg", 6, ""]],
-      get: ["버전별 랜덤 구성품 6개씩 (겹치지 않으면 멤버 6명 다)", "러브레터 6색 전부", "셀카 포카 24장 — 판매처 4곳에 6장씩 나눠 사면 셀카 4세트(24종)"],
+      cart: [["srset", 6, "STAR 6 + RACE 6"], ["llset", 1, "러브레터 멤버 버전 6종"], ["stayg", 6, ""]],
+      get: ["버전별 랜덤 구성품 6개씩 (겹치지 않으면 멤버 6명 다)", "러브레터 멤버 버전 6종 전부", "셀카 포카 24장 — 판매처 4곳에 6장씩 나눠 사면 셀카 4세트(24종)"],
       maybe: ["앨범 안 포카는 세트로 사도 랜덤이라 겹칠 수 있어요 → 교환으로 채워요"],
       tips: ["예: 사운드웨이브에 2종 세트 3개, 뮤직플랜트에 2종 세트 3개, 뮤직아트에 러브레터 6종 세트, 맵달서울에 STAYG 6장 → 앨범 올클 + 셀카 4세트.", "겹친 포카는 X에서 교환하면 돼요."] },
     { key: "biasall", chip: "최애 포카 전부", sub: "8종", title: "최애 포카 전부 모으기", desc: "최애의 앨범 안 포카 6종(STAR·RACE·러브레터 각 1, STAYG 3)과 셀카 2곳을 노려요.",
       cart: [["llset", 1, "판매처 A"], ["srset", 1, "판매처 A (같이 담아 6장 이상)"], ["stayg", 6, "판매처 B"]],
-      get: ["판매처 A·B 셀카 포카 최애 확정 (2종)", "앨범 14장 → 앨범 안 포카 최애 중 일부"],
-      maybe: ["러브레터 포카 최애 약 67%, STAR·RACE 각 17%, STAYG 3종 다 약 27% → 나머지는 교환·분철"],
+      get: ["판매처 A·B 셀카 포카 최애 확정 (2종)", "최애 러브레터 ver. (A의 6종 세트)", "앨범 14장 → 앨범 안 포카 최애 중 일부"],
+      maybe: ["앨범 안 포카 최애 확률: 러브레터 약 67%, STAR·RACE 각 17%, STAYG 3종 각 약 67% (3종 다는 약 28%) → 나머지는 교환·분철"],
       tips: ["분철·양도로 필요한 최애 포카만 사는 게 앨범을 더 사는 것보다 싸요.", "STAYG 18종이 멤버당 3종인지는 공식 구성 확인이 필요해요."] },
     { key: "benefitall", chip: "특전 올클", sub: "6곳 36종", title: "판매처 셀카 특전 올클 (6곳)", desc: "특전 판매처 6곳에서 6장씩 사서 셀카 포카 36종을 모아요.",
       cart: [["stayg", 36, "6곳 × 6장"]],
@@ -1184,9 +1196,9 @@ footer .fsmall { display: flex; justify-content: space-between; gap: 1rem; flex-
   ];
   const STORES = [
     { key: "soundwave", name: "사운드웨이브", url: "https://sound-wave.co.kr/product/search.html?keyword=%EC%9D%B4%EC%84%B8%EA%B3%84%EC%95%84%EC%9D%B4%EB%8F%8C",
-      prods: ["sr", "srset", "ll", "llset", "stayg"], notes: ["5만 원 이상 무료배송 (STAYG 6장 장바구니에서 확인)", "STAR/RACE 2종 세트는 셀카 2장", "특전과 함께 순차 발송"] },
+      prods: ["sr", "srset", "ll", "llset", "stayg"], notes: ["STAYG 6장(66,600원) 장바구니에서 배송 무료 확인", "STAR/RACE 2종 세트는 셀카 2장", "특전과 함께 순차 발송"] },
     { key: "mapdal", name: "맵달서울", url: "https://mapdal.kr/new-drops?id=6",
-      prods: null, notes: ["상품 옵션(버전·가격)은 로그인 후 보여요", "특전은 산 앨범 수만큼 멤버 랜덤 증정, 멤버 선택 불가", "6장 세트 보장은 공식 공지 기준이에요. 맵달 페이지엔 따로 적혀 있지 않아 결제 전 확인 추천", "구매 수량은 한터·써클차트에 반영"] },
+      prods: ["sr", "srset", "ll", "llset", "stayg"], notes: ["러브레터는 멤버별 버전 (아이네·징버거·릴파·주르르·고세구·비챤 ver.)", "특전은 산 앨범 수만큼 멤버 랜덤 증정, 멤버 선택 불가", "6장 세트 보장은 공식 공지 기준 · 결제 전 확인 추천", "한터차트 집계 · 첫 가입 2,000P"] },
     { key: "musicplant", name: "뮤직플랜트", url: "https://www.musicplant.co.kr/shop/search_result.php?search_str=Across%20Dimensions",
       prods: ["sr", "srset", "ll", "llset", "stayg"], notes: ["특전은 앨범 장당 1:1 증정", "세트 특전은 '세트 상품'으로 살 때만", "초도 한정 구성품은 일찍 끝날 수 있어요"] },
     { key: "musicart", name: "뮤직아트", url: "https://musicart.kr/shop/shopbrand.html?search=%EC%9D%B4%EC%84%B8%EA%B3%84%EC%95%84%EC%9D%B4%EB%8F%8C&type=Y",
