@@ -188,32 +188,20 @@ table.compare { width: 100%; min-width: 40rem; border-collapse: collapse; font-s
 .ics-btn::before { content: "+"; font-size: 1rem; line-height: 1; }
 .ics-note { display: block; margin-top: 0.45rem; font-size: 0.7rem; color: var(--ink-3); }
 .sched-next { position: relative; overflow: hidden; border-left: 4px solid var(--c, var(--ink)); }
-.tl-cap { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.06em; color: var(--ink-2); margin: 2.2rem 0 0.4rem; }
-.tl { list-style: none; margin: 0; padding: 0; }
-.tl li { position: relative; display: grid; grid-template-columns: 4.2rem minmax(0, 1fr) auto; gap: 0.2rem 0.9rem; align-items: center; padding: 0.75rem 0 0.75rem 1.3rem; }
-.tl li::before { content: ""; position: absolute; left: 4px; top: 0; bottom: 0; width: 1px; background: var(--rule); }
-.tl li:first-child::before { top: 50%; }
-.tl li:last-child::before { bottom: 50%; }
-.tl li::after { content: ""; position: absolute; left: 0; top: 50%; width: 9px; height: 9px; margin-top: -4.5px; border-radius: 50%; background: var(--paper); border: 2px solid var(--c); }
-.tl li.nx::after { background: var(--c); }
-.tl .tl-d { font-size: 0.8rem; font-weight: 600; font-variant-numeric: tabular-nums; }
-.tl .tl-d small { display: block; font-size: 0.66rem; font-weight: 500; color: var(--ink-3); }
-.tl .tl-t { font-size: 0.92rem; min-width: 0; }
-.tl .tl-c { font-size: 0.68rem; font-weight: 600; font-variant-numeric: tabular-nums; color: var(--ink-2); background: var(--paper-2); padding: 0.15rem 0.45rem; white-space: nowrap; }
-.tl li.nx .tl-c { background: var(--ink); color: #FFFFFF; }
-.tl-more { font: inherit; font-size: 0.75rem; font-weight: 600; color: var(--ink-2); background: none; border: 0; padding: 0.4rem 0 0 1.3rem; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
-
+.sched-top { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 1.5rem 4rem; align-items: end; margin-bottom: 2rem; }
+.sched-top .sched-prog { margin-top: 0; }
+@media (max-width: 900px) { .sched-top { grid-template-columns: 1fr; } .sched-top .sched-prog { margin-top: 0.6rem; } }
 /* Schedule calendar */
 .cal { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); border-top: 1px solid var(--ink); border-left: 1px solid var(--rule); margin-top: 0.4rem; }
-.cal-dow { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.04em; color: var(--ink-2); text-align: center; padding: 0.55rem 0; border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+.cal-dow { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.04em; color: var(--ink-2); text-align: center; padding: 0.55rem 0; border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
 .cal-dow.sun, .cal-day.sun .cal-num { color: var(--hot); }
-.cal-day { font: inherit; color: inherit; text-align: left; background: transparent; border: 0; border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule); border-radius: 0; min-height: 5.6rem; padding: 0.45rem 0.4rem; display: flex; flex-direction: column; gap: 0.25rem; min-width: 0; }
+.cal-day { font: inherit; color: inherit; text-align: left; background: transparent; border: 0; border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule); border-radius: 0; min-height: 8.2rem; padding: 0.6rem 0.55rem; display: flex; flex-direction: column; gap: 0.25rem; min-width: 0; }
 .cal-day.has { cursor: pointer; }
 .cal-day.has:hover { background: var(--paper-2); }
-.cal-num { font-size: 0.8rem; font-weight: 500; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.cal-num { font-size: 0.95rem; font-weight: 500; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .cal-day.past .cal-num { color: var(--ink-3); }
-.cal-day.today .cal-num { display: inline-grid; place-items: center; align-self: flex-start; min-width: 1.6rem; height: 1.6rem; padding: 0 0.3rem; border-radius: 999px; background: var(--ink); color: #FFFFFF; }
-.cal-ev { display: block; font-size: 0.72rem; font-weight: 600; line-height: 1.25; padding: 0.2rem 0.3rem; background: color-mix(in srgb, var(--c) 14%, transparent); border-left: 2px solid var(--c); color: var(--ink); overflow-wrap: anywhere; }
+.cal-day.today .cal-num { display: inline-grid; place-items: center; align-self: flex-start; min-width: 1.9rem; height: 1.9rem; padding: 0 0.3rem; border-radius: 999px; background: var(--ink); color: #FFFFFF; }
+.cal-ev { display: block; font-size: 0.85rem; font-weight: 600; line-height: 1.3; padding: 0.35rem 0.45rem; background: color-mix(in srgb, var(--c) 14%, transparent); border-left: 2px solid var(--c); color: var(--ink); overflow-wrap: anywhere; }
 .cal-ev .short { display: none; }
 .cal-day.done .cal-ev { opacity: 0.45; }
 .cal-day.next .cal-ev { background: var(--c); color: #FFFFFF; }
@@ -228,10 +216,12 @@ table.compare { width: 100%; min-width: 40rem; border-collapse: collapse; font-s
 .cd-tt { font-size: 1.05rem; font-weight: 600; margin-top: 0.25rem; }
 .cd-ds { font-size: 0.85rem; color: var(--ink-2); }
 @media (max-width: 680px) {
-  .cal-day { min-height: 3.6rem; padding: 0.3rem 0.2rem; align-items: center; }
-  .cal-num { font-size: 0.75rem; }
-  .cal-day.today .cal-num { min-width: 1.4rem; height: 1.4rem; }
-  .cal-ev { font-size: 0.62rem; padding: 0.1rem 0.15rem; border-left: 0; border-top: 2px solid var(--c); text-align: center; width: 100%; letter-spacing: -0.02em; }
+  .cal { margin-inline: -8px; }
+  .cal-dow { font-size: 0.72rem; padding: 0.6rem 0; }
+  .cal-day { min-height: 4.9rem; padding: 0.4rem 0.15rem; align-items: center; gap: 0.3rem; }
+  .cal-num { font-size: 0.88rem; }
+  .cal-day.today .cal-num { min-width: 1.6rem; height: 1.6rem; }
+  .cal-ev { font-size: 0.7rem; padding: 0.2rem 0.1rem; border-left: 0; border-top: 2px solid var(--c); text-align: center; width: 100%; letter-spacing: -0.02em; }
   .cal-ev .full { display: none; }
   .cal-ev .short { display: inline; }
 }
@@ -719,23 +709,21 @@ footer .fsmall { display: flex; justify-content: space-between; gap: 1rem; flex-
  <div class="page" id="schedule" data-name="공개 일정">
   <section class="sec wrap" aria-labelledby="h-schedule">
     <div class="label">SCHEDULE</div>
-    <div class="split">
+    <div class="sched-top">
       <div>
         <h2 class="title" id="h-schedule">공개 일정</h2>
         <p class="lead">공식 스케줄러 기준이에요. 날짜를 누르면 무엇이 공개되는지 보여요.</p>
+      </div>
+      <div>
         <div class="sched-prog" id="sched-prog"></div>
         <button type="button" class="ics-btn" id="ics-btn">내 캘린더에 일정 추가</button>
         <span class="ics-note">휴대폰·구글 캘린더에 15개 일정이 한 번에 들어가요.</span>
       </div>
-      <div>
-        <div class="sched-next" id="sched-next"></div>
-        <div class="sched-legend" id="sched-legend"></div>
-        <div class="cal" id="cal" role="group" aria-label="10월 11일부터 11월 14일까지 공개 일정 달력"></div>
-        <div class="cal-detail" id="cal-detail" aria-live="polite"></div>
-        <div class="tl-cap">다가오는 일정</div>
-        <ol class="tl" id="sched-tl"></ol>
-      </div>
     </div>
+    <div class="sched-next" id="sched-next"></div>
+    <div class="sched-legend" id="sched-legend"></div>
+    <div class="cal" id="cal" role="group" aria-label="10월 11일부터 11월 14일까지 공개 일정 달력"></div>
+    <div class="cal-detail" id="cal-detail" aria-live="polite"></div>
   </section>
 
  </div>
@@ -1124,8 +1112,7 @@ footer .fsmall { display: flex; justify-content: space-between; gap: 1rem; flex-
     countEl.append(unit(Math.floor(diff / 864e5), "DAYS"), unit(pad(Math.floor(diff / 36e5) % 24), "HOURS"), unit(pad(Math.floor(diff / 6e4) % 60), "MIN"), unit(pad(Math.floor(diff / 1e3) % 60), "SEC"));
     dday.textContent = `D-${Math.ceil((T1 - now) / 864e5)}`;
   }
-  const progEl = document.getElementById("sched-prog"), tlEl = document.getElementById("sched-tl");
-  let tlAll = false;
+  const progEl = document.getElementById("sched-prog");
   function renderProg() {
     const now = Date.now(), today = kstDay(now), done = s => s.time ? s.start <= now : s.end < now;
     const n = SCHEDULE.filter(done).length, nx = SCHEDULE.find(s => !done(s));
@@ -1135,22 +1122,6 @@ footer .fsmall { display: flex; justify-content: space-between; gap: 1rem; flex-
     SCHEDULE.forEach(s => { const i = el("i", done(s) ? "on" : s === nx ? "nx" : null); i.style.setProperty("--c", CATS[s.c][1]); i.title = `${s.d.replace("-", ".")} ${s.title}`; bar.append(i); });
     progEl.replaceChildren(top, bar);
     if (nx) nextBox.style.setProperty("--c", CATS[nx.c][1]);
-    const left = SCHEDULE.filter(s => !done(s)), shown = tlAll ? left : left.slice(0, 5);
-    tlEl.replaceChildren(...shown.map(s => {
-      const li = el("li", s === nx ? "nx" : null), d = el("span", "tl-d", s.d.replace("-", "."));
-      li.style.setProperty("--c", CATS[s.c][1]);
-      d.append(el("small", null, DOW[new Date(`2026-${s.d}T12:00:00+09:00`).getUTCDay()].slice(0, 1) + (s.time ? " " + s.time : "")));
-      const dl = Math.round((new Date(`2026-${s.d}T00:00:00+09:00`) - new Date(`2026-${today}T00:00:00+09:00`)) / 864e5);
-      li.append(d, el("span", "tl-t", s.title), el("span", "tl-c", dl <= 0 ? "오늘" : `D-${dl}`));
-      return li;
-    }));
-    if (!left.length) tlEl.append(el("li", null, "모든 일정이 끝났어요"));
-    const old = tlEl.nextElementSibling; if (old && old.classList.contains("tl-more")) old.remove();
-    if (left.length > 5) {
-      const b = el("button", "tl-more", tlAll ? "접기" : `${left.length - 5}개 더 보기`); b.type = "button";
-      b.addEventListener("click", () => { tlAll = !tlAll; renderProg(); });
-      tlEl.after(b);
-    }
   }
   let progDay = "", progNext = null;
   setInterval(() => { const now = Date.now(), k = kstDay(now) + (SCHEDULE.find(s => (s.time ? s.start > now : s.end >= now)) || {}).d; if (k !== progDay) { progDay = k; renderProg(); } }, 1000);
