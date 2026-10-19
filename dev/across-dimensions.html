@@ -309,7 +309,10 @@ table.compare { width: 100%; min-width: 40rem; border-collapse: collapse; font-s
 .uc-go { display: flex; flex-direction: column; gap: 0.3rem; }
 .uc-go .u-btn { padding: 0.55rem 0.7rem; font-size: 0.76rem; }
 .uc-get { margin: 0.2rem 0 0; font-size: 0.8rem; padding-top: 0.55rem; border-top: 1px solid var(--rule); }
-.uc-hash { margin: 0; font-size: 0.72rem; color: var(--ink-2); overflow-wrap: anywhere; }
+.uc-hash { display: flex; align-items: center; gap: 0.5rem; justify-content: space-between; font-size: 0.72rem; color: var(--ink-2); background: var(--paper-2); padding: 0.35rem 0.35rem 0.35rem 0.55rem; }
+.uc-hash span { min-width: 0; overflow-wrap: anywhere; user-select: all; -webkit-user-select: all; }
+.uc-copy { flex: none; font: inherit; font-size: 0.68rem; font-weight: 600; padding: 0.3rem 0.55rem; border: 1px solid var(--ink); background: var(--paper); color: var(--ink); border-radius: 0; cursor: pointer; white-space: nowrap; }
+.uc-copy.ok { background: var(--ink); color: #FFFFFF; }
 @media (max-width: 420px) {
   .uc-top h3 { font-size: 0.95rem; }
   .uc-task b { font-size: 0.84rem; }
@@ -1060,6 +1063,16 @@ footer .fsmall { display: flex; justify-content: space-between; gap: 1rem; flex-
     t.what = t.what || w;
   });
   const mdText = d => d.replace("-", ".");
+  // hashtag with a copy button, for posting proof on X
+  const copyText = async text => {
+    try { await navigator.clipboard.writeText(text); return true; } catch (e) {}
+    try { const ta = el("textarea"); ta.value = text; ta.setAttribute("readonly", ""); ta.style.cssText = "position:fixed;opacity:0;top:0;left:0"; document.body.append(ta); ta.select(); ta.setSelectionRange(0, text.length); const ok = document.execCommand("copy"); ta.remove(); return ok; } catch (e) { return false; }
+  };
+  const hashRow = tag => {
+    const row = el("div", "uc-hash"), t = el("span", null, tag), b = el("button", "uc-copy", "복사"); b.type = "button"; b.setAttribute("aria-label", `${tag} 복사하기`);
+    b.addEventListener("click", async () => { const ok = await copyText(tag); b.textContent = ok ? "복사됨" : "길게 눌러 복사"; b.classList.toggle("ok", ok); if (!ok) { const rg = document.createRange(); rg.selectNodeContents(t); const sel = getSelection(); sel.removeAllRanges(); sel.addRange(rg); } setTimeout(() => { b.textContent = "복사"; b.classList.remove("ok"); }, 1800); });
+    row.append(t, b); return row;
+  };
   /* One card per fandom: the union poster, what 이파리 do (with the button), what they do back */
   const uGrid = document.getElementById("u-grid");
   const SELF_CARD = { ...SELF, img: "group.webp", kind: "투표", hash: "" };
@@ -1080,7 +1093,7 @@ footer .fsmall { display: flex; justify-content: space-between; gap: 1rem; flex-
     if (k === "self") { const h = [...new Set(tasks.flatMap(t => t.helpers ? t.helpers.split("·") : []))]; body.append(el("p", "uc-get", `${h.join("·")}도 같이 투표해 줘요`)); }
     else {
       const get = el("p", "uc-get"); get.append(el("span", "uc-k", `${P.fandom}가 해 주는 것`), U_RETURN[k].map(([a, w]) => `${a.replace(/, 이세계아이돌$/, "")} (${w})`).join(" / "));
-      body.append(get, el("p", "uc-hash", P.hash));
+      body.append(get, hashRow(P.hash));
     }
     card.append(pb, body); uGrid.append(card);
     return { k, card, st, tasks };
