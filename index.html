@@ -42,20 +42,19 @@ a { color: inherit; }
 html, body { height: 100%; }
 body { margin: 0; overflow: hidden; }
 .bar { position: fixed; top: 0; left: 0; right: 0; z-index: 30; padding-top: env(safe-area-inset-top, 0px); background: color-mix(in srgb, var(--paper) 94%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--rule); }
-.bar-in { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 1.5rem; height: 56px; }
+.bar-in { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 1.5rem; height: 66px; }
 .bar-in > a, .bar-in > span { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.06em; text-decoration: none; white-space: nowrap; }
-.tabs { display: flex; justify-content: center; gap: 0.2rem; }
-.tabs a { position: relative; padding: 0.55rem 0.7rem; font-size: 0.82rem; font-weight: 500; color: var(--ink-2); text-decoration: none; white-space: nowrap; }
-.tabs a::after { content: ""; position: absolute; left: 0.7rem; right: 0.7rem; bottom: 0.15rem; height: 2px; background: var(--ink); transform: scaleX(0); transition: transform 200ms; }
-.tabs a.on { color: var(--ink); font-weight: 700; }
-.tabs a.on::after { transform: scaleX(1); }
+.bar-in > span { padding: 0.3rem 0.6rem; border: 1px solid var(--ink); }
+.tabs { display: flex; justify-content: center; gap: 0.25rem; padding: 0.3rem; background: var(--paper-2); border-radius: 99px; justify-self: center; }
+.tabs a { position: relative; padding: 0.55rem 1.15rem; border-radius: 99px; font-size: 0.95rem; font-weight: 500; color: var(--ink-2); text-decoration: none; white-space: nowrap; transition: background-color 180ms, color 180ms; }
+.tabs a:hover { color: var(--ink); background: rgba(255,255,255,0.7); }
+.tabs a.on { color: #FFFFFF; background: var(--ink); font-weight: 600; box-shadow: 0 2px 8px rgba(17,17,17,0.18); }
 @media (max-width: 860px) {
-  .bar-in { grid-template-columns: minmax(0, 1fr) auto; row-gap: 0; height: auto; padding-top: 0.75rem; }
-  .tabs { grid-column: 1 / -1; grid-row: 2; justify-content: space-between; gap: 0; margin: 0.3rem -0.5rem 0; }
-  .tabs a { flex: 1; text-align: center; padding: 0.6rem 0 0.7rem; font-size: 0.8rem; }
-  .tabs a::after { left: 22%; right: 22%; bottom: 0.25rem; }
+  .bar-in { grid-template-columns: minmax(0, 1fr) auto; row-gap: 0; height: auto; padding-top: 0.7rem; padding-bottom: 0.6rem; }
+  .tabs { grid-column: 1 / -1; grid-row: 2; justify-self: stretch; justify-content: space-between; gap: 0.15rem; margin-top: 0.6rem; padding: 0.25rem; }
+  .tabs a { flex: 1; text-align: center; padding: 0.55rem 0; font-size: 0.88rem; }
 }
-@media (prefers-reduced-motion: reduce) { .tabs a::after { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .tabs a { transition: none; } }
 
 /* Pages: swipe sideways between them, each scrolls on its own */
 .pager { position: fixed; top: var(--bar-h, 100px); left: 0; right: 0; bottom: 0; display: flex; overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior: contain; }
@@ -76,7 +75,8 @@ body { margin: 0; overflow: hidden; }
 .hero { background: var(--night); color: #FFFFFF; }
 .hero img { display: block; width: 100%; height: auto; aspect-ratio: 1907 / 627; object-fit: cover; }
 .hero-labels { display: flex; justify-content: space-between; gap: 1rem; padding-block: 0.9rem; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.08em; color: rgba(255,255,255,0.7); }
-.hero-swipe { display: none; }
+.hero { position: relative; }
+.fan-tag { position: absolute; top: 0.7rem; right: max(12px, env(safe-area-inset-right, 0px)); font-size: 0.6rem; font-weight: 600; letter-spacing: 0.04em; color: rgba(17,17,17,0.62); background: rgba(255,255,255,0.55); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); padding: 0.22rem 0.5rem; border-radius: 99px; }
 @media (max-width: 680px) { .hero-labels span:nth-child(2) { display: none; } }
 
 /* Section scaffolding */
@@ -185,6 +185,33 @@ table.compare { width: 100%; min-width: 40rem; border-collapse: collapse; font-s
 .sched-legend { display: flex; gap: 1.2rem; flex-wrap: wrap; margin-bottom: 1rem; font-size: 0.75rem; color: var(--ink-2); }
 .sched-legend span { display: inline-flex; align-items: center; gap: 0.4rem; }
 .sched-legend i { width: 8px; height: 8px; display: inline-block; background: var(--c); }
+
+.sched-prog { margin-top: 2rem; }
+.sp-top { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; font-size: 0.75rem; color: var(--ink-2); margin-bottom: 0.55rem; }
+.sp-top b { font-size: 1.6rem; font-weight: 500; letter-spacing: -0.03em; color: var(--ink); font-variant-numeric: tabular-nums; margin-right: 0.2rem; }
+.sp-bar { display: grid; grid-template-columns: repeat(15, minmax(0, 1fr)); gap: 3px; }
+.sp-bar i { height: 8px; background: color-mix(in srgb, var(--c) 20%, transparent); }
+.sp-bar i.on { background: var(--c); }
+.sp-bar i.nx { background: repeating-linear-gradient(-45deg, var(--c) 0 3px, color-mix(in srgb, var(--c) 30%, transparent) 3px 6px); }
+.ics-btn { margin-top: 1.4rem; display: inline-flex; align-items: center; gap: 0.5rem; font: inherit; font-size: 0.78rem; font-weight: 600; color: var(--ink); background: #FFFFFF; border: 1px solid var(--ink); border-radius: 0; padding: 0.65rem 0.9rem; cursor: pointer; }
+.ics-btn:hover { background: var(--ink); color: #FFFFFF; }
+.ics-btn::before { content: "+"; font-size: 1rem; line-height: 1; }
+.ics-note { display: block; margin-top: 0.45rem; font-size: 0.7rem; color: var(--ink-3); }
+.sched-next { position: relative; overflow: hidden; border-left: 4px solid var(--c, var(--ink)); }
+.tl-cap { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.06em; color: var(--ink-2); margin: 2.2rem 0 0.4rem; }
+.tl { list-style: none; margin: 0; padding: 0; }
+.tl li { position: relative; display: grid; grid-template-columns: 4.2rem minmax(0, 1fr) auto; gap: 0.2rem 0.9rem; align-items: center; padding: 0.75rem 0 0.75rem 1.3rem; }
+.tl li::before { content: ""; position: absolute; left: 4px; top: 0; bottom: 0; width: 1px; background: var(--rule); }
+.tl li:first-child::before { top: 50%; }
+.tl li:last-child::before { bottom: 50%; }
+.tl li::after { content: ""; position: absolute; left: 0; top: 50%; width: 9px; height: 9px; margin-top: -4.5px; border-radius: 50%; background: var(--paper); border: 2px solid var(--c); }
+.tl li.nx::after { background: var(--c); }
+.tl .tl-d { font-size: 0.8rem; font-weight: 600; font-variant-numeric: tabular-nums; }
+.tl .tl-d small { display: block; font-size: 0.66rem; font-weight: 500; color: var(--ink-3); }
+.tl .tl-t { font-size: 0.92rem; min-width: 0; }
+.tl .tl-c { font-size: 0.68rem; font-weight: 600; font-variant-numeric: tabular-nums; color: var(--ink-2); background: var(--paper-2); padding: 0.15rem 0.45rem; white-space: nowrap; }
+.tl li.nx .tl-c { background: var(--ink); color: #FFFFFF; }
+.tl-more { font: inherit; font-size: 0.75rem; font-weight: 600; color: var(--ink-2); background: none; border: 0; padding: 0.4rem 0 0 1.3rem; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
 
 /* Schedule calendar */
 .cal { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); border-top: 1px solid var(--ink); border-left: 1px solid var(--rule); margin-top: 0.4rem; }
@@ -559,17 +586,32 @@ table.compare { width: 100%; min-width: 40rem; border-collapse: collapse; font-s
 .live { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.05em; color: var(--ink-2); }
 .pip { width: 6px; height: 6px; background: var(--ink-3); }
 .live.on .pip { background: var(--ok); }
-.filters { display: flex; gap: 1.2rem; }
-.filters button { font: inherit; font-size: 0.8rem; color: var(--ink-3); background: none; border: 0; padding: 0.2rem 0; cursor: pointer; border-bottom: 1px solid transparent; }
-.filters button[aria-pressed="true"] { color: var(--ink); border-bottom-color: var(--ink); }
-.news li { padding: 1.1rem 0; }
-.news .ttl a { text-decoration: none; }
-.news .ttl a:hover { text-decoration: underline; }
-.news .ttl { font-size: 1.02rem; font-weight: 500; line-height: 1.4; }
-.news .sum { margin: 0.3rem 0 0; color: var(--ink-2); font-size: 0.85rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-.news .meta { margin-top: 0.45rem; font-size: 0.72rem; color: var(--ink-3); display: flex; gap: 0.7rem; flex-wrap: wrap; }
-.news .meta .o { color: var(--ink); font-weight: 600; }
-.news .meta .u { color: var(--warn); font-weight: 600; }
+.filters { display: flex; gap: 0.35rem; flex-wrap: wrap; }
+.filters button { font: inherit; font-size: 0.78rem; font-weight: 500; color: var(--ink-2); background: transparent; border: 1px solid var(--rule); border-radius: 99px; padding: 0.35rem 0.75rem; cursor: pointer; }
+.filters button small { margin-left: 0.3rem; font-size: 0.7rem; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+.filters button[aria-pressed="true"] { color: #FFFFFF; background: var(--ink); border-color: var(--ink); }
+.filters button[aria-pressed="true"] small { color: rgba(255,255,255,0.6); }
+.feed { list-style: none; margin: 0; padding: 0; }
+.nd { display: flex; align-items: baseline; gap: 0.55rem; margin: 1.8rem 0 0.7rem; font-size: 0.8rem; font-weight: 600; font-variant-numeric: tabular-nums; }
+.nd:first-child { margin-top: 0.4rem; }
+.nd small { font-weight: 500; color: var(--ink-3); }
+.nd .today { font-size: 0.66rem; color: #FFFFFF; background: var(--hot); padding: 0.05rem 0.4rem; }
+.nd::after { content: ""; flex: 1; height: 1px; background: var(--rule); align-self: center; }
+.ncard { background: #FFFFFF; border: 1px solid var(--rule); padding: 1rem 1.1rem; margin-bottom: 0.6rem; }
+.ncard .tags { display: flex; gap: 0.35rem; flex-wrap: wrap; align-items: center; margin-bottom: 0.5rem; }
+.tag { font-size: 0.66rem; font-weight: 600; letter-spacing: 0.02em; padding: 0.12rem 0.45rem; border: 1px solid var(--rule); color: var(--ink-2); }
+.tag.official { background: var(--ink); border-color: var(--ink); color: #FFFFFF; }
+.tag.press { border-color: #5B5FD6; color: #5B5FD6; }
+.tag.unverified { border-color: var(--warn); color: var(--warn); }
+.tag.new { border: 0; background: var(--hot); color: #FFFFFF; }
+.ncard .ttl { font-size: 1rem; font-weight: 600; line-height: 1.4; letter-spacing: -0.01em; }
+.ncard .sum { margin: 0.35rem 0 0; color: var(--ink-2); font-size: 0.85rem; line-height: 1.55; }
+.ncard .sum.clamp { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.ncard .more { font: inherit; font-size: 0.75rem; font-weight: 600; color: var(--ink-2); background: none; border: 0; padding: 0.2rem 0 0; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+.ncard .foot { display: flex; justify-content: space-between; align-items: center; gap: 0.8rem; margin-top: 0.75rem; padding-top: 0.65rem; border-top: 1px solid var(--paper-2); font-size: 0.72rem; color: var(--ink-3); }
+.ncard .foot > span { min-width: 0; overflow-wrap: anywhere; }
+.ncard .go { flex: none; font-size: 0.75rem; font-weight: 600; color: var(--ink); text-decoration: none; white-space: nowrap; }
+.ncard .go:hover { text-decoration: underline; }
 .del { font: inherit; font-size: 0.72rem; color: var(--ink-3); background: none; border: 1px solid var(--rule); padding: 0.15rem 0.5rem; cursor: pointer; border-radius: 0; }
 .del:hover { color: var(--hot); border-color: var(--hot); }
 .empty { padding: 1.6rem 0; color: var(--ink-2); border-bottom: 1px solid var(--rule); font-size: 0.88rem; }
@@ -586,11 +628,24 @@ details.add summary { cursor: pointer; font-size: 0.8rem; font-weight: 600; }
 .fmsg.err { color: var(--hot); }
 
 /* Links */
-.links li { grid-template-columns: minmax(0, 1fr) auto; }
-.links a { text-decoration: none; display: contents; }
-.links a:hover .t { text-decoration: underline; }
-.links .ln { display: block; font-size: 0.75rem; color: var(--ink-2); margin-top: 0.1rem; }
-.links .arrow { width: 0.45rem; height: 0.45rem; border-top: 1.5px solid currentColor; border-right: 1.5px solid currentColor; transform: rotate(45deg); }
+.lg { margin-top: 2.2rem; }
+.lg:first-child { margin-top: 0; }
+.lg-cap { display: flex; align-items: baseline; gap: 0.5rem; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.04em; color: var(--ink-2); margin-bottom: 0.7rem; }
+.lg-cap small { font-weight: 500; color: var(--ink-3); }
+.lcards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.5rem; }
+.lcards.one { grid-template-columns: 1fr; }
+.lcard { position: relative; display: grid; align-content: start; gap: 0.3rem; min-height: 5.6rem; padding: 0.85rem 2rem 0.85rem 0.95rem; background: #FFFFFF; border: 1px solid var(--rule); text-decoration: none; color: var(--ink); transition: border-color 150ms; }
+.lcards.one .lcard { min-height: 0; }
+.lcard:hover { border-color: var(--ink); }
+.lcard::after { content: "↗"; position: absolute; top: 0.75rem; right: 0.85rem; font-size: 0.85rem; color: var(--ink-3); }
+.lcard b { font-size: 0.98rem; font-weight: 600; letter-spacing: -0.01em; }
+.lcard .ln { font-size: 0.72rem; color: var(--ink-2); line-height: 1.45; }
+.lcard .badge { justify-self: start; font-size: 0.62rem; font-weight: 600; padding: 0.1rem 0.4rem; background: color-mix(in srgb, var(--hot) 12%, transparent); color: var(--hot); }
+.lcard .badge.no { background: var(--paper-2); color: var(--ink-3); }
+.lcard.off { background: transparent; }
+.lempty { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 1rem 1.1rem; border: 1px dashed var(--ink-3); font-size: 0.88rem; color: var(--ink-2); }
+.lempty b { font-size: 0.75rem; font-weight: 600; color: var(--ink); background: var(--paper-2); padding: 0.15rem 0.5rem; white-space: nowrap; font-variant-numeric: tabular-nums; }
+@media (max-width: 360px) { .lcards { grid-template-columns: 1fr; } }
 
 /* Viewer */
 dialog.viewer { border: 0; padding: 0; background: transparent; width: 100%; max-width: min(50rem, 100vw); max-height: 100vh; }
@@ -627,6 +682,7 @@ footer .fsmall { display: flex; justify-content: space-between; gap: 1rem; flex-
  <div class="page" id="home" data-name="홈">
   <div class="hero">
     <img src="cover.webp" alt="이세계아이돌 미니 2집 Across Dimensions 앨범 표지" width="1907" height="627">
+    <span class="fan-tag">비공식 팬사이트</span>
     <div class="hero-labels wrap" aria-hidden="true"><span>ISEGYE IDOL</span><span>THE 2ND MINI ALBUM</span><span>2026.11.09</span></div>
   </div>
   <section class="sec wrap" aria-labelledby="h-intro">
@@ -679,12 +735,17 @@ footer .fsmall { display: flex; justify-content: space-between; gap: 1rem; flex-
       <div>
         <h2 class="title" id="h-schedule">공개 일정</h2>
         <p class="lead">공식 스케줄러 기준이에요. 날짜를 누르면 무엇이 공개되는지 보여요.</p>
+        <div class="sched-prog" id="sched-prog"></div>
+        <button type="button" class="ics-btn" id="ics-btn">내 캘린더에 일정 추가</button>
+        <span class="ics-note">휴대폰·구글 캘린더에 15개 일정이 한 번에 들어가요.</span>
       </div>
       <div>
         <div class="sched-next" id="sched-next"></div>
         <div class="sched-legend" id="sched-legend"></div>
         <div class="cal" id="cal" role="group" aria-label="10월 11일부터 11월 14일까지 공개 일정 달력"></div>
         <div class="cal-detail" id="cal-detail" aria-live="polite"></div>
+        <div class="tl-cap">다가오는 일정</div>
+        <ol class="tl" id="sched-tl"></ol>
       </div>
     </div>
   </section>
@@ -774,9 +835,10 @@ footer .fsmall { display: flex; justify-content: space-between; gap: 1rem; flex-
             <button type="button" data-kind="all" aria-pressed="true">전체</button>
             <button type="button" data-kind="official" aria-pressed="false">공식</button>
             <button type="button" data-kind="press" aria-pressed="false">기사</button>
+            <button type="button" data-kind="fan" aria-pressed="false">팬 소식</button>
           </div>
         </div>
-        <ul class="list news" id="feed"></ul>
+        <div class="feed" id="feed"></div>
         <div class="empty" id="feed-empty">새 소식이 올라오면 여기에 나타나요.</div>
         <details class="add" id="add-news" hidden>
           <summary>소식 직접 추가하기</summary>
@@ -1074,6 +1136,53 @@ footer .fsmall { display: flex; justify-content: space-between; gap: 1rem; flex-
     countEl.append(unit(Math.floor(diff / 864e5), "DAYS"), unit(pad(Math.floor(diff / 36e5) % 24), "HOURS"), unit(pad(Math.floor(diff / 6e4) % 60), "MIN"), unit(pad(Math.floor(diff / 1e3) % 60), "SEC"));
     dday.textContent = `D-${Math.ceil((T1 - now) / 864e5)}`;
   }
+  const progEl = document.getElementById("sched-prog"), tlEl = document.getElementById("sched-tl");
+  let tlAll = false;
+  function renderProg() {
+    const now = Date.now(), today = kstDay(now), done = s => s.time ? s.start <= now : s.end < now;
+    const n = SCHEDULE.filter(done).length, nx = SCHEDULE.find(s => !done(s));
+    const top = el("div", "sp-top"), l = el("span"); l.append(el("b", null, String(n)), `/ ${SCHEDULE.length} 공개`);
+    top.append(l, el("span", null, nx ? `다음: ${nx.chip[0]}` : "모두 공개됐어요"));
+    const bar = el("div", "sp-bar");
+    SCHEDULE.forEach(s => { const i = el("i", done(s) ? "on" : s === nx ? "nx" : null); i.style.setProperty("--c", CATS[s.c][1]); i.title = `${s.d.replace("-", ".")} ${s.title}`; bar.append(i); });
+    progEl.replaceChildren(top, bar);
+    if (nx) nextBox.style.setProperty("--c", CATS[nx.c][1]);
+    const left = SCHEDULE.filter(s => !done(s)), shown = tlAll ? left : left.slice(0, 5);
+    tlEl.replaceChildren(...shown.map(s => {
+      const li = el("li", s === nx ? "nx" : null), d = el("span", "tl-d", s.d.replace("-", "."));
+      li.style.setProperty("--c", CATS[s.c][1]);
+      d.append(el("small", null, DOW[new Date(`2026-${s.d}T12:00:00+09:00`).getUTCDay()].slice(0, 1) + (s.time ? " " + s.time : "")));
+      const dl = Math.round((new Date(`2026-${s.d}T00:00:00+09:00`) - new Date(`2026-${today}T00:00:00+09:00`)) / 864e5);
+      li.append(d, el("span", "tl-t", s.title), el("span", "tl-c", dl <= 0 ? "오늘" : `D-${dl}`));
+      return li;
+    }));
+    if (!left.length) tlEl.append(el("li", null, "모든 일정이 끝났어요"));
+    const old = tlEl.nextElementSibling; if (old && old.classList.contains("tl-more")) old.remove();
+    if (left.length > 5) {
+      const b = el("button", "tl-more", tlAll ? "접기" : `${left.length - 5}개 더 보기`); b.type = "button";
+      b.addEventListener("click", () => { tlAll = !tlAll; renderProg(); });
+      tlEl.after(b);
+    }
+  }
+  let progDay = "", progNext = null;
+  setInterval(() => { const now = Date.now(), k = kstDay(now) + (SCHEDULE.find(s => (s.time ? s.start > now : s.end >= now)) || {}).d; if (k !== progDay) { progDay = k; renderProg(); } }, 1000);
+  renderProg(); progDay = kstDay(Date.now()) + ((SCHEDULE.find(s => (s.time ? s.start > Date.now() : s.end >= Date.now())) || {}).d);
+  // One .ics file with every date, so the whole schedule lands in a phone or Google calendar
+  document.getElementById("ics-btn").addEventListener("click", () => {
+    const z = t => new Date(t).toISOString().replace(/[-:]/g, "").slice(0, 15) + "Z";
+    const ymd = d => "2026" + d.replace("-", ""), nextYmd = d => new Date(new Date(`2026-${d}T12:00:00Z`).getTime() + 864e5).toISOString().slice(0, 10).replace(/-/g, "");
+    const lines = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//mini2isegye//Across Dimensions//KO", "CALSCALE:GREGORIAN", "X-WR-CALNAME:이세계아이돌 Across Dimensions"];
+    SCHEDULE.forEach(s => {
+      lines.push("BEGIN:VEVENT", `UID:${s.d}-${s.c}@mini2isegye.hehezone.com`, `DTSTAMP:${z(Date.now())}`);
+      if (s.time) lines.push(`DTSTART:${z(s.start)}`, `DTEND:${z(s.start + 36e5)}`);
+      else lines.push(`DTSTART;VALUE=DATE:${ymd(s.d)}`, `DTEND;VALUE=DATE:${nextYmd(s.d)}`);
+      lines.push(`SUMMARY:[이세돌] ${s.title}`, `DESCRIPTION:${s.desc}`, "URL:https://mini2isegye.hehezone.com/", "END:VEVENT");
+    });
+    lines.push("END:VCALENDAR");
+    const a = el("a"); a.href = URL.createObjectURL(new Blob([lines.join("\r\n")], { type: "text/calendar;charset=utf-8" }));
+    a.download = "across-dimensions.ics"; document.body.append(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+  });
   tick(); setInterval(tick, 1000);
 
   /* ---------- Union: what 이파리 do, where, until when ---------- */
@@ -1309,7 +1418,7 @@ footer .fsmall { display: flex; justify-content: space-between; gap: 1rem; flex-
   /* ---------- News + links ---------- */
   const feedEl = document.getElementById("feed"), emptyEl = document.getElementById("feed-empty"), liveEl = document.getElementById("live"), liveText = document.getElementById("live-text"), linksBox = document.getElementById("links-box");
   const KIND = { official: "공식", press: "기사", fan: "팬 소식" };
-  const LGROUPS = [["store", "예약 판매처", "판매처 링크를 모으는 중이에요"], ["media", "티저와 뮤직비디오", "11월 4일 티저 공개 예정"], ["official", "공식 공지", "공지 주소가 나오면 추가돼요"]];
+  const LGROUPS = [["store", "예약 판매처", "판매처 링크를 모으는 중이에요"], ["media", "티저와 뮤직비디오", "11.04 뮤직비디오 티저 공개 예정"], ["official", "공식 공지", "공지 주소가 나오면 추가돼요"]];
   const fmt = s => { const m = /^\d{4}-(\d{2})-(\d{2})/.exec(s || ""); return m ? `${m[1]}.${m[2]}` : (s || ""); };
   let filter = store.get("ad-filter", "all"); if (filter !== "all" && !KIND[filter]) filter = "all";
   let newsDocs = [], canDelete = false, db = null;
@@ -1317,41 +1426,79 @@ footer .fsmall { display: flex; justify-content: space-between; gap: 1rem; flex-
   const syncF = () => fb.forEach(b => b.setAttribute("aria-pressed", String(b.dataset.kind === filter)));
   fb.forEach(b => b.addEventListener("click", () => { filter = b.dataset.kind; syncF(); renderNews(); store.set("ad-filter", filter); }));
   syncF();
+  const DOW1 = "일월화수목금토";
   function renderNews() {
     feedEl.replaceChildren();
-    const rows = newsDocs.map(d => ({ id: d.id, ...d.data() })).filter(r => filter === "all" || r.kind === filter)
+    const all = newsDocs.map(d => ({ id: d.id, ...d.data() }));
+    fb.forEach(b => { const k = b.dataset.kind, n = k === "all" ? all.length : all.filter(r => r.kind === k).length; let sm = b.querySelector("small"); if (!sm) { sm = el("small"); b.append(sm); } sm.textContent = n; b.hidden = k !== "all" && !n; });
+    const rows = all.filter(r => filter === "all" || r.kind === filter)
       .sort((a, b) => (b.date || "").localeCompare(a.date || "") || (b.addedAt || "").localeCompare(a.addedAt || ""));
     emptyEl.hidden = rows.length > 0;
+    const today = kstDay(Date.now());
+    let lastDate = null;
     rows.forEach(r => {
-      const li = el("li"), t = el("div", "t"), url = safeUrl(r.url), ttl = el("div", "ttl");
-      if (url) { const a = el("a", null, r.title || ""); a.href = url; a.target = "_blank"; a.rel = "noopener"; ttl.append(a); } else ttl.textContent = r.title || "";
-      t.append(ttl); if (r.summary) t.append(el("p", "sum", r.summary));
-      const meta = el("div", "meta");
-      if (r.kind === "official") meta.append(el("span", "o", "공식")); else if (KIND[r.kind]) meta.append(el("span", null, KIND[r.kind]));
-      if (r.status === "unverified") meta.append(el("span", "u", "미확인"));
-      if (r.source) meta.append(el("span", null, r.source));
-      t.append(meta);
-      const act = el("span");
+      if (r.date !== lastDate) {
+        lastDate = r.date;
+        const h = el("div", "nd", fmt(r.date)), wd = /^\d{4}-\d{2}-\d{2}$/.test(r.date || "") ? new Date(r.date + "T12:00:00Z").getUTCDay() : -1;
+        if (wd >= 0) h.append(el("small", null, DOW1[wd]));
+        if ((r.date || "").slice(5) === today) h.append(el("span", "today", "오늘"));
+        feedEl.append(h);
+      }
+      const card = el("article", "ncard"), url = safeUrl(r.url), tags = el("div", "tags");
+      if (KIND[r.kind]) tags.append(el("span", "tag " + r.kind, KIND[r.kind]));
+      if (r.status === "unverified") tags.append(el("span", "tag unverified", "미확인"));
+      if (r.addedAt && Date.now() - new Date(r.addedAt).getTime() < 864e5) tags.append(el("span", "tag new", "NEW"));
+      card.append(tags, el("div", "ttl", r.title || ""));
+      if (r.summary) {
+        const sum = el("p", "sum clamp", r.summary); card.append(sum);
+        requestAnimationFrame(() => {
+          if (sum.scrollHeight <= sum.clientHeight + 2) return;
+          const more = el("button", "more", "더 보기"); more.type = "button";
+          more.addEventListener("click", () => { const open = sum.classList.toggle("clamp"); more.textContent = open ? "더 보기" : "접기"; });
+          sum.after(more);
+        });
+      }
+      const foot = el("div", "foot"); foot.append(el("span", null, r.source || ""));
+      if (url) { const a = el("a", "go", "원문 보기 ↗"); a.href = url; a.target = "_blank"; a.rel = "noopener"; foot.append(a); }
       if (canDelete) {
         const del = el("button", "del", "삭제"); del.type = "button";
         del.addEventListener("click", async () => {
           if (del.dataset.armed !== "1") { del.dataset.armed = "1"; del.textContent = "한 번 더"; setTimeout(() => { del.dataset.armed = ""; del.textContent = "삭제"; }, 4000); return; }
           del.disabled = true; try { await db.collection("news").doc(r.id).delete(); } catch (e) { del.disabled = false; del.textContent = "실패"; }
         });
-        act.append(del);
+        foot.append(del);
       }
-      li.append(el("span", "d", fmt(r.date)), t, act); feedEl.append(li);
+      card.append(foot); feedEl.append(card);
     });
   }
   function renderLinks(docs) {
     linksBox.replaceChildren();
     const rows = docs.map(d => d.data()).sort((a, b) => (a.order ?? 99) - (b.order ?? 99));
     LGROUPS.forEach(([key, label, emptyText]) => {
-      linksBox.append(el("div", "group-cap", label));
-      const ul = el("ul", "list links"), items = rows.filter(r => r.group === key && safeUrl(r.url));
-      if (!items.length) { const li = el("li"); li.append(el("span", "t muted", emptyText), el("span")); ul.append(li); }
-      items.forEach(r => { const li = el("li"), a = el("a"); a.href = safeUrl(r.url); a.target = "_blank"; a.rel = "noopener"; const t = el("span", "t", r.label || r.url); if (r.note) t.append(el("small", "ln", r.note)); a.append(t, el("span", "arrow")); li.append(a); ul.append(li); });
-      linksBox.append(ul);
+      const items = rows.filter(r => r.group === key && safeUrl(r.url)), g = el("div", "lg"), cap = el("div", "lg-cap", label);
+      if (items.length) cap.append(el("small", null, items.length + "곳"));
+      g.append(cap);
+      if (!items.length) {
+        const e = el("div", "lempty"); e.append(el("span", null, emptyText));
+        if (key === "media") { const dl = Math.round((new Date("2026-11-04T00:00:00+09:00") - new Date(`2026-${kstDay(Date.now())}T00:00:00+09:00`)) / 864e5); if (dl > 0) e.append(el("b", null, `D-${dl}`)); }
+        g.append(e);
+      } else {
+        const box = el("div", "lcards" + (key === "store" ? "" : " one"));
+        items.forEach(r => {
+          const a = el("a", "lcard"); a.href = safeUrl(r.url); a.target = "_blank"; a.rel = "noopener";
+          a.append(el("b", null, r.label || r.url));
+          let note = r.note || "";
+          if (key === "store") {
+            const no = /특전 없음/.test(note), m = /^셀카 특전\s*·?\s*/.exec(note);
+            if (no) { a.classList.add("off"); a.append(el("span", "badge no", "셀카 특전 없음")); note = ""; }
+            else if (m) { a.append(el("span", "badge", "셀카 특전")); note = note.slice(m[0].length); }
+          }
+          if (note) a.append(el("span", "ln", note));
+          box.append(a);
+        });
+        g.append(box);
+      }
+      linksBox.append(g);
     });
   }
   // Published snapshot: what every visitor sees first, including people who aren't signed in to claude.ai.
