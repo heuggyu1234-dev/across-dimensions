@@ -423,12 +423,7 @@ table.compare { width: 100%; min-width: 40rem; border-collapse: collapse; font-s
 .sp-opt small { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.04em; color: var(--ink-2); }
 .sp-opt b { font-size: 0.92rem; font-weight: 600; }
 .sp-opt span { font-size: 1.15rem; font-weight: 500; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
-.sp-row { display: grid; grid-template-columns: minmax(0, 1fr) 11rem; gap: 1.4rem 2rem; align-items: start; }
 @media (max-width: 560px) { .sp-opts { grid-template-columns: 1fr 1fr; } }
-.sp-shot { margin: 0; }
-.sp-shot button { display: block; width: 100%; padding: 0; border: 1px solid var(--rule); background: #FFFFFF; cursor: zoom-in; aspect-ratio: 4 / 3; overflow: hidden; }
-.sp-shot img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top left; }
-.sp-shot figcaption { font-size: 0.72rem; color: var(--ink-2); margin-top: 0.35rem; }
 .sp-prods { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--ink); }
 .sp-prods li { display: grid; grid-template-columns: 3.4rem minmax(0, 1fr) auto; gap: 0.8rem; align-items: center; padding: 0.6rem 0; border-bottom: 1px solid var(--rule); }
 .sp-th { display: flex; height: 3.4rem; overflow: hidden; background: var(--paper-2); }
@@ -437,7 +432,12 @@ table.compare { width: 100%; min-width: 40rem; border-collapse: collapse; font-s
 .sp-pt b small { display: inline; font-size: inherit; color: var(--ink-2); font-weight: 500; }
 .sp-pt small { display: block; font-size: 0.74rem; color: var(--ink-2); }
 .sp-prods em { font-style: normal; font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; }
-.sp-notes { list-style: none; margin: 1.3rem 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.35rem 1.2rem; font-size: 0.8rem; color: var(--ink-2); }
+.sp-shot { margin: 1.2rem 0 0; }
+.sp-shot button { position: relative; display: block; width: 100%; padding: 0; border: 1px solid var(--rule); background: #FFFFFF; cursor: zoom-in; }
+.sp-shot img { display: block; width: 100%; height: auto; }
+.sp-zoom { position: absolute; right: 0.5rem; bottom: 0.5rem; font-size: 0.72rem; font-weight: 600; padding: 0.3rem 0.6rem; background: var(--ink); color: #FFFFFF; }
+.sp-shot figcaption { font-size: 0.72rem; color: var(--ink-3); margin-top: 0.35rem; }
+.sp-notes { list-style: none; margin: 1.3rem 0 0; padding: 0.9rem 1rem; background: var(--paper-2); display: grid; gap: 0.35rem; font-size: 0.82rem; color: var(--ink-2); }
 .sp-notes li::before { content: ""; display: inline-block; width: 4px; height: 4px; background: var(--ink-3); margin-right: 0.45rem; vertical-align: 0.2em; }
 .sp-go { margin-left: auto; }
 
@@ -1255,7 +1255,11 @@ footer .fsmall { display: flex; justify-content: space-between; gap: 1rem; flex-
       prod.append(ul);
     } else prod.append(el("p", "gp-alt", "버전과 가격은 로그인하면 보여요. 정가가 같다면 STAYG(11,100원)가 가장 싸요."));
     const nt = el("ul", "sp-notes"); S.notes.forEach(t => nt.append(li(null, t)));
-    const L = el("div"), grid = el("div", "sp-grid"); L.append(ben, opts); grid.append(L, prod); gPanel.replaceChildren(top, grid, nt);
+    const fig = el("figure", "sp-shot"), sb = el("button"), simg = el("img");
+    sb.type = "button"; sb.setAttribute("aria-label", `${S.name} 판매 화면 크게 보기`); simg.src = `guide/shop-${S.key}.webp`; simg.alt = `${S.name} 판매 화면`; simg.loading = "lazy";
+    sb.append(simg, el("span", "sp-zoom", "크게 보기")); sb.addEventListener("click", () => zoomImg(simg.src, simg.alt));
+    fig.append(sb, el("figcaption", null, `${S.name} 판매 화면 (10.19 캡처)`));
+    const L = el("div"), grid = el("div", "sp-grid"); L.append(ben, opts, nt); prod.append(fig); grid.append(L, prod); gPanel.replaceChildren(top, grid);
   }
   function renderGuide() {
     gMain.forEach(b => b.setAttribute("aria-selected", String(b.dataset.main === gState.main)));
