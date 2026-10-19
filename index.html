@@ -378,6 +378,51 @@ table.compare { width: 100%; min-width: 40rem; border-collapse: collapse; font-s
 .u-src { font-size: 0.78rem; color: var(--ink-2); margin: 0; }
 .u-src a { color: var(--ink); }
 
+/* Goods guide: two tab levels (goal / store) and one panel */
+.gd-main { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--ink); margin-bottom: 1rem; }
+.gd-main button { font: inherit; font-size: 0.95rem; font-weight: 600; padding: 0.85rem 0.5rem; border: 0; background: transparent; color: var(--ink); cursor: pointer; border-radius: 0; }
+.gd-main button[aria-selected="true"] { background: var(--ink); color: #FFFFFF; }
+.gd-chips { display: flex; gap: 0.4rem; overflow-x: auto; padding-bottom: 0.3rem; margin-bottom: 1.2rem; scrollbar-width: none; }
+.gd-chips::-webkit-scrollbar { display: none; }
+.gd-chips button { flex: 0 0 auto; display: grid; gap: 0.1rem; text-align: left; font: inherit; padding: 0.6rem 0.85rem; border: 1px solid var(--rule); background: #FFFFFF; color: var(--ink); cursor: pointer; border-radius: 0; }
+.gd-chips button b { font-size: 0.86rem; font-weight: 600; white-space: nowrap; }
+.gd-chips button small { font-size: 0.7rem; color: var(--ink-2); white-space: nowrap; }
+.gd-chips button[aria-selected="true"] { border-color: var(--ink); background: var(--ink); color: #FFFFFF; }
+.gd-chips button[aria-selected="true"] small { color: rgba(255,255,255,0.7); }
+.gd-panel { border-top: 1px solid var(--ink); padding-top: 1.4rem; min-height: 20rem; }
+.gp-top { display: flex; justify-content: space-between; align-items: flex-end; gap: 1rem 2rem; flex-wrap: wrap; margin-bottom: 1.4rem; }
+.gp-top h3 { margin: 0; font-size: clamp(1.25rem, 2.6vw, 1.6rem); font-weight: 600; letter-spacing: -0.02em; }
+.gp-top p { margin: 0.3rem 0 0; color: var(--ink-2); font-size: 0.9rem; max-width: 36rem; }
+.gp-total { display: grid; justify-items: end; text-align: right; }
+.gp-total small { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.05em; color: var(--ink-2); }
+.gp-total b { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 500; letter-spacing: -0.04em; line-height: 1.05; font-variant-numeric: tabular-nums; }
+.gp-total span { font-size: 0.8rem; color: var(--ink-2); }
+.gp-cols { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 1.4rem 2.4rem; }
+@media (max-width: 760px) { .gp-cols { grid-template-columns: 1fr; } .gp-top { align-items: flex-start; } .gp-total { justify-items: start; text-align: left; } }
+.gp-k { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.05em; color: var(--ink-2); margin: 0 0 0.5rem; }
+.gp-cart { list-style: none; margin: 0 0 0.4rem; padding: 0; border-top: 1px solid var(--ink); }
+.gp-cart li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 0.1rem 1rem; padding: 0.7rem 0; border-bottom: 1px solid var(--rule); }
+.gp-cart li b { font-weight: 600; font-size: 0.95rem; }
+.gp-cart li i { font-style: normal; font-size: 0.8rem; color: var(--ink-2); grid-column: 1; }
+.gp-cart li em { font-style: normal; font-variant-numeric: tabular-nums; font-weight: 600; grid-column: 2; grid-row: 1 / span 2; align-self: center; text-align: right; white-space: nowrap; }
+.gp-cart li em small { display: block; font-size: 0.72rem; font-weight: 500; color: var(--ink-2); }
+.gp-get { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.45rem; }
+.gp-get li { display: grid; grid-template-columns: 1.2rem minmax(0, 1fr); gap: 0.4rem; font-size: 0.9rem; }
+.gp-get li::before { content: "✓"; font-weight: 700; color: var(--ok); }
+.gp-get li.maybe::before { content: "?"; color: var(--warn); }
+.gp-tips { list-style: none; margin: 1.4rem 0 0; padding: 0.9rem 1rem; background: var(--paper-2); display: grid; gap: 0.35rem; font-size: 0.84rem; }
+.gp-tips li::before { content: "· "; font-weight: 700; }
+.sp-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 1.4rem 2.4rem; align-items: start; }
+@media (max-width: 760px) { .sp-grid { grid-template-columns: 1fr; } }
+.sp-shot { margin: 0; }
+.sp-shot button { display: block; width: 100%; padding: 0; border: 1px solid var(--rule); background: #FFFFFF; cursor: zoom-in; }
+.sp-shot img { display: block; width: 100%; height: auto; }
+.sp-shot figcaption { font-size: 0.72rem; color: var(--ink-3); margin-top: 0.4rem; }
+.sp-ben { display: block; width: 100%; height: auto; margin-bottom: 0.4rem; }
+.sp-block { margin-bottom: 1.2rem; }
+.sp-block p { margin: 0; font-size: 0.86rem; color: var(--ink-2); }
+.sp-go { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+
 /* Goods guide (current) */
 .g-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: 1rem 4rem; align-items: end; margin-bottom: 2.4rem; }
 .g-head .lead { margin: 0; max-width: 34rem; font-size: 1rem; }
@@ -556,7 +601,7 @@ footer .fsmall { display: flex; justify-content: space-between; gap: 1rem; flex-
     <a href="#versions">버전 <small>VERSIONS</small></a>
     <a href="#schedule">공개 일정 <small>SCHEDULE</small></a>
     <a href="#union">연합 스밍·투표 <small>UNION</small></a>
-    <a href="#collect">굿즈 올클 <small>GOODS</small></a>
+    <a href="#collect">구매 가이드 <small>GOODS</small></a>
     <a href="#news">최신 소식 <small>NEWS</small></a>
     <a href="#links">바로가기 <small>LINKS</small></a>
   </nav>
@@ -680,54 +725,16 @@ footer .fsmall { display: flex; justify-content: space-between; gap: 1rem; flex-
     <hr class="rule">
     <div class="label">GOODS</div>
     <div class="g-head">
-      <h2 class="title" id="h-collect">굿즈 올클 가이드</h2>
-      <p class="lead"><b>랜덤 굿즈</b>는 멤버 6명 것 중 하나가 무작위로 들어있는 굿즈예요. 버전마다 6장씩 사면 한 세트를 모을 수 있어요.</p>
+      <h2 class="title" id="h-collect">구매 가이드</h2>
+      <p class="lead">원하는 방법을 누르면 <b>무엇을 몇 장</b> 담을지 바로 보여요. 판매처 특전은 <b>11.8(일) 23:59 결제분</b>까지예요.</p>
     </div>
-
-    <div class="g-sum">
-      <div class="g-total"><small>4개 버전 전부 모으려면</small><b>24장</b></div>
-      <div class="g-eq" aria-label="STAR 6장, RACE 6장, LOVE LETTER 6장, STAYG 6장">
-        <span><b>6</b>STAR</span><i>+</i><span><b>6</b>RACE</span><i>+</i><span><b>6</b>LOVE LETTER</span><i>+</i><span><b>6</b>STAYG</span>
-      </div>
+    <div class="gd-main" role="tablist" aria-label="가이드 종류">
+      <button type="button" role="tab" data-main="goal">목표별로 사기</button>
+      <button type="button" role="tab" data-main="store">판매처별 특전</button>
     </div>
-
-    <div class="g-cards">
-      <article class="g-card">
-        <div class="g-img"><img src="ver-star.jpg" alt="" style="object-position:50% 6%" loading="lazy"></div>
-        <div class="g-name"><h3>STAR</h3><b>6장</b></div>
-        <p class="g-k">랜덤으로 나오는 것</p>
-        <ul class="g-chips"><li>포토카드 6종</li><li>미니 스탠드 6종</li><li>접지 포스터 6종</li></ul>
-        <p class="g-tip">6장 사면 굿즈마다 6개씩 나와요.</p>
-      </article>
-      <article class="g-card">
-        <div class="g-img"><img src="ver-race.jpg" alt="" style="object-position:50% 6%" loading="lazy"></div>
-        <div class="g-name"><h3>RACE</h3><b>6장</b></div>
-        <p class="g-k">랜덤으로 나오는 것</p>
-        <ul class="g-chips"><li>포토카드 6종</li><li>미니 스탠드 6종</li><li>접지 포스터 6종</li></ul>
-        <p class="g-tip">STAR와 구성이 같아요.</p>
-      </article>
-      <article class="g-card">
-        <div class="g-img"><img src="ver-letter.jpg" alt="" style="object-position:50% 13%" loading="lazy"></div>
-        <div class="g-name"><h3>LOVE LETTER</h3><b>6장</b></div>
-        <p class="g-k">랜덤으로 나오는 것</p>
-        <ul class="g-chips"><li>포토카드 6종</li><li>스크래치 카드 6종</li></ul>
-        <p class="g-tip">앨범 색도 6가지라 6장이면 색까지 다 모여요.</p>
-      </article>
-      <article class="g-card">
-        <div class="g-img"><img src="ver-stayg.jpg" alt="" style="object-position:50% 4%" loading="lazy"></div>
-        <div class="g-name"><h3>STAYG</h3><b>6장</b></div>
-        <p class="g-k">랜덤으로 나오는 것</p>
-        <ul class="g-chips"><li>포토카드 18종 <em>1장에 3장씩</em></li><li>QR 포토카드 2종</li></ul>
-        <p class="g-tip">6장 사면 포토카드 18장이 나와요.</p>
-      </article>
-    </div>
-
-    <ol class="g-steps">
-      <li><span>01</span><b>버전마다 6장씩 사기</b><p>모두 24장이에요.</p></li>
-      <li><span>02</span><b>겹친 멤버는 교환하기</b><p>같은 멤버가 두 번 나오면 다른 팬과 바꿔요.</p></li>
-      <li><span>03</span><b>남은 빈칸은 추가로 구하기</b><p>추가 구매나 개별 거래로 채워요.</p></li>
-    </ol>
-    <p class="g-note">6장은 멤버가 겹치지 않거나 교환이 잘 될 때의 최소 수량이에요.</p>
+    <div class="gd-chips" role="tablist" id="gd-chips"></div>
+    <div class="gd-panel" id="gd-panel" role="tabpanel" aria-live="polite"></div>
+    <p class="g-note">가격은 10.19 판매처 정가 기준이에요(배송비 별도). 특전 포카 미리보기는 공식 공지 이미지(흐림 처리) ⓒ 패러블엔터테인먼트, 판매처 화면은 10.19 캡처예요.</p>
   </section>
 
   <section class="sec wrap" id="news" aria-labelledby="h-news">
@@ -1130,6 +1137,119 @@ footer .fsmall { display: flex; justify-content: space-between; gap: 1rem; flex-
   uTick(); setInterval(uTick, 60000);
 
 
+
+  /* ---------- Goods guide: goal options and per-store benefit tabs ---------- */
+  const won = n => n.toLocaleString("ko-KR") + "원";
+  const PROD = {
+    sr: { name: "STAR/RACE 2종 중 1종 랜덤", price: 25200, n: 1, note: "STAR와 RACE 중 하나가 무작위로 와요" },
+    srset: { name: "STAR/RACE 2종 세트", price: 50400, n: 2, note: "STAR 1장 + RACE 1장" },
+    ll: { name: "LOVE LETTER 6종 중 1종 랜덤", price: 15600, n: 1, note: "6가지 색 중 하나가 무작위로 와요" },
+    llset: { name: "LOVE LETTER 6종 세트", price: 93600, n: 6, note: "6가지 색 1장씩, 셀카 포카 6종 세트" },
+    stayg: { name: "STAYG", price: 11100, n: 1, note: "가장 싼 버전 (NFC 앨범)" }
+  };
+  // [product key, quantity, where]
+  const GOALS = [
+    { key: "light", chip: "가볍게 1장", sub: "11,100원", title: "가볍게 1장만", desc: "앨범 한 장과 셀카 특전 한 장을 받아 봐요.",
+      cart: [["stayg", 1, "특전 판매처 아무 곳"]],
+      get: ["STAYG 앨범 1장, 안에 든 포카 3장(18종 중 랜덤)", "판매처 셀카 포카 1장 (6종 중 랜덤)"],
+      tips: ["셀카 포카는 판매처마다 그림이 달라요. 마음에 드는 판매처를 '판매처별 특전'에서 골라 보세요."] },
+    { key: "min", chip: "최소 금액", sub: "4개 버전 다", title: "최소 금액으로 4개 버전 다 갖기", desc: "STAR · RACE · LOVE LETTER · STAYG를 한 장씩 가장 싸게 모아요.",
+      cart: [["srset", 1, "STAR/RACE를 확정으로 받으려면 세트"], ["ll", 1, "색은 랜덤"], ["stayg", 1, ""]],
+      get: ["4개 버전 실물 앨범 1장씩 (러브레터 색은 랜덤)", "앨범 안 포카 6장 (STAR·RACE·러브레터 1장씩 + STAYG 3장)", "셀카 포카 4장 (랜덤)"],
+      tips: ["STAR/RACE 단품(25,200원)은 둘 중 랜덤이라 두 버전을 다 원하면 꼭 '2종 세트'로 담으세요.", "한 판매처에서 같이 사면 배송비가 한 번만 들어요. 5만 원 이상 무료배송인 곳이 많아요."] },
+    { key: "bias", chip: "셀카 최애 확정", sub: "6장", title: "판매처 셀카 포카에서 최애 확정", desc: "한 판매처에서 앨범 6장을 사면 그 판매처 셀카 6종이 한 세트로 와요.",
+      cart: [["llset", 1, "가장 확실: 상품 이름에 '셀카 6종 세트 증정'"]], alt: [["stayg", 6, "가장 싸게: 버전 상관없이 6장"]],
+      get: ["그 판매처 셀카 포카 6종 1세트 → 최애 확정", "러브레터 6색 앨범 (STAYG로 사면 STAYG 6장)"],
+      tips: ["공식 공지: 버전 상관없이 6의 배수로 사면 셀카 1세트 증정.", "STAYG 6장처럼 묶음 상품이 아닌 경우, 결제 전 판매처 Q&A에 '6장 구매 시 6종 세트로 받는지' 한 번 물어보면 안전해요."] },
+    { key: "albumall", chip: "앨범 올클", sub: "24장", title: "앨범 구성품 올클", desc: "버전마다 6장씩, 앨범 안 랜덤 포카·스탠드·포스터를 멤버 6명 다 모으는 기준이에요.",
+      cart: [["srset", 6, "STAR 6 + RACE 6"], ["llset", 1, "러브레터 6색"], ["stayg", 6, ""]],
+      get: ["버전별 랜덤 구성품 6개씩 (겹치지 않으면 멤버 6명 다)", "러브레터 6색 전부", "셀카 포카 24장 — 판매처 4곳에 6장씩 나눠 사면 셀카 4세트(24종)"],
+      maybe: ["앨범 안 포카는 세트로 사도 랜덤이라 겹칠 수 있어요 → 교환으로 채워요"],
+      tips: ["예: 사운드웨이브에 2종 세트 3개, 뮤직플랜트에 2종 세트 3개, 뮤직아트에 러브레터 6종 세트, 맵달서울에 STAYG 6장 → 앨범 올클 + 셀카 4세트.", "겹친 포카는 X에서 교환하면 돼요."] },
+    { key: "biasall", chip: "최애 포카 전부", sub: "8종", title: "최애 포카 전부 모으기", desc: "최애의 앨범 안 포카 6종(STAR·RACE·러브레터 각 1, STAYG 3)과 셀카 2곳을 노려요.",
+      cart: [["llset", 1, "판매처 A"], ["srset", 1, "판매처 A (같이 담아 6장 이상)"], ["stayg", 6, "판매처 B"]],
+      get: ["판매처 A·B 셀카 포카 최애 확정 (2종)", "앨범 14장 → 앨범 안 포카 최애 중 일부"],
+      maybe: ["러브레터 포카 최애 약 67%, STAR·RACE 각 17%, STAYG 3종 다 약 27% → 나머지는 교환·분철"],
+      tips: ["분철·양도로 필요한 최애 포카만 사는 게 앨범을 더 사는 것보다 싸요.", "STAYG 18종이 멤버당 3종인지는 공식 구성 확인이 필요해요."] },
+    { key: "benefitall", chip: "특전 올클", sub: "6곳 36종", title: "판매처 셀카 특전 올클 (6곳)", desc: "특전 판매처 6곳에서 6장씩 사서 셀카 포카 36종을 모아요.",
+      cart: [["stayg", 36, "6곳 × 6장"]],
+      get: ["판매처 6곳 셀카 포카 6종씩, 모두 36종", "STAYG 앨범 36장 (앨범 안 포카 108장)"],
+      tips: ["앨범 올클(24장)과 같이 하려면 24장을 4곳에 6장씩 나누고, 남은 2곳만 STAYG 6장씩 더해요 → 36장, 약 595,800원."] }
+  ];
+  const STORES = [
+    { key: "soundwave", name: "사운드웨이브", url: "https://sound-wave.co.kr/product/search.html?keyword=%EC%9D%B4%EC%84%B8%EA%B3%84%EC%95%84%EC%9D%B4%EB%8F%8C",
+      prods: ["sr", "srset", "ll", "llset", "stayg"], notes: ["5만 원 이상 무료배송 (STAYG 6장 장바구니에서 확인)", "STAR/RACE 2종 세트는 셀카 2장", "특전과 함께 순차 발송"] },
+    { key: "mapdal", name: "맵달서울", url: "https://mapdal.kr/new-drops?id=6",
+      prods: null, notes: ["상품 옵션(버전·가격)은 로그인 후 보여요", "특전은 산 앨범 수만큼 멤버 랜덤 증정, 멤버 선택 불가", "6장 세트 보장은 공식 공지 기준이에요. 맵달 페이지엔 따로 적혀 있지 않아 결제 전 확인 추천", "구매 수량은 한터·써클차트에 반영"] },
+    { key: "musicplant", name: "뮤직플랜트", url: "https://www.musicplant.co.kr/shop/search_result.php?search_str=Across%20Dimensions",
+      prods: ["sr", "srset", "ll", "llset", "stayg"], notes: ["특전은 앨범 장당 1:1 증정", "세트 특전은 '세트 상품'으로 살 때만", "초도 한정 구성품은 일찍 끝날 수 있어요"] },
+    { key: "musicart", name: "뮤직아트", url: "https://musicart.kr/shop/shopbrand.html?search=%EC%9D%B4%EC%84%B8%EA%B3%84%EC%95%84%EC%9D%B4%EB%8F%8C&type=Y",
+      prods: ["sr", "srset", "ll", "llset", "stayg"], notes: ["이벤트가 끝나고(11.8 이후) 특전 제작 뒤 발송", "취소·환불은 이벤트 기간 안에만"] },
+    { key: "applemusic", name: "애플뮤직", url: "https://www.applemusic.co.kr/shop/shopbrand.html?search=%EC%9D%B4%EC%84%B8%EA%B3%84%EC%95%84%EC%9D%B4%EB%8F%8C&type=Y",
+      prods: ["sr", "srset", "ll", "llset", "stayg"], notes: ["세트·STAR/RACE·러브레터 세트 상품에 무료배송 표시", "상품 이름 앞에 [애플특전]"] },
+    { key: "withmuu", name: "위드뮤", url: "https://www.withmuu.com/goods/goods_search.php?keyword=Across%20Dimensions",
+      prods: ["sr", "srset", "ll", "llset", "stayg"], notes: ["상품 이름 앞에 [예약/이벤트]", "상품 페이지 발매일이 11.10으로 적혀 있어요"] }
+  ];
+  const gChips = document.getElementById("gd-chips"), gPanel = document.getElementById("gd-panel"), gMain = [...document.querySelectorAll(".gd-main button")];
+  let gState = store.get("ad-guide", { main: "goal", goal: "bias", store: "soundwave" });
+  if (!gState || !gState.main) gState = { main: "goal", goal: "bias", store: "soundwave" };
+  const li = (cls, ...kids) => { const x = el("li", cls); x.append(...kids); return x; };
+  const cartList = (cart) => {
+    const ul = el("ul", "gp-cart");
+    cart.forEach(([k, q, where]) => { const P = PROD[k], em = el("em", null, won(P.price * q)); em.append(el("small", null, `${won(P.price)} × ${q}`)); ul.append(li(null, el("b", null, `${P.name} × ${q}`), el("i", null, where || P.note), em)); });
+    return ul;
+  };
+  const sumOf = cart => cart.reduce((a, [k, q]) => [a[0] + PROD[k].price * q, a[1] + PROD[k].n * q], [0, 0]);
+  const zoomImg = (src, alt) => { viewerImg.src = src; viewerImg.alt = alt; if (viewer.showModal) { viewer.showModal(); viewer.querySelector(".viewer-inner").scrollTop = 0; } };
+  function renderGoal(G) {
+    const [total, n] = sumOf(G.cart), top = el("div", "gp-top"), head = el("div"), tot = el("div", "gp-total");
+    head.append(el("h3", null, G.title), el("p", null, G.desc));
+    tot.append(el("small", null, "총액 (정가)"), el("b", null, won(total)), el("span", null, `앨범 ${n}장`));
+    top.append(head, tot);
+    const cols = el("div", "gp-cols"), a = el("div"), b = el("div");
+    a.append(el("div", "gp-k", "장바구니에 담을 것"), cartList(G.cart));
+    if (G.alt) { const [t2, n2] = sumOf(G.alt); a.append(el("div", "gp-k", `또는 더 싸게 · ${won(t2)} / ${n2}장`), cartList(G.alt)); }
+    const get = el("ul", "gp-get"); G.get.forEach(t => get.append(li(null, t))); (G.maybe || []).forEach(t => get.append(li("maybe", t)));
+    b.append(el("div", "gp-k", "받는 것"), get);
+    cols.append(a, b);
+    const tips = el("ul", "gp-tips"); G.tips.forEach(t => tips.append(li(null, t)));
+    gPanel.replaceChildren(top, cols, tips);
+  }
+  function renderStore(S) {
+    const top = el("div", "gp-top"), head = el("div"), go = el("div", "sp-go"), a = el("a", "btn", "판매처에서 보기");
+    a.href = S.url; a.target = "_blank"; a.rel = "noopener"; go.append(a);
+    head.append(el("h3", null, S.name), el("p", null, "앨범 1장마다 미공개 셀카 포카 6종 중 1장 · 6장 사면 1세트"));
+    top.append(head, go);
+    const grid = el("div", "sp-grid"), fig = el("figure", "sp-shot"), sb = el("button"), simg = el("img");
+    sb.type = "button"; sb.setAttribute("aria-label", `${S.name} 화면 크게 보기`); simg.src = `guide/store-${S.key}.webp`; simg.alt = `${S.name} 상품 화면`; simg.loading = "lazy";
+    sb.append(simg); sb.addEventListener("click", () => zoomImg(simg.src, simg.alt)); fig.append(sb, el("figcaption", null, `${S.name} 화면 (10.19 캡처) · 누르면 크게 보여요`));
+    const info = el("div"), ben = el("div", "sp-block"), bimg = el("img", "sp-ben");
+    bimg.src = `guide/benefit-${S.key}.webp`; bimg.alt = `${S.name} 셀카 포카 특전 미리보기`; bimg.loading = "lazy";
+    ben.append(el("div", "gp-k", "이 판매처 셀카 특전 (미리보기)"), bimg, el("p", null, "멤버별 1종, 모두 6종 · 다른 판매처와 그림이 달라요"));
+    const all = el("div", "sp-block"); all.append(el("div", "gp-k", "이 판매처 특전 올클 (6장)"));
+    all.append(cartList([["llset", 1, "가장 확실 · 셀카 6종 세트 증정"]]), cartList([["stayg", 6, "가장 싸게 · 6장이면 1세트 (판매처 확인 추천)"]]));
+    const pr = el("div", "sp-block"); pr.append(el("div", "gp-k", "상품과 가격"));
+    if (S.prods) { const ul = el("ul", "gp-cart"); S.prods.forEach(k => { const P = PROD[k]; ul.append(li(null, el("b", null, P.name), el("i", null, P.note), el("em", null, won(P.price)))); }); pr.append(ul); }
+    else pr.append(el("p", null, "로그인하면 버전과 가격이 보여요. 다른 판매처와 정가가 같다면 STAYG 11,100원이 가장 싸요."));
+    const nt = el("ul", "gp-tips"); S.notes.forEach(t => nt.append(li(null, t)));
+    info.append(ben, all, pr);
+    grid.append(fig, info);
+    gPanel.replaceChildren(top, grid, nt);
+  }
+  function renderGuide() {
+    gMain.forEach(b => b.setAttribute("aria-selected", String(b.dataset.main === gState.main)));
+    const list = gState.main === "goal" ? GOALS : STORES, cur = gState.main === "goal" ? gState.goal : gState.store;
+    const sel = list.find(x => x.key === cur) || list[0];
+    gChips.replaceChildren(...list.map(x => {
+      const b = el("button"); b.type = "button"; b.setAttribute("role", "tab"); b.setAttribute("aria-selected", String(x === sel));
+      b.append(el("b", null, x.chip || x.name), el("small", null, x.sub || (x.prods ? "특전 · 5개 상품" : "특전 · 이벤트 페이지")));
+      b.addEventListener("click", () => { gState[gState.main] = x.key; store.set("ad-guide", gState); renderGuide(); });
+      return b;
+    }));
+    gState.main === "goal" ? renderGoal(sel) : renderStore(sel);
+  }
+  gMain.forEach(b => b.addEventListener("click", () => { gState.main = b.dataset.main; store.set("ad-guide", gState); renderGuide(); }));
+  renderGuide();
 
   /* ---------- News + links ---------- */
   const feedEl = document.getElementById("feed"), emptyEl = document.getElementById("feed-empty"), liveEl = document.getElementById("live"), liveText = document.getElementById("live-text"), linksBox = document.getElementById("links-box");
