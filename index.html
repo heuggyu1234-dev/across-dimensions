@@ -429,6 +429,10 @@ table.compare { width: 100%; min-width: 40rem; border-collapse: collapse; font-s
 .sp-th { display: flex; height: 3.4rem; overflow: hidden; background: var(--paper-2); }
 .sp-th img { flex: 1 1 0; min-width: 0; height: 100%; object-fit: cover; }
 .sp-pt b { display: block; font-size: 0.9rem; font-weight: 600; }
+.sp-prods li.or { grid-template-columns: 2.4rem 3.4rem minmax(0, 1fr) auto; background: var(--paper-2); padding-left: 0.6rem; padding-right: 0.6rem; border-bottom-style: dashed; }
+@media (max-width: 560px) { .sp-prods li.or { grid-template-columns: 1.6rem 3.4rem minmax(0, 1fr) auto; gap: 0.6rem; padding-left: 0.4rem; padding-right: 0.4rem; } }
+.or-k { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.06em; color: var(--hot); }
+.sp-prods li.or em { color: var(--ink-2); }
 .sp-pt b small { display: inline; font-size: inherit; color: var(--ink-2); font-weight: 500; }
 .sp-pt small { display: block; font-size: 0.74rem; color: var(--ink-2); }
 .sp-prods em { font-style: normal; font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; }
@@ -1172,25 +1176,13 @@ footer .fsmall { display: flex; justify-content: space-between; gap: 1rem; flex-
       get: ["STAYG 앨범 1장, 안에 든 포카 3장(18종 중 랜덤)", "판매처 셀카 포카 1장 (6종 중 랜덤)"],
       tips: ["셀카 포카는 판매처마다 그림이 달라요. 마음에 드는 판매처를 '판매처별 특전'에서 골라 보세요."] },
     { key: "min", chip: "최소 금액", sub: "4개 버전 다", title: "최소 금액으로 4개 버전 다 갖기", desc: "STAR · RACE · LOVE LETTER · STAYG를 한 장씩 가장 싸게 모아요.",
-      cart: [["srset", 1, "STAR/RACE를 확정으로 받으려면 세트"], ["ll", 1, "색은 랜덤"], ["stayg", 1, ""]],
+      cart: [["srset", 1, "STAR/RACE를 확정으로 받으려면 세트"], ["ll", 1, "색은 랜덤", ["llset", 1, "최애 ver. 확정 · 셀카 6종 세트 · 이걸로 담으면 총 155,100원"]], ["stayg", 1, ""]],
       get: ["4개 버전 실물 앨범 1장씩 (러브레터는 멤버 버전 랜덤)", "앨범 안 포카 6장 (STAR·RACE·러브레터 1장씩 + STAYG 3장)", "셀카 포카 4장 (랜덤)"],
       tips: ["STAR/RACE 단품(25,200원)은 둘 중 랜덤이라 두 버전을 다 원하면 꼭 '2종 세트'로 담으세요.", "한 판매처에서 같이 사면 배송비가 한 번만 들어요."] },
     { key: "bias", chip: "최애 확정", sub: "6장", title: "최애 러브레터 ver. + 셀카 최애 확정", desc: "러브레터는 멤버별 버전이라 6종 세트를 사면 최애 ver.도, 그 판매처 셀카 최애도 확정이에요.",
       cart: [["llset", 1, "가장 확실: 상품 이름에 '셀카 6종 세트 증정'"]], alt: [["stayg", 6, "가장 싸게: 버전 상관없이 6장"]],
       get: ["최애 러브레터 ver. 앨범 (멤버 버전 6종 1장씩)", "그 판매처 셀카 포카 6종 1세트 → 최애 확정"], maybe: ["STAYG 6장으로 사면 셀카 최애는 받지만 최애 러브레터 ver.은 없어요"],
       tips: ["공식 공지: 버전 상관없이 6의 배수로 사면 셀카 1세트 증정.", "STAYG 6장처럼 묶음 상품이 아닌 경우, 결제 전 판매처 Q&A에 '6장 구매 시 6종 세트로 받는지' 한 번 물어보면 안전해요."] },
-    { key: "photobook", chip: "포토북 2종", sub: "50,400원", title: "포토북 2종 (STAR + RACE)", desc: "포토북 80쪽이 든 STAR와 RACE를 하나씩 확실하게 받아요.",
-      cart: [["srset", 1, ""]],
-      get: ["STAR · RACE 앨범 1장씩 (포토북 80쪽)", "버전마다 포카·미니 스탠드·접지 포스터 1개씩 (랜덤)", "셀카 포카 2장 (랜덤)"],
-      tips: ["단품(25,200원)은 STAR와 RACE 중 랜덤이에요. 둘 다 원하면 꼭 '2종 세트'."] },
-    { key: "two", chip: "셀카 2곳 최애", sub: "160,200원", title: "판매처 2곳 셀카에서 최애 확정", desc: "판매처마다 셀카 그림이 달라요. 마음에 드는 두 곳에서 6장씩 사요.",
-      cart: [["llset", 1, "판매처 A"], ["stayg", 6, "판매처 B"]],
-      get: ["판매처 A·B 셀카 포카 최애 2종 확정", "최애 러브레터 ver. (A의 6종 세트)", "STAYG 6장 → 앨범 포카 18장"],
-      tips: ["예: 사운드웨이브에서 러브레터 6종 세트, 맵달서울에서 STAYG 6장."] },
-    { key: "value", chip: "포카 가성비", sub: "33,300원", title: "적은 돈으로 포카 많이", desc: "STAYG는 1장에 앨범 포카가 3장이라 포카당 가격이 가장 싸요.",
-      cart: [["stayg", 3, ""]],
-      get: ["앨범 포카 9장 (18종 중 랜덤)", "셀카 포카 3장 (랜덤)", "셀카 포함 포카 12장, 1장당 약 2,800원"],
-      tips: ["겹친 포카는 교환으로 최애와 바꾸기 좋아요."] },
     { key: "albumall", chip: "앨범 올클", sub: "24장", title: "앨범 구성품 올클", desc: "버전마다 6장씩, 앨범 안 랜덤 포카·스탠드·포스터를 멤버 6명 다 모으는 기준이에요.",
       cart: [["srset", 6, "STAR 6 + RACE 6"], ["llset", 1, "러브레터 멤버 버전 6종"], ["stayg", 6, ""]],
       get: ["버전별 랜덤 구성품 6개씩 (겹치지 않으면 멤버 6명 다)", "러브레터 멤버 버전 6종 전부", "셀카 포카 24장 — 판매처 4곳에 6장씩 나눠 사면 셀카 4세트(24종)"],
@@ -1227,7 +1219,8 @@ footer .fsmall { display: flex; justify-content: space-between; gap: 1rem; flex-
   const thumb = P => { const th = el("span", "sp-th"); P.img.forEach(src => { const im = el("img"); im.src = src; im.alt = ""; im.loading = "lazy"; th.append(im); }); return th; };
   const cartList = (cart) => {
     const ul = el("ul", "sp-prods");
-    cart.forEach(([k, q]) => { const P = PROD[k], t = el("span", "sp-pt"), b = el("b", null, P.name); if (q > 1) b.append(el("small", null, ` × ${q}`)); t.append(b, el("small", null, P.note)); ul.append(li(null, thumb(P), t, el("em", null, won(P.price * q)))); });
+    const row = (k, q, cls, note) => { const P = PROD[k], t = el("span", "sp-pt"), b = el("b", null, P.name); if (q > 1) b.append(el("small", null, ` × ${q}`)); t.append(b, el("small", null, note || P.note)); return li(cls, thumb(P), t, el("em", null, won(P.price * q))); };
+    cart.forEach(([k, q, , or]) => { ul.append(row(k, q)); if (or) { const o = row(or[0], or[1], "or", or[2]); o.prepend(el("span", "or-k", "OR")); ul.append(o); } });
     return ul;
   };
   const sumOf = cart => cart.reduce((a, [k, q]) => [a[0] + PROD[k].price * q, a[1] + PROD[k].n * q], [0, 0]);
