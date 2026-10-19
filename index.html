@@ -296,6 +296,34 @@ table.compare { width: 100%; min-width: 40rem; border-collapse: collapse; font-s
 .u-p > * { grid-column: 2; }
 .u-p .u-poster { grid-column: 1; grid-row: 1 / span 4; align-self: start; }
 .u-partners > .u-p:last-child:nth-child(odd) { grid-column: 1 / -1; }
+/* Union cards: poster on top, then what 이파리 do and what comes back */
+.u-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.4rem 1rem; margin-bottom: 1.6rem; }
+@media (max-width: 900px) { .u-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.2rem 0.75rem; } }
+.uc { display: flex; flex-direction: column; min-width: 0; border-top: 3px solid var(--u-c); background: var(--paper); }
+.uc.done { opacity: 0.45; }
+.uc-img { display: block; padding: 0; border: 0; background: var(--paper-2); cursor: zoom-in; aspect-ratio: 583 / 680; overflow: hidden; }
+.uc-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 500ms; }
+.uc-img:hover img { transform: scale(1.03); }
+.uc.self .uc-img img { object-position: 50% 30%; }
+.uc-body { display: flex; flex-direction: column; gap: 0.55rem; padding: 0.75rem 0 0; flex: 1; }
+.uc-top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.3rem 0.5rem; }
+.uc-top h3 { margin: 0; font-size: 1.05rem; font-weight: 600; letter-spacing: -0.02em; word-break: keep-all; }
+.uc-st { font-size: 0.68rem; font-weight: 600; padding: 0.12rem 0.45rem; border: 1px solid var(--ink); white-space: nowrap; }
+.uc-st.on { background: var(--hot); border-color: var(--hot); color: #FFFFFF; }
+.uc-st.done { border-color: var(--rule); color: var(--ink-3); }
+.uc-k { display: block; font-size: 0.66rem; font-weight: 600; letter-spacing: 0.04em; color: var(--ink-2); margin-bottom: 0.15rem; }
+.uc-give { display: grid; gap: 0.35rem; }
+.uc-task b { display: block; font-size: 0.9rem; font-weight: 600; line-height: 1.3; }
+.uc-task span { display: block; font-size: 0.74rem; color: var(--ink-2); }
+.uc-task.done { opacity: 0.4; text-decoration: line-through; }
+.uc-go { display: flex; flex-direction: column; gap: 0.3rem; }
+.uc-go .u-btn { padding: 0.55rem 0.7rem; font-size: 0.76rem; }
+.uc-get { margin: 0.2rem 0 0; font-size: 0.8rem; padding-top: 0.55rem; border-top: 1px solid var(--rule); }
+.uc-hash { margin: 0; font-size: 0.72rem; color: var(--ink-2); overflow-wrap: anywhere; }
+@media (max-width: 420px) {
+  .uc-top h3 { font-size: 0.95rem; }
+  .uc-task b { font-size: 0.84rem; }
+}
 /* Union, simplified rows */
 .u-who, .u-today .u-what .u-who { display: block; font-size: 0.98rem; line-height: 1.4; }
 .u-who i { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--u-c); margin-right: 0.45rem; vertical-align: 0.08em; }
@@ -608,10 +636,8 @@ footer .fsmall { display: flex; justify-content: space-between; gap: 1rem; flex-
       <p class="lead">다른 팬덤과 서로 투표해 주는 약속이에요.</p>
     </div>
 
-    <div class="u-today" id="u-today"></div>
-
-    <div class="u-cap" id="u-list-cap">곧 시작해요</div>
-    <ul class="u-list" id="u-list"></ul>
+    <div class="u-grid" id="u-grid"></div>
+    <p class="u-src">출처: 이세계차트 X <a href="https://x.com/isegyechart/status/2111786168253899138" target="_blank" rel="noopener">연합 정리</a> · <a href="https://x.com/isegyechart/status/2111787485173084326" target="_blank" rel="noopener">인증 안내</a> · <a href="https://x.com/isegyechart/status/2112031015552389218" target="_blank" rel="noopener">알파드라이브원</a>, 기사 <a href="https://www.starnewskorea.com/star/2026/09/04/2026090414043351811" target="_blank" rel="noopener">AAA</a> · <a href="https://www.startuptimes.kr/article/2026-%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD-%ED%95%9C%EB%A5%98%EC%97%B0%EC%98%88%EB%8C%80%EC%83%81-%EA%B8%80%EB%A1%9C%EB%B2%8C-%ED%8C%AC-%ED%88%AC%ED%91%9C-%EA%B0%9C%EB%A7%89-8%EA%B0%9C-%EB%B6%80%EB%AC%B8-%EA%B2%BD%EC%9F%81" target="_blank" rel="noopener">한류연예대상</a>. MMA 부문별 투표 링크는 10.30에 다시 알려 줘요.</p>
 
     <details class="u-fold">
       <summary>처음이라면 이렇게 하세요 <small>투표·스밍 방법, 인증 규칙</small></summary>
@@ -647,12 +673,6 @@ footer .fsmall { display: flex; justify-content: space-between; gap: 1rem; flex-
       <li>캡처에 휴대폰 시간이 보이게</li>
     </ul>
 
-    </details>
-
-    <details class="u-fold">
-      <summary>연합 팬덤별 정리 <small>엔믹스·리센느·에스파·아이브·알파드라이브원</small></summary>
-      <div class="u-partners" id="u-partners"></div>
-    <p class="u-src">출처: 이세계차트 X <a href="https://x.com/isegyechart/status/2111786168253899138" target="_blank" rel="noopener">연합 정리</a> · <a href="https://x.com/isegyechart/status/2111787485173084326" target="_blank" rel="noopener">인증 안내</a> · <a href="https://x.com/isegyechart/status/2112031015552389218" target="_blank" rel="noopener">알파드라이브원</a>, 기사 <a href="https://www.starnewskorea.com/star/2026/09/04/2026090414043351811" target="_blank" rel="noopener">AAA</a> · <a href="https://www.startuptimes.kr/article/2026-%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD-%ED%95%9C%EB%A5%98%EC%97%B0%EC%98%88%EB%8C%80%EC%83%81-%EA%B8%80%EB%A1%9C%EB%B2%8C-%ED%8C%AC-%ED%88%AC%ED%91%9C-%EA%B0%9C%EB%A7%89-8%EA%B0%9C-%EB%B6%80%EB%AC%B8-%EA%B2%BD%EC%9F%81" target="_blank" rel="noopener">한류연예대상</a>. MMA 부문별 투표 링크는 10.30에 다시 알려 줘요.</p>
     </details>
   </section>
 
@@ -1045,61 +1065,60 @@ footer .fsmall { display: flex; justify-content: space-between; gap: 1rem; flex-
   const dayStart = d => new Date(`2026-${d}T00:00:00+09:00`).getTime();
   const dayEnd = d => new Date(`2026-${d}T23:59:59+09:00`).getTime();
   const perText = t => `${t.from ? t.from.replace("-", ".") : "지금"} ~ ${t.to.replace("-", ".")}`;
-  const uList = document.getElementById("u-list"), uToday = document.getElementById("u-today"), uPartners = document.getElementById("u-partners");
   // short "who" and "what" for each task: "에스파" + "MMA TOP 10"
   U_TASKS.forEach(t => {
     const [w, who] = t.title.split(", ");
     t.who = t.who || (t.p === "self" ? "이세계아이돌" : who || partnerOf(t).name);
     t.what = t.what || w;
   });
-  Object.entries(PARTNERS).forEach(([k, P]) => {
-    const card = el("article", "u-p"), h = el("h3", null, P.name); h.append(el("small", null, `팬덤 ${P.fandom}`));
-    const dl = el("dl");
-    const give = el("dd"); give.textContent = U_TASKS.filter(t => t.p === k).map(t => `${t.title.replace(/, .*$/, "")} (${perText(t)}, ${t.where})`).join(" / ");
-    const get = el("dd"); get.textContent = U_RETURN[k].map(([a, w]) => `${a.replace(/, 이세계아이돌$/, "")} (${w})`).join(" / ");
-    dl.append(el("dt", null, `이파리가 ${P.name}에게`), give, el("dt", null, `${P.fandom}가 이세계아이돌에게`), get);
-    card.style.borderTop = `3px solid ${P.color}`;
-    // the official union poster, tap to see it full size
-    const pb = el("button", "u-poster"); pb.type = "button"; pb.setAttribute("aria-label", `${P.name} ${P.kind} 이미지 크게 보기`);
-    const pi = el("img"); pi.src = P.img; pi.alt = `이세계아이돌 × ${P.name} ${P.kind}`; pi.loading = "lazy"; pi.width = 583; pi.height = 680;
+  const mdText = d => d.replace("-", ".");
+  /* One card per fandom: the union poster, what 이파리 do (with the button), what they do back */
+  const uGrid = document.getElementById("u-grid");
+  const SELF_CARD = { ...SELF, img: "group.webp", kind: "투표", hash: "" };
+  const CARDS = [["self", SELF_CARD], ...Object.entries(PARTNERS)].map(([k, P]) => {
+    const tasks = U_TASKS.filter(t => t.p === k);
+    const card = el("article", "uc" + (k === "self" ? " self" : "")); card.style.setProperty("--u-c", P.color);
+    const pb = el("button", "uc-img"); pb.type = "button"; pb.setAttribute("aria-label", `${P.name} ${P.kind} 이미지 크게 보기`);
+    const pi = el("img"); pi.src = P.img; pi.alt = k === "self" ? "이세계아이돌 단체 사진" : `이세계아이돌 × ${P.name} ${P.kind}`; pi.loading = "lazy";
     pb.append(pi);
     pb.addEventListener("click", () => { viewerImg.src = P.img; viewerImg.alt = pi.alt; if (viewer.showModal) { viewer.showModal(); viewer.querySelector(".viewer-inner").scrollTop = 0; } });
-    card.append(pb, h, dl, el("div", "hash", P.hash), el("div", "u-credit", `이미지 출처: ${P.credit}`)); uPartners.append(card);
+    const st = el("span", "uc-st"), top = el("div", "uc-top"); top.append(el("h3", null, k === "self" ? "이세계아이돌 투표" : P.name), st);
+    const body = el("div", "uc-body"); body.append(top);
+    const give = el("div", "uc-give");
+    if (k !== "self") give.append(el("span", "uc-k", "이파리가 할 일"));
+    tasks.forEach(t => { const row = el("div", "uc-task"); row.append(el("b", null, t.what), el("span", null, `${t.from ? mdText(t.from) + " " : ""}~ ${mdText(t.to)}${t.toTime ? " " + t.toTime : ""} · ${t.where.replace(/ 앱$/, "")}`)); give.append(row); t.row = row; });
+    const seen = new Set(), links = tasks.flatMap(t => t.links).filter(l => !seen.has(l.url) && seen.add(l.url));
+    body.append(give, goLinks(links, "uc-go"));
+    if (k === "self") { const h = [...new Set(tasks.flatMap(t => t.helpers ? t.helpers.split("·") : []))]; body.append(el("p", "uc-get", `${h.join("·")}도 같이 투표해 줘요`)); }
+    else {
+      const get = el("p", "uc-get"); get.append(el("span", "uc-k", `${P.fandom}가 해 주는 것`), U_RETURN[k].map(([a, w]) => `${a.replace(/, 이세계아이돌$/, "")} (${w})`).join(" / "));
+      body.append(get, el("p", "uc-hash", P.hash));
+    }
+    card.append(pb, body); uGrid.append(card);
+    return { k, card, st, tasks };
   });
   let uLastKey = "";
-  const mdText = d => d.replace("-", ".");
-  const whoLine = t => { const x = el("span", "u-who"); const i = el("i"); i.style.setProperty("--u-c", partnerOf(t).color); x.append(i, el("b", null, t.who), ` ${t.what}`); return x; };
   function uTick() {
     const now = Date.now(), dLeft = ms => Math.max(0, Math.ceil(ms / 864e5));
-    const active = U_TASKS.filter(t => (t.from ? dayStart(t.from) : 0) <= now && now <= endOf(t));
-    const soon = U_TASKS.filter(t => t.from && dayStart(t.from) > now);
-    const key = active.map(t => t.title).join("|") + "#" + soon.map(t => t.title).join("|") + "#" + new Date(now + 9 * 36e5).toISOString().slice(0, 10);
+    const key = new Date(now + 9 * 36e5).toISOString().slice(0, 13);
     if (key === uLastKey) return; uLastKey = key;
-    // today: one line per task — who/what, where, days left, button
-    uToday.replaceChildren(el("span", "k", "오늘 이파리가 할 일"), el("h3", null, active.length ? `매일 ${active.length}가지` : "지금 진행 중인 연합은 없어요"));
-    if (active.length) {
-      const ul = el("ul");
-      [...active].sort((a, b) => endOf(a) - endOf(b)).forEach(t => {
-        const li = el("li"), what = el("div", "u-what"), meta = el("span", "u-meta");
-        meta.append(el("span", "u-k", t.kind), ` ${t.where} · `, el("b", null, `D-${dLeft(endOf(t) - now)}`));
-        what.append(whoLine(t), meta);
-        li.append(what, goLinks(t.links, "u-today-go")); ul.append(li);
-      });
-      uToday.append(ul);
-    }
-    // coming up: tasks that open together on the same page share one card
-    uList.replaceChildren();
-    const groups = new Map();
-    soon.forEach(t => { const k = [t.from, t.to, t.where, t.links[0].url].join("|"); if (!groups.has(k)) groups.set(k, []); groups.get(k).push(t); });
-    groups.forEach(ts => {
-      const t0 = ts[0], li = el("li", "u-soon"), head = el("div", "u-soon-h");
-      head.append(el("b", null, `${mdText(t0.from)} ${dowOf(t0.from)} 시작`), el("span", null, `~ ${mdText(t0.to)} · ${t0.where}`), el("span", "u-pill", `${dLeft(dayStart(t0.from) - now)}일 뒤`));
-      const items = el("div", "u-soon-items"); ts.forEach(t => items.append(whoLine(t)));
-      li.append(head, items, goLinks(t0.links, "u-go")); uList.append(li);
+    const order = [];
+    CARDS.forEach(c => {
+      const on = c.tasks.filter(t => (t.from ? dayStart(t.from) : 0) <= now && now <= endOf(t));
+      const soon = c.tasks.filter(t => t.from && dayStart(t.from) > now);
+      c.tasks.forEach(t => t.row.classList.toggle("done", now > endOf(t)));
+      let rank;
+      if (on.length) { const e = Math.min(...on.map(endOf)); c.st.textContent = `진행 중 D-${dLeft(e - now)}`; c.st.className = "uc-st on"; rank = e; }
+      else if (soon.length) { const s0 = Math.min(...soon.map(t => dayStart(t.from))); c.st.textContent = `${mdText(new Date(s0 + 9 * 36e5).toISOString().slice(5, 10))} 시작`; c.st.className = "uc-st soon"; rank = 1e15 + s0; }
+      else { c.st.textContent = "끝났어요"; c.st.className = "uc-st done"; rank = 2e15; }
+      c.card.classList.toggle("done", !on.length && !soon.length);
+      order.push([c.k === "self" ? 0 : 1, rank, c.card]);
     });
-    document.getElementById("u-list-cap").hidden = uList.hidden = !groups.size;
+    // our own votes first, then whatever ends soonest, then what starts next
+    order.sort((a, b) => a[0] - b[0] || a[1] - b[1]).forEach(x => uGrid.append(x[2]));
   }
   uTick(); setInterval(uTick, 60000);
+
 
 
   /* ---------- News + links ---------- */
