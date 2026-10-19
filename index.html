@@ -227,6 +227,17 @@ table.compare { width: 100%; min-width: 40rem; border-collapse: collapse; font-s
 .cd-st.on { background: var(--hot); border-color: var(--hot); color: #FFFFFF; }
 .cd-tt { font-size: 1.05rem; font-weight: 600; margin-top: 0.25rem; }
 .cd-ds { font-size: 0.85rem; color: var(--ink-2); }
+.cd-del { margin-left: auto; font: inherit; font-size: 0.7rem; color: var(--ink-3); background: none; border: 1px solid var(--rule); border-radius: 0; padding: 0.1rem 0.5rem; cursor: pointer; }
+.cd-del:hover { color: var(--hot); border-color: var(--hot); }
+.cd-empty { padding: 1rem 0 0.2rem; font-size: 0.85rem; color: var(--ink-2); }
+.my-form { display: grid; grid-template-columns: minmax(0, 1fr) 7.2rem auto; gap: 0.4rem; padding: 1rem 0 0.4rem; }
+.my-form input { font: inherit; font-size: 0.9rem; color: var(--ink); background: #FFFFFF; border: 1px solid var(--rule); border-radius: 0; padding: 0.6rem 0.7rem; min-width: 0; }
+.my-form input:focus { outline: 2px solid #E07B00; outline-offset: -1px; }
+.my-add { font: inherit; font-size: 0.85rem; font-weight: 600; color: #FFFFFF; background: #E07B00; border: 0; border-radius: 0; padding: 0 1.1rem; cursor: pointer; }
+.my-note { margin: 0 0 1rem; font-size: 0.7rem; color: var(--ink-3); }
+@media (max-width: 520px) { .my-form { grid-template-columns: minmax(0, 1fr) auto; } .my-form input[type="text"] { grid-column: 1 / -1; } }
+.cal-day.done .cal-ev.mine { opacity: 1; }
+.cal-day.next .cal-ev.mine { background: color-mix(in srgb, var(--c) 14%, transparent); color: var(--ink); }
 @media (max-width: 680px) {
   .cal { margin-inline: calc(-1 * max(20px, env(safe-area-inset-left, 0px))); border-left: 0; }
   .cal > :nth-child(7n) { border-right: 0; }
@@ -735,7 +746,7 @@ footer .fsmall { display: flex; justify-content: space-between; gap: 1rem; flex-
     <div class="sched-top">
       <div>
         <h2 class="title" id="h-schedule">공개 일정</h2>
-        <p class="lead">공식 스케줄러 기준이에요. 날짜를 누르면 무엇이 공개되는지 보여요.</p>
+        <p class="lead">공식 스케줄러 기준이에요. 날짜를 누르면 무엇이 공개되는지 보이고, 내 일정도 넣을 수 있어요.</p>
       </div>
       <div>
         <div class="sched-prog" id="sched-prog"></div>
@@ -1072,41 +1083,71 @@ footer .fsmall { display: flex; justify-content: space-between; gap: 1rem; flex-
   const T1 = SCHEDULE[SCHEDULE.length - 1].start;
   const DOW = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];
   const calEl = document.getElementById("cal"), calDetail = document.getElementById("cal-detail"), legendEl = document.getElementById("sched-legend"), nextBox = document.getElementById("sched-next");
-  Object.values(CATS).forEach(([n, c]) => { const s = el("span"), i = el("i"); i.style.setProperty("--c", c); s.append(i, n); legendEl.append(s); });
+  [...Object.values(CATS), ["내 일정", "#E07B00"]].forEach(([n, c]) => { const s = el("span"), i = el("i"); i.style.setProperty("--c", c); s.append(i, n); legendEl.append(s); });
   // Five Sunday-first weeks, 10.11 to 11.14, covering every announced date
   const CAL_START = new Date("2026-10-11T12:00:00+09:00").getTime();
   "일월화수목금토".split("").forEach((d, i) => calEl.append(el("span", "cal-dow" + (i === 0 ? " sun" : i === 6 ? " sat" : ""), d)));
+  // Viewers can pin their own plans on any date; kept in this browser only
+  const MY_C = "#E07B00";
+  let mine = store.get("ad-my-events", []);
+  if (!Array.isArray(mine)) mine = [];
+  mine = mine.filter(e => e && /^\d{2}-\d{2}$/.test(e.d) && typeof e.title === "string");
+  const saveMine = () => store.set("ad-my-events", mine);
+  const myOn = md => mine.filter(e => e.d === md).sort((a, b) => (a.time || "99").localeCompare(b.time || "99"));
   const days = [];
+  function paintDay(d) {
+    d.cell.querySelectorAll(".cal-ev").forEach(c => c.remove());
+    d.evs.forEach(s => { const c = el("span", "cal-ev"); c.style.setProperty("--c", CATS[s.c][1]); c.append(el("span", "full", s.chip[0]), el("span", "short", s.chip[1])); d.cell.append(c); });
+    myOn(d.md).forEach(e => { const c = el("span", "cal-ev mine"); c.style.setProperty("--c", MY_C); c.append(el("span", "full", (e.time ? e.time + " " : "") + e.title), el("span", "short", e.title.slice(0, 3))); d.cell.append(c); });
+    const all = [...d.evs.map(s => s.title), ...myOn(d.md).map(e => "내 일정 " + e.title)];
+    d.cell.setAttribute("aria-label", `${d.m}월 ${d.dd}일 ${DOW[d.wd]}${all.length ? ", " + all.join(", ") : ""}`);
+  }
   for (let n = 0; n < 35; n++) {
     const t = CAL_START + n * 864e5, md = new Date(t + 9 * 36e5).toISOString().slice(5, 10), [m, dd] = md.split("-").map(Number);
     const evs = SCHEDULE.filter(s => s.d === md), wd = n % 7;
-    const cell = el(evs.length ? "button" : "div", "cal-day" + (wd === 0 ? " sun" : wd === 6 ? " sat" : "") + (evs.length ? " has" : ""));
+    const cell = el("button", "cal-day has" + (wd === 0 ? " sun" : wd === 6 ? " sat" : ""));
+    cell.type = "button";
     const num = el("span", "cal-num", String(dd));
     if (dd === 1 || n === 0) num.prepend(el("small", "cal-m", `${m}월 `));
     cell.append(num);
-    evs.forEach(s => { const c = el("span", "cal-ev"); c.style.setProperty("--c", CATS[s.c][1]); c.append(el("span", "full", s.chip[0]), el("span", "short", s.chip[1])); cell.append(c); });
-    if (evs.length) {
-      cell.type = "button"; cell.setAttribute("aria-label", `${m}월 ${dd}일 ${DOW[wd]}, ${evs.map(s => s.title).join(", ")}`);
-      cell.addEventListener("click", () => pick(md));
-    }
-    days.push({ md, cell, evs });
+    cell.addEventListener("click", () => pick(md));
+    const d = { md, m, dd, wd, cell, evs };
+    days.push(d); paintDay(d);
     calEl.append(cell);
   }
   let picked = null, autoPick = true;
   function pick(md, auto) {
     if (!auto) autoPick = false;
     picked = md;
-    days.forEach(d => { d.cell.classList.toggle("picked", d.md === md); if (d.evs.length) d.cell.setAttribute("aria-pressed", String(d.md === md)); });
+    days.forEach(d => { d.cell.classList.toggle("picked", d.md === md); d.cell.setAttribute("aria-pressed", String(d.md === md)); });
     const d = days.find(x => x.md === md); calDetail.replaceChildren();
     if (!d) return;
-    const now = Date.now();
+    const now = Date.now(), dayName = `${md.replace("-", ".")} ${DOW[d.wd]}`;
     d.evs.forEach(s => {
       const row = el("div", "cd-row"), dot = el("i"); dot.style.setProperty("--c", CATS[s.c][1]);
-      const head = el("div", "cd-when"); head.append(dot, `${s.d.replace("-", ".")} ${DOW[new Date(`2026-${s.d}T12:00:00+09:00`).getUTCDay()]}${s.time ? " " + s.time : ""} · ${CATS[s.c][0]}`);
+      const head = el("div", "cd-when"); head.append(dot, `${dayName}${s.time ? " " + s.time : ""} · ${CATS[s.c][0]}`);
       const done = s.time ? s.start <= now : s.end < now;
       if (done) head.append(el("span", "cd-st", "공개됨")); else if (s.d === kstDay(now)) head.append(el("span", "cd-st on", "오늘"));
       row.append(head, el("div", "cd-tt", s.title), el("div", "cd-ds", s.desc)); calDetail.append(row);
     });
+    myOn(md).forEach(e => {
+      const row = el("div", "cd-row"), dot = el("i"); dot.style.setProperty("--c", MY_C);
+      const head = el("div", "cd-when"); head.append(dot, `${dayName}${e.time ? " " + e.time : ""} · 내 일정`);
+      const del = el("button", "cd-del", "삭제"); del.type = "button"; del.setAttribute("aria-label", `${e.title} 삭제`);
+      del.addEventListener("click", () => { mine = mine.filter(x => x !== e); saveMine(); paintDay(d); pick(md); });
+      head.append(del); row.append(head, el("div", "cd-tt", e.title)); calDetail.append(row);
+    });
+    if (!d.evs.length && !myOn(md).length) calDetail.append(el("div", "cd-empty", `${dayName}에는 공식 일정이 없어요.`));
+    const f = el("form", "my-form"), ti = el("input"), tm = el("input"), go = el("button", "my-add", "추가");
+    ti.type = "text"; ti.maxLength = 30; ti.required = true; ti.placeholder = `${md.replace("-", ".")}에 내 일정 추가 (예: 사운드웨이브 결제)`; ti.setAttribute("aria-label", "내 일정 이름");
+    tm.type = "time"; tm.setAttribute("aria-label", "시간 (선택)"); go.type = "submit";
+    f.append(ti, tm, go);
+    f.addEventListener("submit", ev => {
+      ev.preventDefault(); const title = ti.value.trim(); if (!title) return;
+      mine.push({ id: Date.now().toString(36), d: md, time: tm.value || "", title }); saveMine(); paintDay(d); pick(md);
+      const again = calDetail.querySelector(".my-form input"); if (again) again.focus();
+    });
+    calDetail.append(f, el("p", "my-note", "내 일정은 이 기기(브라우저)에만 저장돼요. 다른 사람에게는 보이지 않아요."));
   }
   const kstDay = t => new Date(t + 9 * 36e5).toISOString().slice(5, 10);
   const countEl = document.getElementById("count"), countCap = document.getElementById("count-cap"), dday = document.getElementById("dday");
@@ -1169,6 +1210,12 @@ footer .fsmall { display: flex; justify-content: space-between; gap: 1rem; flex-
       if (s.time) lines.push(`DTSTART:${z(s.start)}`, `DTEND:${z(s.start + 36e5)}`);
       else lines.push(`DTSTART;VALUE=DATE:${ymd(s.d)}`, `DTEND;VALUE=DATE:${nextYmd(s.d)}`);
       lines.push(`SUMMARY:[이세돌] ${s.title}`, `DESCRIPTION:${s.desc}`, "URL:https://mini2isegye.hehezone.com/", "END:VEVENT");
+    });
+    mine.forEach(e => {
+      lines.push("BEGIN:VEVENT", `UID:my-${e.id}@mini2isegye.hehezone.com`, `DTSTAMP:${z(Date.now())}`);
+      if (e.time) { const st = new Date(`2026-${e.d}T${e.time}:00+09:00`).getTime(); lines.push(`DTSTART:${z(st)}`, `DTEND:${z(st + 36e5)}`); }
+      else lines.push(`DTSTART;VALUE=DATE:${ymd(e.d)}`, `DTEND;VALUE=DATE:${nextYmd(e.d)}`);
+      lines.push(`SUMMARY:${e.title.replace(/[\\;,\n]/g, " ")}`, "END:VEVENT");
     });
     lines.push("END:VCALENDAR");
     const a = el("a"); a.href = URL.createObjectURL(new Blob([lines.join("\r\n")], { type: "text/calendar;charset=utf-8" }));
