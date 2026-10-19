@@ -136,17 +136,13 @@ table.compare { width: 100%; min-width: 40rem; border-collapse: collapse; font-s
 .cmp-list li.no span:last-child { color: var(--ink-3); }
 .cmp-list .r { color: var(--hot); }
 
-/* Interlude band */
-.band { position: relative; margin-top: clamp(4rem, 8vw, 7rem); background: var(--night); }
-.band img { display: block; width: 100%; height: auto; aspect-ratio: 2.6 / 1; object-fit: cover; max-width: 100%; }
-@media (max-width: 680px) {
-  .band img { aspect-ratio: 1907 / 627; }
-  .band-cap { position: static; justify-items: start; text-align: left; color: #FFFFFF; padding: 1rem max(20px, env(safe-area-inset-left, 0px)) 1.2rem; }
-  .band-cap strong, .band-cap span { text-shadow: none; }
-}
-.band-cap { position: absolute; right: max(20px, env(safe-area-inset-right, 0px)); bottom: clamp(1.2rem, 4vw, 3rem); display: grid; justify-items: end; gap: 0.5rem; color: #fff; text-align: right; }
-.band-cap strong { font-size: clamp(1.4rem, 3vw, 2.4rem); font-weight: 500; letter-spacing: -0.02em; text-shadow: 0 1px 18px rgba(80, 40, 120, 0.4); }
-.band-cap span { font-size: 0.78rem; text-shadow: 0 1px 10px rgba(80, 40, 120, 0.45); }
+/* Interlude band: the full cover, then a dark strip with the release time (never over the logo) */
+.band { margin-top: clamp(4rem, 8vw, 7rem); background: var(--night); color: #FFFFFF; }
+.band img { display: block; width: 100%; height: auto; aspect-ratio: 1907 / 627; object-fit: cover; }
+.band-cap { display: flex; align-items: baseline; justify-content: space-between; gap: 0.4rem 1.5rem; flex-wrap: wrap; padding: clamp(1rem, 2.5vw, 1.6rem) max(20px, env(safe-area-inset-right, 0px)) clamp(1.1rem, 2.5vw, 1.7rem) max(20px, env(safe-area-inset-left, 0px)); max-width: 92rem; margin: 0 auto; }
+.band-cap strong { font-size: clamp(1.5rem, 4vw, 2.6rem); font-weight: 500; letter-spacing: -0.03em; line-height: 1; font-variant-numeric: tabular-nums; }
+.band-cap strong small { font-size: 0.45em; font-weight: 600; letter-spacing: 0.08em; color: rgba(255,255,255,0.55); margin-right: 0.6em; vertical-align: 0.35em; }
+.band-cap span { font-size: 0.85rem; color: rgba(255,255,255,0.7); }
 
 /* Lists */
 .split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: 2rem 4rem; }
@@ -600,7 +596,7 @@ footer .fsmall { display: flex; justify-content: space-between; gap: 1rem; flex-
 
   <div class="band">
     <img src="cover.webp" alt="" width="1907" height="627">
-    <div class="band-cap"><strong>11.09 MON 18:00</strong><span>뮤직비디오와 앨범 동시 공개</span></div>
+    <div class="band-cap"><strong><small>RELEASE</small>11.09 MON 18:00</strong><span>뮤직비디오와 앨범 동시 공개</span></div>
   </div>
 
   <section class="sec wrap" id="schedule" aria-labelledby="h-schedule">
