@@ -379,49 +379,67 @@ table.compare { width: 100%; min-width: 40rem; border-collapse: collapse; font-s
 .u-src a { color: var(--ink); }
 
 /* Goods guide: two tab levels (goal / store) and one panel */
-.gd-main { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--ink); margin-bottom: 1rem; }
-.gd-main button { font: inherit; font-size: 0.95rem; font-weight: 600; padding: 0.85rem 0.5rem; border: 0; background: transparent; color: var(--ink); cursor: pointer; border-radius: 0; }
+.gd-main { display: inline-grid; grid-auto-flow: column; gap: 0; border: 1px solid var(--ink); margin-bottom: 0.9rem; }
+.gd-main button { font: inherit; font-size: 0.88rem; font-weight: 600; padding: 0.6rem 1.2rem; border: 0; background: transparent; color: var(--ink); cursor: pointer; border-radius: 0; }
 .gd-main button[aria-selected="true"] { background: var(--ink); color: #FFFFFF; }
-.gd-chips { display: flex; gap: 0.4rem; overflow-x: auto; padding-bottom: 0.3rem; margin-bottom: 1.2rem; scrollbar-width: none; }
+.gd-chips { display: flex; gap: 0.35rem; overflow-x: auto; padding-bottom: 0.2rem; margin-bottom: 1.6rem; scrollbar-width: none; }
 .gd-chips::-webkit-scrollbar { display: none; }
-.gd-chips button { flex: 0 0 auto; display: grid; gap: 0.1rem; text-align: left; font: inherit; padding: 0.6rem 0.85rem; border: 1px solid var(--rule); background: #FFFFFF; color: var(--ink); cursor: pointer; border-radius: 0; }
-.gd-chips button b { font-size: 0.86rem; font-weight: 600; white-space: nowrap; }
-.gd-chips button small { font-size: 0.7rem; color: var(--ink-2); white-space: nowrap; }
-.gd-chips button[aria-selected="true"] { border-color: var(--ink); background: var(--ink); color: #FFFFFF; }
-.gd-chips button[aria-selected="true"] small { color: rgba(255,255,255,0.7); }
-.gd-panel { border-top: 1px solid var(--ink); padding-top: 1.4rem; min-height: 20rem; }
-.gp-top { display: flex; justify-content: space-between; align-items: flex-end; gap: 1rem 2rem; flex-wrap: wrap; margin-bottom: 1.4rem; }
-.gp-top h3 { margin: 0; font-size: clamp(1.25rem, 2.6vw, 1.6rem); font-weight: 600; letter-spacing: -0.02em; }
-.gp-top p { margin: 0.3rem 0 0; color: var(--ink-2); font-size: 0.9rem; max-width: 36rem; }
-.gp-total { display: grid; justify-items: end; text-align: right; }
-.gp-total small { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.05em; color: var(--ink-2); }
-.gp-total b { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 500; letter-spacing: -0.04em; line-height: 1.05; font-variant-numeric: tabular-nums; }
-.gp-total span { font-size: 0.8rem; color: var(--ink-2); }
-.gp-cols { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 1.4rem 2.4rem; }
-@media (max-width: 760px) { .gp-cols { grid-template-columns: 1fr; } .gp-top { align-items: flex-start; } .gp-total { justify-items: start; text-align: left; } }
-.gp-k { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.05em; color: var(--ink-2); margin: 0 0 0.5rem; }
-.gp-cart { list-style: none; margin: 0 0 0.4rem; padding: 0; border-top: 1px solid var(--ink); }
-.gp-cart li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 0.1rem 1rem; padding: 0.7rem 0; border-bottom: 1px solid var(--rule); }
-.gp-cart li b { font-weight: 600; font-size: 0.95rem; }
-.gp-cart li i { font-style: normal; font-size: 0.8rem; color: var(--ink-2); grid-column: 1; }
-.gp-cart li em { font-style: normal; font-variant-numeric: tabular-nums; font-weight: 600; grid-column: 2; grid-row: 1 / span 2; align-self: center; text-align: right; white-space: nowrap; }
-.gp-cart li em small { display: block; font-size: 0.72rem; font-weight: 500; color: var(--ink-2); }
-.gp-get { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.45rem; }
-.gp-get li { display: grid; grid-template-columns: 1.2rem minmax(0, 1fr); gap: 0.4rem; font-size: 0.9rem; }
+.gd-chips button { flex: 0 0 auto; font: inherit; font-size: 0.84rem; font-weight: 500; padding: 0.45rem 0.85rem; border: 1px solid var(--rule); background: transparent; color: var(--ink-2); cursor: pointer; border-radius: 999px; white-space: nowrap; }
+.gd-chips button[aria-selected="true"] { border-color: var(--ink); background: var(--ink); color: #FFFFFF; font-weight: 600; }
+.gd-panel { min-height: 18rem; }
+.gp-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 0.6rem 2rem; flex-wrap: wrap; padding-bottom: 1.1rem; border-bottom: 1px solid var(--ink); margin-bottom: 1.2rem; }
+.gp-top h3 { margin: 0; font-size: clamp(1.2rem, 2.4vw, 1.5rem); font-weight: 600; letter-spacing: -0.02em; }
+.gp-top p { margin: 0.25rem 0 0; color: var(--ink-2); font-size: 0.88rem; }
+.gp-total { text-align: right; }
+.gp-total b { display: block; font-size: clamp(1.6rem, 3.6vw, 2.2rem); font-weight: 500; letter-spacing: -0.04em; line-height: 1; font-variant-numeric: tabular-nums; }
+.gp-total span { font-size: 0.76rem; color: var(--ink-2); }
+@media (max-width: 560px) { .gp-total { text-align: left; } }
+.gp-k { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.05em; color: var(--ink-2); margin: 0 0 0.5rem; }
+.gp-cart { list-style: none; margin: 0; padding: 0; }
+.gp-cart li { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; padding: 0.55rem 0; border-bottom: 1px solid var(--rule); font-size: 0.92rem; }
+.gp-cart li:first-child { padding-top: 0; }
+.gp-cart li b { font-weight: 600; }
+.gp-cart li b small { font-weight: 500; color: var(--ink-2); margin-left: 0.35rem; }
+.gp-cart li em { font-style: normal; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.gp-cols { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 1.4rem 3rem; }
+@media (max-width: 760px) { .gp-cols { grid-template-columns: 1fr; } }
+.gp-get { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.4rem; font-size: 0.88rem; }
+.gp-get li { display: grid; grid-template-columns: 1.1rem minmax(0, 1fr); gap: 0.35rem; }
 .gp-get li::before { content: "✓"; font-weight: 700; color: var(--ok); }
-.gp-get li.maybe::before { content: "?"; color: var(--warn); }
-.gp-tips { list-style: none; margin: 1.4rem 0 0; padding: 0.9rem 1rem; background: var(--paper-2); display: grid; gap: 0.35rem; font-size: 0.84rem; }
-.gp-tips li::before { content: "· "; font-weight: 700; }
-.sp-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 1.4rem 2.4rem; align-items: start; }
-@media (max-width: 760px) { .sp-grid { grid-template-columns: 1fr; } }
+.gp-get li.maybe::before { content: "·"; color: var(--ink-3); }
+.gp-get li.maybe { color: var(--ink-2); }
+.gp-tip { margin: 1.3rem 0 0; font-size: 0.8rem; color: var(--ink-2); padding-left: 0.7rem; border-left: 2px solid var(--rule); }
+.gp-alt { margin-top: 0.9rem; font-size: 0.84rem; color: var(--ink-2); }
+.gp-alt b { color: var(--ink); font-weight: 600; }
+/* store panel */
+.sp-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 1.4rem 3rem; align-items: start; }
+@media (max-width: 860px) { .sp-grid { grid-template-columns: 1fr; } }
+.sp-ben { margin: 0 0 1.1rem; }
+.sp-ben img { display: block; width: 100%; height: auto; }
+.sp-ben figcaption { font-size: 0.74rem; color: var(--ink-3); margin-top: 0.35rem; }
+.sp-opts { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; }
+.sp-opt { border: 1px solid var(--rule); padding: 0.85rem 0.9rem; display: grid; gap: 0.15rem; background: #FFFFFF; }
+.sp-opt.best { border-color: var(--ink); }
+.sp-opt small { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.04em; color: var(--ink-2); }
+.sp-opt b { font-size: 0.92rem; font-weight: 600; }
+.sp-opt span { font-size: 1.15rem; font-weight: 500; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+.sp-row { display: grid; grid-template-columns: minmax(0, 1fr) 11rem; gap: 1.4rem 2rem; align-items: start; }
+@media (max-width: 560px) { .sp-opts { grid-template-columns: 1fr 1fr; } }
 .sp-shot { margin: 0; }
-.sp-shot button { display: block; width: 100%; padding: 0; border: 1px solid var(--rule); background: #FFFFFF; cursor: zoom-in; }
-.sp-shot img { display: block; width: 100%; height: auto; }
-.sp-shot figcaption { font-size: 0.72rem; color: var(--ink-3); margin-top: 0.4rem; }
-.sp-ben { display: block; width: 100%; height: auto; margin-bottom: 0.4rem; }
-.sp-block { margin-bottom: 1.2rem; }
-.sp-block p { margin: 0; font-size: 0.86rem; color: var(--ink-2); }
-.sp-go { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+.sp-shot button { display: block; width: 100%; padding: 0; border: 1px solid var(--rule); background: #FFFFFF; cursor: zoom-in; aspect-ratio: 4 / 3; overflow: hidden; }
+.sp-shot img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top left; }
+.sp-shot figcaption { font-size: 0.72rem; color: var(--ink-2); margin-top: 0.35rem; }
+.sp-prods { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--ink); }
+.sp-prods li { display: grid; grid-template-columns: 3.4rem minmax(0, 1fr) auto; gap: 0.8rem; align-items: center; padding: 0.6rem 0; border-bottom: 1px solid var(--rule); }
+.sp-th { display: flex; height: 3.4rem; overflow: hidden; background: var(--paper-2); }
+.sp-th img { flex: 1 1 0; min-width: 0; height: 100%; object-fit: cover; }
+.sp-pt b { display: block; font-size: 0.9rem; font-weight: 600; }
+.sp-pt b small { display: inline; font-size: inherit; color: var(--ink-2); font-weight: 500; }
+.sp-pt small { display: block; font-size: 0.74rem; color: var(--ink-2); }
+.sp-prods em { font-style: normal; font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.sp-notes { list-style: none; margin: 1.3rem 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.35rem 1.2rem; font-size: 0.8rem; color: var(--ink-2); }
+.sp-notes li::before { content: ""; display: inline-block; width: 4px; height: 4px; background: var(--ink-3); margin-right: 0.45rem; vertical-align: 0.2em; }
+.sp-go { margin-left: auto; }
 
 /* Goods guide (current) */
 .g-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: 1rem 4rem; align-items: end; margin-bottom: 2.4rem; }
@@ -726,7 +744,7 @@ footer .fsmall { display: flex; justify-content: space-between; gap: 1rem; flex-
     <div class="label">GOODS</div>
     <div class="g-head">
       <h2 class="title" id="h-collect">구매 가이드</h2>
-      <p class="lead">원하는 방법을 누르면 <b>무엇을 몇 장</b> 담을지 바로 보여요. 판매처 특전은 <b>11.8(일) 23:59 결제분</b>까지예요.</p>
+      <p class="lead">원하는 방법을 누르면 무엇을 몇 장 담을지 보여요. 특전은 11.8(일) 23:59 결제분까지.</p>
     </div>
     <div class="gd-main" role="tablist" aria-label="가이드 종류">
       <button type="button" role="tab" data-main="goal">목표별로 사기</button>
@@ -734,7 +752,7 @@ footer .fsmall { display: flex; justify-content: space-between; gap: 1rem; flex-
     </div>
     <div class="gd-chips" role="tablist" id="gd-chips"></div>
     <div class="gd-panel" id="gd-panel" role="tabpanel" aria-live="polite"></div>
-    <p class="g-note">가격은 10.19 판매처 정가 기준이에요(배송비 별도). 특전 포카 미리보기는 공식 공지 이미지(흐림 처리) ⓒ 패러블엔터테인먼트, 판매처 화면은 10.19 캡처예요.</p>
+    <p class="g-note">10.19 정가 기준, 배송비 별도 · 앨범 이미지와 특전 미리보기 ⓒ 패러블엔터테인먼트</p>
   </section>
 
   <section class="sec wrap" id="news" aria-labelledby="h-news">
@@ -1141,11 +1159,11 @@ footer .fsmall { display: flex; justify-content: space-between; gap: 1rem; flex-
   /* ---------- Goods guide: goal options and per-store benefit tabs ---------- */
   const won = n => n.toLocaleString("ko-KR") + "원";
   const PROD = {
-    sr: { name: "STAR/RACE 2종 중 1종 랜덤", price: 25200, n: 1, note: "STAR와 RACE 중 하나가 무작위로 와요" },
-    srset: { name: "STAR/RACE 2종 세트", price: 50400, n: 2, note: "STAR 1장 + RACE 1장" },
-    ll: { name: "LOVE LETTER 6종 중 1종 랜덤", price: 15600, n: 1, note: "6가지 색 중 하나가 무작위로 와요" },
-    llset: { name: "LOVE LETTER 6종 세트", price: 93600, n: 6, note: "6가지 색 1장씩, 셀카 포카 6종 세트" },
-    stayg: { name: "STAYG", price: 11100, n: 1, note: "가장 싼 버전 (NFC 앨범)" }
+    sr: { img: ["guide/pack-star.webp", "guide/pack-race.webp"], name: "STAR/RACE 2종 중 1종 랜덤", price: 25200, n: 1, note: "STAR와 RACE 중 하나가 무작위로 와요" },
+    srset: { img: ["guide/pack-star.webp", "guide/pack-race.webp"], name: "STAR/RACE 2종 세트", price: 50400, n: 2, note: "STAR 1장 + RACE 1장" },
+    ll: { img: ["guide/pack-letter.webp"], name: "LOVE LETTER 6종 중 1종 랜덤", price: 15600, n: 1, note: "6가지 색 중 하나가 무작위로 와요" },
+    llset: { img: ["guide/pack-letter.webp"], name: "LOVE LETTER 6종 세트", price: 93600, n: 6, note: "6가지 색 1장씩, 셀카 포카 6종 세트" },
+    stayg: { img: ["guide/pack-stayg.webp"], name: "STAYG", price: 11100, n: 1, note: "가장 싼 버전 (NFC 앨범)" }
   };
   // [product key, quantity, where]
   const GOALS = [
@@ -1194,9 +1212,10 @@ footer .fsmall { display: flex; justify-content: space-between; gap: 1rem; flex-
   let gState = store.get("ad-guide", { main: "goal", goal: "bias", store: "soundwave" });
   if (!gState || !gState.main) gState = { main: "goal", goal: "bias", store: "soundwave" };
   const li = (cls, ...kids) => { const x = el("li", cls); x.append(...kids); return x; };
+  const thumb = P => { const th = el("span", "sp-th"); P.img.forEach(src => { const im = el("img"); im.src = src; im.alt = ""; im.loading = "lazy"; th.append(im); }); return th; };
   const cartList = (cart) => {
-    const ul = el("ul", "gp-cart");
-    cart.forEach(([k, q, where]) => { const P = PROD[k], em = el("em", null, won(P.price * q)); em.append(el("small", null, `${won(P.price)} × ${q}`)); ul.append(li(null, el("b", null, `${P.name} × ${q}`), el("i", null, where || P.note), em)); });
+    const ul = el("ul", "sp-prods");
+    cart.forEach(([k, q]) => { const P = PROD[k], t = el("span", "sp-pt"), b = el("b", null, P.name); if (q > 1) b.append(el("small", null, ` × ${q}`)); t.append(b, el("small", null, P.note)); ul.append(li(null, thumb(P), t, el("em", null, won(P.price * q)))); });
     return ul;
   };
   const sumOf = cart => cart.reduce((a, [k, q]) => [a[0] + PROD[k].price * q, a[1] + PROD[k].n * q], [0, 0]);
@@ -1204,37 +1223,39 @@ footer .fsmall { display: flex; justify-content: space-between; gap: 1rem; flex-
   function renderGoal(G) {
     const [total, n] = sumOf(G.cart), top = el("div", "gp-top"), head = el("div"), tot = el("div", "gp-total");
     head.append(el("h3", null, G.title), el("p", null, G.desc));
-    tot.append(el("small", null, "총액 (정가)"), el("b", null, won(total)), el("span", null, `앨범 ${n}장`));
+    tot.append(el("b", null, won(total)), el("span", null, `앨범 ${n}장 · 정가`));
     top.append(head, tot);
     const cols = el("div", "gp-cols"), a = el("div"), b = el("div");
-    a.append(el("div", "gp-k", "장바구니에 담을 것"), cartList(G.cart));
-    if (G.alt) { const [t2, n2] = sumOf(G.alt); a.append(el("div", "gp-k", `또는 더 싸게 · ${won(t2)} / ${n2}장`), cartList(G.alt)); }
+    a.append(el("div", "gp-k", "장바구니"), cartList(G.cart));
+    if (G.alt) { const [t2] = sumOf(G.alt), p = el("p", "gp-alt"); p.append("더 싸게: ", el("b", null, G.alt.map(([k, q]) => `${PROD[k].name} × ${q}`).join(", ")), ` · ${won(t2)}`); a.append(p); }
     const get = el("ul", "gp-get"); G.get.forEach(t => get.append(li(null, t))); (G.maybe || []).forEach(t => get.append(li("maybe", t)));
     b.append(el("div", "gp-k", "받는 것"), get);
     cols.append(a, b);
-    const tips = el("ul", "gp-tips"); G.tips.forEach(t => tips.append(li(null, t)));
-    gPanel.replaceChildren(top, cols, tips);
+    gPanel.replaceChildren(top, cols, el("p", "gp-tip", G.tips[0]));
   }
   function renderStore(S) {
-    const top = el("div", "gp-top"), head = el("div"), go = el("div", "sp-go"), a = el("a", "btn", "판매처에서 보기");
-    a.href = S.url; a.target = "_blank"; a.rel = "noopener"; go.append(a);
-    head.append(el("h3", null, S.name), el("p", null, "앨범 1장마다 미공개 셀카 포카 6종 중 1장 · 6장 사면 1세트"));
-    top.append(head, go);
-    const grid = el("div", "sp-grid"), fig = el("figure", "sp-shot"), sb = el("button"), simg = el("img");
-    sb.type = "button"; sb.setAttribute("aria-label", `${S.name} 화면 크게 보기`); simg.src = `guide/store-${S.key}.webp`; simg.alt = `${S.name} 상품 화면`; simg.loading = "lazy";
-    sb.append(simg); sb.addEventListener("click", () => zoomImg(simg.src, simg.alt)); fig.append(sb, el("figcaption", null, `${S.name} 화면 (10.19 캡처) · 누르면 크게 보여요`));
-    const info = el("div"), ben = el("div", "sp-block"), bimg = el("img", "sp-ben");
+    const top = el("div", "gp-top"), head = el("div"), a = el("a", "btn sp-go", "판매처 가기");
+    a.href = S.url; a.target = "_blank"; a.rel = "noopener";
+    head.append(el("h3", null, S.name), el("p", null, "앨범 1장 = 셀카 포카 1장 (6종 랜덤) · 6장 = 1세트"));
+    top.append(head, a);
+    const ben = el("figure", "sp-ben"), bimg = el("img");
     bimg.src = `guide/benefit-${S.key}.webp`; bimg.alt = `${S.name} 셀카 포카 특전 미리보기`; bimg.loading = "lazy";
-    ben.append(el("div", "gp-k", "이 판매처 셀카 특전 (미리보기)"), bimg, el("p", null, "멤버별 1종, 모두 6종 · 다른 판매처와 그림이 달라요"));
-    const all = el("div", "sp-block"); all.append(el("div", "gp-k", "이 판매처 특전 올클 (6장)"));
-    all.append(cartList([["llset", 1, "가장 확실 · 셀카 6종 세트 증정"]]), cartList([["stayg", 6, "가장 싸게 · 6장이면 1세트 (판매처 확인 추천)"]]));
-    const pr = el("div", "sp-block"); pr.append(el("div", "gp-k", "상품과 가격"));
-    if (S.prods) { const ul = el("ul", "gp-cart"); S.prods.forEach(k => { const P = PROD[k]; ul.append(li(null, el("b", null, P.name), el("i", null, P.note), el("em", null, won(P.price)))); }); pr.append(ul); }
-    else pr.append(el("p", null, "로그인하면 버전과 가격이 보여요. 다른 판매처와 정가가 같다면 STAYG 11,100원이 가장 싸요."));
-    const nt = el("ul", "gp-tips"); S.notes.forEach(t => nt.append(li(null, t)));
-    info.append(ben, all, pr);
-    grid.append(fig, info);
-    gPanel.replaceChildren(top, grid, nt);
+    ben.append(bimg, el("figcaption", null, `${S.name} 셀카 포카 6종 (공식 미리보기)`));
+    const opts = el("div", "sp-opts");
+    [["가장 확실", "LOVE LETTER 6종 세트", 93600, true], ["가장 싸게", "STAYG × 6", 66600, false]].forEach(([k, n, p, best]) => { const o = el("div", "sp-opt" + (best ? " best" : "")); o.append(el("small", null, `셀카 올클 · ${k}`), el("b", null, n), el("span", null, won(p))); opts.append(o); });
+    const prod = el("div");
+    prod.append(el("div", "gp-k", "상품과 가격"));
+    if (S.prods) {
+      const ul = el("ul", "sp-prods");
+      S.prods.forEach(k => {
+        const P = PROD[k], th = thumb(P);
+        const t = el("span", "sp-pt"); t.append(el("b", null, P.name), el("small", null, P.note));
+        ul.append(li(null, th, t, el("em", null, won(P.price))));
+      });
+      prod.append(ul);
+    } else prod.append(el("p", "gp-alt", "버전과 가격은 로그인하면 보여요. 정가가 같다면 STAYG(11,100원)가 가장 싸요."));
+    const nt = el("ul", "sp-notes"); S.notes.forEach(t => nt.append(li(null, t)));
+    const L = el("div"), grid = el("div", "sp-grid"); L.append(ben, opts); grid.append(L, prod); gPanel.replaceChildren(top, grid, nt);
   }
   function renderGuide() {
     gMain.forEach(b => b.setAttribute("aria-selected", String(b.dataset.main === gState.main)));
@@ -1242,7 +1263,7 @@ footer .fsmall { display: flex; justify-content: space-between; gap: 1rem; flex-
     const sel = list.find(x => x.key === cur) || list[0];
     gChips.replaceChildren(...list.map(x => {
       const b = el("button"); b.type = "button"; b.setAttribute("role", "tab"); b.setAttribute("aria-selected", String(x === sel));
-      b.append(el("b", null, x.chip || x.name), el("small", null, x.sub || (x.prods ? "특전 · 5개 상품" : "특전 · 이벤트 페이지")));
+      b.textContent = x.chip || x.name;
       b.addEventListener("click", () => { gState[gState.main] = x.key; store.set("ad-guide", gState); renderGuide(); });
       return b;
     }));
