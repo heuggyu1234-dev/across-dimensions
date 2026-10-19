@@ -1155,7 +1155,9 @@ footer .fsmall { display: flex; justify-content: space-between; gap: 1rem; flex-
   let progDay = "", progNext = null;
   setInterval(() => { const now = Date.now(), k = kstDay(now) + (SCHEDULE.find(s => (s.time ? s.start > now : s.end >= now)) || {}).d; if (k !== progDay) { progDay = k; renderProg(); } }, 1000);
   renderProg(); progDay = kstDay(Date.now()) + ((SCHEDULE.find(s => (s.time ? s.start > Date.now() : s.end >= Date.now())) || {}).d);
-  // One .ics file with every date, so the whole schedule lands in a phone or Google calendar
+  // One .ics file with every date, so the whole schedule lands in a phone or Google calendar.
+  // The claude.ai viewer blocks file downloads, so the button only shows on the public site.
+  if (window.claude) { document.getElementById("ics-btn").hidden = true; document.querySelector(".ics-note").hidden = true; }
   document.getElementById("ics-btn").addEventListener("click", () => {
     const z = t => new Date(t).toISOString().replace(/[-:]/g, "").slice(0, 15) + "Z";
     const ymd = d => "2026" + d.replace("-", ""), nextYmd = d => new Date(new Date(`2026-${d}T12:00:00Z`).getTime() + 864e5).toISOString().slice(0, 10).replace(/-/g, "");
