@@ -189,7 +189,7 @@ table.compare { width: 100%; min-width: 40rem; border-collapse: collapse; font-s
 .sched-prog { margin-top: 2rem; }
 .sp-top { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; font-size: 0.75rem; color: var(--ink-2); margin-bottom: 0.55rem; }
 .sp-top b { font-size: 1.6rem; font-weight: 500; letter-spacing: -0.03em; color: var(--ink); font-variant-numeric: tabular-nums; margin-right: 0.2rem; }
-.sp-bar { display: grid; grid-template-columns: repeat(15, minmax(0, 1fr)); gap: 3px; }
+.sp-bar { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 3px; }
 .sp-bar i { height: 8px; background: color-mix(in srgb, var(--c) 20%, transparent); }
 .sp-bar i.on { background: var(--c); }
 .sp-bar i.nx { background: repeating-linear-gradient(-45deg, var(--c) 0 3px, color-mix(in srgb, var(--c) 30%, transparent) 3px 6px); }
@@ -740,7 +740,7 @@ footer .fsmall { display: flex; justify-content: space-between; gap: 1rem; flex-
     <div class="cal-detail" id="cal-detail" aria-live="polite"></div>
     <div class="ics-wrap">
       <button type="button" class="ics-btn" id="ics-btn">내 캘린더에 일정 추가</button>
-      <span class="ics-note">휴대폰·구글 캘린더에 15개 일정이 한 번에 들어가요.</span>
+      <span class="ics-note">휴대폰·구글 캘린더에 모든 일정이 한 번에 들어가요.</span>
     </div>
   </section>
 
@@ -1032,7 +1032,7 @@ footer .fsmall { display: flex; justify-content: space-between; gap: 1rem; flex-
   showCmp(0);
 
   /* ---------- Schedule calendar + countdown ---------- */
-  const CATS = { sale: ["예약 판매", "#8C8A84"], photo: ["컨셉 포토", "#5B5FD6"], music: ["음악·영상", "#D93A63"] };
+  const CATS = { sale: ["예약 판매", "#8C8A84"], photo: ["컨셉 포토", "#5B5FD6"], music: ["음악·영상", "#D93A63"], fan: ["팬클럽", "#1F9A87"] };
   // calendar chip text: [wide screens, phones]
   const CHIP = {
     "10-17": ["판매 공지", "공지"], "10-19": ["예약 판매 15:00", "예판"],
@@ -1045,6 +1045,7 @@ footer .fsmall { display: flex; justify-content: space-between; gap: 1rem; flex-
     ["10-19", "15:00", "sale", "예약 판매 시작", "온라인 음반 판매처에서 주문 시작", 1],
     ["10-20", "", "photo", "STAR 버전 단체 사진", "멤버 6명이 함께 나온 컨셉 포토"],
     ["10-21", "", "photo", "STAR 버전 유닛 사진", "멤버 몇 명씩 짝지어 찍은 사진"],
+    ["10-21", "", "fan", "공식 팬클럽 '이파리' 모집 시작", "Berriz에서 상시 가입, 가입비 10,000원 · 활동 1년", 0, ["팬클럽 모집", "팬클럽"]],
     ["10-22", "", "photo", "STAR 버전 개인 사진 1", "멤버별 개인 컨셉 포토, 첫 번째"],
     ["10-23", "", "photo", "STAR 버전 개인 사진 2", "멤버별 개인 컨셉 포토, 두 번째"],
     ["10-26", "", "photo", "RACE 버전 단체 사진", "멤버 6명이 함께 나온 컨셉 포토"],
@@ -1056,7 +1057,7 @@ footer .fsmall { display: flex; justify-content: space-between; gap: 1rem; flex-
     ["11-04", "", "music", "뮤직비디오 티저", "타이틀곡 뮤직비디오 예고편"],
     ["11-06", "", "music", "발매 전 스포일러", "발매 직전 미리보기 콘텐츠"],
     ["11-09", "18:00", "music", "앨범 발매", "음원과 뮤직비디오 공개, 실물 앨범 발매", 1]
-  ].map(([d, time, c, title, desc, timed]) => ({ d, time, c, title, desc, chip: CHIP[d], timed: !!timed, start: new Date(`2026-${d}T${time || "00:00"}:00+09:00`).getTime(), end: new Date(`2026-${d}T23:59:59+09:00`).getTime() }));
+  ].map(([d, time, c, title, desc, timed, chip]) => ({ d, time, c, title, desc, chip: chip || CHIP[d], timed: !!timed, start: new Date(`2026-${d}T${time || "00:00"}:00+09:00`).getTime(), end: new Date(`2026-${d}T23:59:59+09:00`).getTime() }));
   const T1 = SCHEDULE[SCHEDULE.length - 1].start;
   const DOW = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];
   const calEl = document.getElementById("cal"), calDetail = document.getElementById("cal-detail"), legendEl = document.getElementById("sched-legend"), nextBox = document.getElementById("sched-next");
