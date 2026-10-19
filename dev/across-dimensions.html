@@ -66,7 +66,30 @@ body { margin: 0; overflow: hidden; }
 .hero { background: var(--night); color: #FFFFFF; }
 .hero img { display: block; width: 100%; height: auto; aspect-ratio: 1907 / 627; object-fit: cover; }
 .hero-labels { display: flex; justify-content: space-between; gap: 1rem; padding-block: 0.9rem; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.08em; color: rgba(255,255,255,0.7); }
-.hero-swipe { display: none; }
+.hero { position: relative; }
+.fan-tag { position: absolute; top: 0.7rem; right: max(12px, env(safe-area-inset-right, 0px)); font-size: 0.6rem; font-weight: 600; letter-spacing: 0.04em; color: rgba(17,17,17,0.62); background: rgba(255,255,255,0.55); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); padding: 0.22rem 0.5rem; border-radius: 99px; }
+
+/* Album mood board */
+.mood { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-template-rows: repeat(2, clamp(9rem, 17vw, 15rem)); grid-template-areas: "pb letter letter star" "pb cd race race"; gap: 0.6rem; }
+.mood figure { position: relative; margin: 0; overflow: hidden; background: var(--paper-2); }
+.mood img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform 600ms cubic-bezier(.2,.7,.2,1); }
+.mood figure:hover img { transform: scale(1.04); }
+.mood figcaption { position: absolute; left: 0.55rem; bottom: 0.5rem; font-size: 0.62rem; font-weight: 600; letter-spacing: 0.07em; color: #FFFFFF; background: rgba(17,17,17,0.55); padding: 0.18rem 0.45rem; }
+.mood .m-pb { grid-area: pb; } .mood .m-letter { grid-area: letter; } .mood .m-star { grid-area: star; } .mood .m-cd { grid-area: cd; } .mood .m-race { grid-area: race; }
+.mood .m-cd img { object-position: 50% 20%; }
+@media (max-width: 680px) {
+  .mood { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: 10rem 8rem 8rem 10rem; grid-template-areas: "letter letter" "pb star" "pb cd" "race race"; gap: 0.45rem; }
+}
+@media (prefers-reduced-motion: reduce) { .mood img { transition: none; } .mood figure:hover img { transform: none; } }
+
+/* Six members */
+.members { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 0.6rem; }
+.mem { position: relative; aspect-ratio: 3 / 4; background: linear-gradient(160deg, color-mix(in srgb, var(--c) 30%, #FFFFFF), color-mix(in srgb, var(--c) 75%, #FFFFFF)); display: grid; align-content: end; padding: 0.8rem; overflow: hidden; }
+.mem::before { content: "✦"; position: absolute; top: 0.55rem; right: 0.7rem; font-size: 1rem; color: rgba(255,255,255,0.9); }
+.mem b { font-size: 1.05rem; font-weight: 600; letter-spacing: -0.02em; color: var(--ink); }
+.mem small { font-size: 0.6rem; font-weight: 600; letter-spacing: 0.08em; color: rgba(17,17,17,0.55); }
+.mem-note { margin: 0.8rem 0 0; font-size: 0.75rem; color: var(--ink-2); }
+@media (max-width: 680px) { .members { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.45rem; } .mem { aspect-ratio: 1 / 1.05; padding: 0.6rem; } }
 @media (max-width: 680px) { .hero-labels span:nth-child(2) { display: none; } }
 
 /* Section scaffolding */
@@ -615,6 +638,7 @@ footer .fsmall { display: flex; justify-content: space-between; gap: 1rem; flex-
  <div class="page" id="home" data-name="홈">
   <div class="hero">
     <img src="cover.webp" alt="이세계아이돌 미니 2집 Across Dimensions 앨범 표지" width="1907" height="627">
+    <span class="fan-tag">비공식 팬사이트</span>
     <div class="hero-labels wrap" aria-hidden="true"><span>ISEGYE IDOL</span><span>THE 2ND MINI ALBUM</span><span>2026.11.09</span></div>
   </div>
   <section class="sec wrap" aria-labelledby="h-intro">
@@ -631,6 +655,35 @@ footer .fsmall { display: flex; justify-content: space-between; gap: 1rem; flex-
         <a class="btn" href="#versions">버전 보기</a>
       </div>
     </div>
+  </section>
+
+  <section class="sec wrap" aria-labelledby="h-mood">
+    <hr class="rule">
+    <div class="label">ALBUM MOOD</div>
+    <div class="row-head"><h2 class="title" id="h-mood">앨범 미리 보기</h2></div>
+    <div class="mood">
+      <figure class="m-pb"><img src="mood/photobook.webp" alt="STAR 버전 포토북 표지" loading="lazy"><figcaption>PHOTOBOOK</figcaption></figure>
+      <figure class="m-letter"><img src="mood/letter.webp" alt="LOVE LETTER 버전 6가지 색 편지봉투" loading="lazy"><figcaption>LOVE LETTER</figcaption></figure>
+      <figure class="m-star"><img src="mood/star-box.webp" alt="STAR 버전 남색 아웃박스" loading="lazy"><figcaption>STAR</figcaption></figure>
+      <figure class="m-cd"><img src="mood/star-cd.webp" alt="별자리 무늬 CD" loading="lazy"><figcaption>CD</figcaption></figure>
+      <figure class="m-race"><img src="mood/race-box.webp" alt="RACE 버전 흰색 아웃박스" loading="lazy"><figcaption>RACE</figcaption></figure>
+    </div>
+    <p class="credit">공식 이미지 ⓒ 패러블엔터테인먼트</p>
+  </section>
+
+  <section class="sec wrap" aria-labelledby="h-members">
+    <hr class="rule">
+    <div class="label">MEMBERS</div>
+    <div class="row-head"><h2 class="title" id="h-members">여섯 멤버</h2></div>
+    <div class="members">
+      <div class="mem" style="--c:#A98BE0"><small>INE</small><b>아이네</b></div>
+      <div class="mem" style="--c:#F2D04B"><small>JINGBURGER</small><b>징버거</b></div>
+      <div class="mem" style="--c:#6F7FD8"><small>LILPA</small><b>릴파</b></div>
+      <div class="mem" style="--c:#EE8FB5"><small>JURURU</small><b>주르르</b></div>
+      <div class="mem" style="--c:#7CC8EC"><small>GOSEGU</small><b>고세구</b></div>
+      <div class="mem" style="--c:#9CCB6A"><small>VIICHAN</small><b>비챤</b></div>
+    </div>
+    <p class="mem-note">개인 컨셉 포토는 10.22(STAR)와 10.28(RACE)에 공개돼요. 나오면 여기에 넣을게요.</p>
   </section>
 
   <div class="band">
