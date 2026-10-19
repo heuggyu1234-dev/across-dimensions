@@ -183,7 +183,8 @@ table.compare { width: 100%; min-width: 40rem; border-collapse: collapse; font-s
 .sp-bar i { height: 8px; background: color-mix(in srgb, var(--c) 20%, transparent); }
 .sp-bar i.on { background: var(--c); }
 .sp-bar i.nx { background: repeating-linear-gradient(-45deg, var(--c) 0 3px, color-mix(in srgb, var(--c) 30%, transparent) 3px 6px); }
-.ics-btn { margin-top: 1.4rem; display: inline-flex; align-items: center; gap: 0.5rem; font: inherit; font-size: 0.78rem; font-weight: 600; color: var(--ink); background: #FFFFFF; border: 1px solid var(--ink); border-radius: 0; padding: 0.65rem 0.9rem; cursor: pointer; }
+.ics-wrap { margin-top: 1.6rem; }
+.ics-btn { display: inline-flex; align-items: center; gap: 0.5rem; font: inherit; font-size: 0.78rem; font-weight: 600; color: var(--ink); background: #FFFFFF; border: 1px solid var(--ink); border-radius: 0; padding: 0.65rem 0.9rem; cursor: pointer; }
 .ics-btn:hover { background: var(--ink); color: #FFFFFF; }
 .ics-btn::before { content: "+"; font-size: 1rem; line-height: 1; }
 .ics-note { display: block; margin-top: 0.45rem; font-size: 0.7rem; color: var(--ink-3); }
@@ -198,6 +199,7 @@ table.compare { width: 100%; min-width: 40rem; border-collapse: collapse; font-s
 .cal-day { font: inherit; color: inherit; text-align: left; background: transparent; border: 0; border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule); border-radius: 0; min-height: 8.2rem; padding: 0.6rem 0.55rem; display: flex; flex-direction: column; gap: 0.25rem; min-width: 0; }
 .cal-day.has { cursor: pointer; }
 .cal-day.has:hover { background: var(--paper-2); }
+.cal-m { font-size: 0.75em; font-weight: 600; }
 .cal-num { font-size: 0.95rem; font-weight: 500; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .cal-day.past .cal-num { color: var(--ink-3); }
 .cal-day.today .cal-num { display: inline-grid; place-items: center; align-self: flex-start; min-width: 1.9rem; height: 1.9rem; padding: 0 0.3rem; border-radius: 999px; background: var(--ink); color: #FFFFFF; }
@@ -216,10 +218,12 @@ table.compare { width: 100%; min-width: 40rem; border-collapse: collapse; font-s
 .cd-tt { font-size: 1.05rem; font-weight: 600; margin-top: 0.25rem; }
 .cd-ds { font-size: 0.85rem; color: var(--ink-2); }
 @media (max-width: 680px) {
-  .cal { margin-inline: -8px; }
+  .cal { margin-inline: calc(-1 * max(20px, env(safe-area-inset-left, 0px))); border-left: 0; }
+  .cal > :nth-child(7n) { border-right: 0; }
   .cal-dow { font-size: 0.72rem; padding: 0.6rem 0; }
-  .cal-day { min-height: 4.9rem; padding: 0.4rem 0.15rem; align-items: center; gap: 0.3rem; }
-  .cal-num { font-size: 0.88rem; }
+  .cal-day { min-height: 5.6rem; padding: 0.45rem 3px; align-items: center; gap: 0.35rem; }
+  .cal-num { font-size: 0.9rem; display: grid; justify-items: center; line-height: 1.15; }
+  .cal-m { font-size: 0.62rem; }
   .cal-day.today .cal-num { min-width: 1.6rem; height: 1.6rem; }
   .cal-ev { font-size: 0.7rem; padding: 0.2rem 0.1rem; border-left: 0; border-top: 2px solid var(--c); text-align: center; width: 100%; letter-spacing: -0.02em; }
   .cal-ev .full { display: none; }
@@ -716,14 +720,16 @@ footer .fsmall { display: flex; justify-content: space-between; gap: 1rem; flex-
       </div>
       <div>
         <div class="sched-prog" id="sched-prog"></div>
-        <button type="button" class="ics-btn" id="ics-btn">내 캘린더에 일정 추가</button>
-        <span class="ics-note">휴대폰·구글 캘린더에 15개 일정이 한 번에 들어가요.</span>
       </div>
     </div>
     <div class="sched-next" id="sched-next"></div>
     <div class="sched-legend" id="sched-legend"></div>
     <div class="cal" id="cal" role="group" aria-label="10월 11일부터 11월 14일까지 공개 일정 달력"></div>
     <div class="cal-detail" id="cal-detail" aria-live="polite"></div>
+    <div class="ics-wrap">
+      <button type="button" class="ics-btn" id="ics-btn">내 캘린더에 일정 추가</button>
+      <span class="ics-note">휴대폰·구글 캘린더에 15개 일정이 한 번에 들어가요.</span>
+    </div>
   </section>
 
  </div>
@@ -1051,7 +1057,8 @@ footer .fsmall { display: flex; justify-content: space-between; gap: 1rem; flex-
     const t = CAL_START + n * 864e5, md = new Date(t + 9 * 36e5).toISOString().slice(5, 10), [m, dd] = md.split("-").map(Number);
     const evs = SCHEDULE.filter(s => s.d === md), wd = n % 7;
     const cell = el(evs.length ? "button" : "div", "cal-day" + (wd === 0 ? " sun" : wd === 6 ? " sat" : "") + (evs.length ? " has" : ""));
-    const num = el("span", "cal-num", dd === 1 || n === 0 ? `${m}월 ${dd}` : String(dd));
+    const num = el("span", "cal-num", String(dd));
+    if (dd === 1 || n === 0) num.prepend(el("small", "cal-m", `${m}월 `));
     cell.append(num);
     evs.forEach(s => { const c = el("span", "cal-ev"); c.style.setProperty("--c", CATS[s.c][1]); c.append(el("span", "full", s.chip[0]), el("span", "short", s.chip[1])); cell.append(c); });
     if (evs.length) {
