@@ -18,7 +18,13 @@ fetch() { # url -> stdout, retries because fxtwitter sometimes answers empty
 
 x_profile() { # $1 = X handle
   echo "== X @$1 (최근 글, 사진 원본 주소 포함)"
-  fetch "https://api.fxtwitter.com/2/profile/$1/statuses" | python3 -I -c '
+  local body=""
+  for i in 1 2 3 4 5; do  # fxtwitter often answers with an empty list on the first try
+    body=$(fetch "https://api.fxtwitter.com/2/profile/$1/statuses")
+    printf '%s' "$body" | grep -q '"type":"status"' && break
+    sleep $((i * 3))
+  done
+  printf '%s' "$body" | python3 -I -c '
 import json, sys
 try:
     rows = json.load(sys.stdin).get("results") or []
@@ -26,7 +32,7 @@ except Exception as e:
     print("  (읽기 실패:", e, ")"); rows = []
 if not rows:
     print("  (비어 있음: 잠시 뒤 다시 실행하거나, 다른 계정 결과에 같이 나온 글을 본다)")
-for r in rows[:10]:
+for r in rows[:6]:
     m = r.get("media") or {}
     print(r.get("created_at"), r.get("url"))
     print("   ", (r.get("text") or "")[:220].replace("\n", " | "))
@@ -37,8 +43,11 @@ for r in rows[:10]:
 '
 }
 
-x_profile isegyeidol_ofcl
-x_profile isegyechart
+# 공식 → 이세계차트(연합) → 연합 상대 총공팀 → 판매처·플랫폼. X는 검색이 막혀 있어서 계정 글만 읽는다.
+for h in isegyeidol_ofcl isegyechart ResceneStream NMIXX_xstream aespavote1117 ive_strm ALD1streaming \
+         berrizshop soundwave_korea MAPDAL_SEOUL musicplant_kr applemusic_m Withmuu_twt musicart_twt; do
+  x_profile "$h"
+done
 
 echo "== Berriz 공지 (공지 주소: https://berriz.in/ko/isegyeidol/notice/<번호>)"
 fetch "https://svc-api.berriz.in/service/v1/community/40/notices?pageSize=8&languageCode=ko" | python3 -I -c '
@@ -127,4 +136,9 @@ for b in re.split(r"<li class=\"list-album\"|<li class=\"album\"", t)[1:12]:
 
 echo "== 커뮤니티: 디시 이세계아이돌 갤러리 최근 2일 넓게 훑기 (스포·유출 단서용. 사이트에 디시 주소는 넣지 않는다)"
 python3 -I dev/read-dc.py --scan
-echo "   글 읽기: python3 -I dev/read-dc.py <글번호> [<글번호> ...]"
+echo "   글 읽기(댓글 포함): python3 -I dev/read-dc.py <글번호> [<글번호> ...]"
+
+echo "== 커뮤니티: 왁물원(네이버 카페) 최근 2일 (공지 게시판은 전부, 자유게시판은 단서 키워드만)"
+python3 -I dev/read-cafe.py --scan
+echo "   글 읽기(댓글 포함): python3 -I dev/read-cafe.py <글번호> [<글번호> ...]"
+echo "   펨코(에펨코리아)는 봇 차단 화면이 떠서 직접 못 읽는다. WebSearch에 allowed_domains [\"fmkorea.com\"]로 \"이세계아이돌 스포\", \"이세돌 신곡\" 등을 찾는다."
