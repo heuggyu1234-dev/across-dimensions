@@ -114,3 +114,7 @@ for f in pf:
         print("    이세계아이돌 곡 없음")
 '
 done
+
+echo "== 커뮤니티: 디시 이세계아이돌 갤러리 최근 2일 (스포·유출 단서용. 사이트에 디시 주소는 넣지 않는다)"
+python3 -I dev/read-dc.py --search 스포 유출 심의 트랙 타이틀 연합
+echo "   글 읽기: python3 -I dev/read-dc.py <글번호>"
