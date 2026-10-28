@@ -46,6 +46,8 @@
 - claude.ai 클라우드 예약 작업 "이세돌 Across Dimensions 매일 소식"(https://claude.ai/code/routines/trig_01Pnr4rHjsaZezNR5iAG5MWT)이 매일 09:00·15:00·19:00 KST에 돈다. PC가 꺼져 있어도 된다. 지침 원본은 `dev/cloud-daily-news.md`. 이 저장소를 받아 스냅샷을 고치고 빌드한 뒤 `main`에 푸시한다.
 - 소식 확인은 `bash dev/check-news.sh`(공식 X·Berriz·유튜브·KBS 가요심의를 데이터 주소로 직접 읽음). 공식 X와 Berriz 웹페이지는 봇에게 막히거나 비어 보여서 WebFetch로는 못 읽는다.
 - 커뮤니티(디시 이세계아이돌 갤러리) 스포·유출 단서는 `python3 -I dev/read-dc.py --scan`(최근 2일 최신 8쪽·개념글·키워드 검색을 넓은 키워드 목록으로 걸러 추천·댓글 순으로 보여 줌, check-news.sh에 포함), 글 읽기는 `python3 -I dev/read-dc.py <글번호>`(본문과 댓글 최대 40개). 단서만 쓰고 원본을 찾아 확인한다. 커뮤니티 주소는 사이트에 넣지 않는다.
+- **커뮤니티발 정보(디시·왁물원·펨코·X 팬 계정)는 사이트에 바로 넣지 않는다.** 사용자와의 대화에 먼저 올리고(묻지 않아도 먼저 알린다) 사용자가 허락한 것만 넣는다. 이미 보고한 단서와 허락 여부는 `dev/community-leads.md`에 적어 둔다. 커뮤 글이 가리킨 공식 원본(KBS 심의, Berriz·공식 X, 음원 사이트, 기사)을 직접 확인했다면 그 원본은 공식 소식으로 넣어도 된다.
+- **연합(이세계차트 발표)은 묻지 않고 바로 넣는다.**
 - 왁물원(네이버 카페 steamindiegame, cafeId 27842958) 단서는 `python3 -I dev/read-cafe.py --scan`, 글 읽기는 `python3 -I dev/read-cafe.py <글번호>`. 펨코는 봇 차단이라 WebSearch(allowed_domains fmkorea.com)로만 찾는다. X는 검색이 막혀 check-news.sh에 적어 둔 계정 글만 읽는다.
 - 연합(이세계차트 @isegyechart 발표)은 `U_TASKS`·`U_RETURN`·`PARTNERS`(dev/across-dimensions.html) 를 고쳐 반영한다. 자세한 방법은 `dev/cloud-daily-news.md` 2-2.
 - 공식 컨셉 포토 넣기는 `python3 -I dev/add-photos.py` (유닛·개인은 소식 페이지 사진 칸, 단체는 `--group`으로 홈).
