@@ -115,6 +115,16 @@ for f in pf:
 '
 done
 
-echo "== 커뮤니티: 디시 이세계아이돌 갤러리 최근 2일 (스포·유출 단서용. 사이트에 디시 주소는 넣지 않는다)"
-python3 -I dev/read-dc.py --search 스포 유출 심의 트랙 타이틀 연합
-echo "   글 읽기: python3 -I dev/read-dc.py <글번호>"
+echo "== 지니(유통사) 앨범 목록: 새 앨범이 미리 등록되면 여기 먼저 보일 수 있다"
+fetch "https://www.genie.co.kr/search/searchAlbum?query=%EC%9D%B4%EC%84%B8%EA%B3%84%EC%95%84%EC%9D%B4%EB%8F%8C" | python3 -I -c '
+import re, sys
+t = sys.stdin.read()
+for b in re.split(r"<li class=\"list-album\"|<li class=\"album\"", t)[1:12]:
+    aid = re.search(r"fnViewAlbumLayer\(.(\d+)", b)
+    words = [x.strip() for x in re.findall(r">([^<>]{2,80})<", b) if x.strip()]
+    print("  ", aid.group(1) if aid else "", " | ".join(words[:6]), "  https://www.genie.co.kr/detail/albumInfo?axnm=" + (aid.group(1) if aid else ""))
+'
+
+echo "== 커뮤니티: 디시 이세계아이돌 갤러리 최근 2일 넓게 훑기 (스포·유출 단서용. 사이트에 디시 주소는 넣지 않는다)"
+python3 -I dev/read-dc.py --scan
+echo "   글 읽기: python3 -I dev/read-dc.py <글번호> [<글번호> ...]"
