@@ -3,12 +3,12 @@
 
   python3 -I dev/read-dc.py --scan            # last 2 days: newest pages + 개념글 + keyword searches, filtered by a wide keyword list
   python3 -I dev/read-dc.py --search 스포 유출  # title/body search for the given words, last 2 days
-  python3 -I dev/read-dc.py 5347545 5347622   # print posts
+  python3 -I dev/read-dc.py 5347545 5347622   # print posts with their comments (--no-comments to skip)
 
 Community posts are leads only: find the original source before using anything,
 and never put a community URL on the site.
 """
-import datetime, html, re, subprocess, sys, time, urllib.parse
+import datetime, html, json, os, re, subprocess, sys, tempfile, time, urllib.parse
 
 UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130 Safari/537.36"
 BASE = "https://gall.dcinside.com/mini/board"
@@ -33,8 +33,41 @@ SEARCH_WORDS = ["스포", "유출", "심의", "트랙", "타이틀", "수록곡"
 ALL = sorted({w for ws in KEYWORDS.values() for w in ws}, key=len, reverse=True)
 
 
+JAR = os.path.join(tempfile.gettempdir(), "dc-cookies.txt")
+
+
 def get(url):
-    return subprocess.run(["curl", "-s", "-m", "25", "-A", UA, url], capture_output=True, text=True).stdout
+    return subprocess.run(["curl", "-s", "-m", "25", "-A", UA, "-c", JAR, "-b", JAR, url], capture_output=True, text=True).stdout
+
+
+def comments(no, page_html, limit=40):
+    """Comments come from a separate POST that needs the page's e_s_n_o token and cookies."""
+    tok = re.search(r'id="e_s_n_o"[^>]*value="([^"]+)"', page_html)
+    if not tok:
+        return []
+    ref = f"{BASE}/view/?id=isekaidol&no={no}"
+    out = []
+    for page in (1, 2):
+        data = (f"id=isekaidol&no={no}&cmt_id=isekaidol&cmt_no={no}&focus_cno=&focus_pno=&e_s_n_o={tok.group(1)}"
+                f"&comment_page={page}&sort=&prevCnt=&board_type=&_GALLTYPE_=MI")
+        r = subprocess.run(["curl", "-s", "-m", "25", "-A", UA, "-c", JAR, "-b", JAR, "-X", "POST",
+                            "-H", "X-Requested-With: XMLHttpRequest", "-H", f"Referer: {ref}", "-H", "Origin: https://gall.dcinside.com",
+                            "--data", data, "https://gall.dcinside.com/board/comment/"], capture_output=True, text=True).stdout
+        try:
+            d = json.loads(r)
+        except ValueError:
+            break
+        rows = d.get("comments") or []
+        for c in rows:
+            memo = html.unescape(re.sub(r"<[^>]+>", " ", c.get("memo") or "")).strip()
+            memo = re.sub(r"\s+", " ", memo)
+            if not c.get("reg_date") or not memo or c.get("del_yn") == "Y":
+                continue  # ads and deleted comments
+            out.append(f"   - {c.get('reg_date')} {memo[:160]}")
+        if len(out) >= limit or len(rows) < 50:
+            break
+        time.sleep(0.4)
+    return out[:limit]
 
 
 def since():
@@ -88,7 +121,7 @@ def search(words):
         time.sleep(0.4)
 
 
-def read(nos):
+def read(nos, with_comments=True):
     for no in nos:
         t = get(f"{BASE}/view/?id=isekaidol&no={no}")
         ti = re.search(r'<span class="title_subject">(.*?)</span>', t, re.S)
@@ -106,6 +139,11 @@ def read(nos):
             print("links:", " ".join(links[:8]))
         if imgs:
             print("images:", len(imgs))
+        if with_comments:
+            cs = comments(no, t)
+            print(f"댓글 {len(cs)}개" + (":" if cs else ""))
+            print("\n".join(cs))
+        time.sleep(0.4)
 
 
 if __name__ == "__main__":
@@ -115,4 +153,4 @@ if __name__ == "__main__":
     elif a[:1] == ["--search"]:
         search(a[1:])
     else:
-        read(a)
+        read([x for x in a if x != "--no-comments"], "--no-comments" not in a)
