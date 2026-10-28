@@ -42,7 +42,9 @@
 - 공식 스케줄러: 10/20~23 STAR 컨셉 포토(단체·유닛·개인1·개인2), 10/26~29 RACE 컨셉 포토, 10/30 트랙리스트, 11/02 하이라이트 메들리, 11/04 MV 티저, 11/06 발매 전 스포일러, 11/09 MV와 앨범 발매
 
 ## 자동 업데이트
-- claude.ai 클라우드 예약 작업 "이세돌 Across Dimensions 매일 소식"(https://claude.ai/code/routines/trig_01Pnr4rHjsaZezNR5iAG5MWT)이 매일 08:10 KST에 돈다. PC가 꺼져 있어도 된다. 지침 원본은 `dev/cloud-daily-news.md`. 이 저장소를 받아 스냅샷을 고치고 빌드한 뒤 `main`에 푸시한다.
+- claude.ai 클라우드 예약 작업 "이세돌 Across Dimensions 매일 소식"(https://claude.ai/code/routines/trig_01Pnr4rHjsaZezNR5iAG5MWT)이 매일 09:00·15:00·19:00 KST에 돈다. PC가 꺼져 있어도 된다. 지침 원본은 `dev/cloud-daily-news.md`. 이 저장소를 받아 스냅샷을 고치고 빌드한 뒤 `main`에 푸시한다.
+- 소식 확인은 `bash dev/check-news.sh`(공식 X·Berriz·유튜브·KBS 가요심의를 데이터 주소로 직접 읽음). 공식 X와 Berriz 웹페이지는 봇에게 막히거나 비어 보여서 WebFetch로는 못 읽는다.
+- 공식 컨셉 포토 넣기는 `python3 -I dev/add-photos.py` (유닛·개인은 소식 페이지 사진 칸, 단체는 `--group`으로 홈).
 - 예전 PC 예약 작업(`across-dimensions-daily-news`)은 겹치지 않게 꺼 두었다.
 - 클라우드에서는 claude.ai 아티팩트 DB·publish 도구가 없을 수 있다. 그때는 공개 사이트(스냅샷)만 갱신하고, claude.ai 페이지는 PC에서 다음에 작업할 때 맞춘다.
 - 어느 기기에서 작업하든 시작할 때 `git pull origin main`, 끝에 꼭 `git push origin main`.
