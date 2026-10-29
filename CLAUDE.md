@@ -22,7 +22,7 @@
 2. 스크립트 문법 확인: `awk '/<script>/{f=1;next}/<\/script>/{f=0}f' dev/across-dimensions.html > /tmp/c.js && node --check /tmp/c.js`
 3. `node dev/build-site.js dev/across-dimensions.html index.html`
 4. 커밋 후 `git push origin main` → mini2isegye.hehezone.com에 자동 반영
-5. claude.ai 페이지도 맞추려면 Artifact 도구 publish, `url`은 위 아티팩트 주소, `file_path`는 `dev/across-dimensions.html` (files·capabilities·icon은 넘기지 않음). 아티팩트 도구가 없는 환경이면 건너뛰고 사용자에게 알린다.
+5. claude.ai 페이지도 맞추려면 Artifact 도구 publish, `url`은 위 아티팩트 주소, `file_path`는 `dev/across-dimensions.html` (capabilities·icon은 넘기지 않음). **새로 생긴 이미지(concept/·news/·union-*.jpg 등)가 있으면 꼭 `files`에 {"concept/파일.webp": "concept/파일.webp"}처럼 전부 넣는다.** 안 넣으면 claude.ai 페이지에서 사진이 깨진다. 아티팩트 도구가 없는 환경이면 건너뛰고 사용자에게 알린다.
 
 ## 소식 데이터
 - 소식(news)과 바로가기(links)는 claude.ai 아티팩트의 공유 DB(`news`, `links` 컬렉션)에 있다.
@@ -44,6 +44,7 @@
 ## 자동 업데이트
 - **매일 소식 작업을 하는 에이전트는 예약 작업 지침의 WebSearch 단계보다 먼저 `bash dev/check-news.sh`를 실행하고 그 결과를 주된 근거로 쓴다.** 최신 지침 전체는 `dev/cloud-daily-news.md`에 있다. 예약 작업에 저장된 지침이 이 파일과 다르면 이 파일을 따른다.
 - claude.ai 클라우드 예약 작업 "이세돌 Across Dimensions 매일 소식"(https://claude.ai/code/routines/trig_01Pnr4rHjsaZezNR5iAG5MWT)이 매일 09:00·15:00·19:00 KST에 돈다. PC가 꺼져 있어도 된다. 지침 원본은 `dev/cloud-daily-news.md`. 이 저장소를 받아 스냅샷을 고치고 빌드한 뒤 `main`에 푸시한다.
+- `bash dev/check-news.sh`의 출력은 grep·head로 자르지 말고 `bash dev/check-news.sh > /tmp/news.txt 2>&1` 로 저장한 뒤 파일 전체를 Read로 읽는다(Berriz·유튜브·KBS 부분을 놓치지 않게).
 - 소식 확인은 `bash dev/check-news.sh`(공식 X·Berriz·유튜브·KBS 가요심의를 데이터 주소로 직접 읽음). 공식 X와 Berriz 웹페이지는 봇에게 막히거나 비어 보여서 WebFetch로는 못 읽는다.
 - 커뮤니티(디시 이세계아이돌 갤러리) 스포·유출 단서는 `python3 -I dev/read-dc.py --scan`(최근 2일 최신 8쪽·개념글·키워드 검색을 넓은 키워드 목록으로 걸러 추천·댓글 순으로 보여 줌, check-news.sh에 포함), 글 읽기는 `python3 -I dev/read-dc.py <글번호>`(본문과 댓글 최대 40개). 단서만 쓰고 원본을 찾아 확인한다. 커뮤니티 주소는 사이트에 넣지 않는다.
 - **커뮤니티발 정보(디시·왁물원·펨코·X 팬 계정)는 사이트에 바로 넣지 않는다.** 사용자와의 대화에 먼저 올리고(묻지 않아도 먼저 알린다) 사용자가 허락한 것만 넣는다. 이미 보고한 단서와 허락 여부는 `dev/community-leads.md`에 적어 둔다. 커뮤 글이 가리킨 공식 원본(KBS 심의, Berriz·공식 X, 음원 사이트, 기사)을 직접 확인했다면 그 원본은 공식 소식으로 넣어도 된다.
