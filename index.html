@@ -116,6 +116,18 @@ h2.title { margin: 0; font-size: clamp(1.6rem, 3vw, 2.3rem); font-weight: 500; l
 .cp-zoom:hover img { transform: scale(1.02); }
 .cp figcaption { display: flex; justify-content: space-between; align-items: baseline; gap: 0.3rem 1rem; flex-wrap: wrap; margin-top: 0.6rem; font-size: 0.75rem; color: var(--ink-3); }
 .cp figcaption b { font-size: 0.9rem; font-weight: 600; color: var(--ink); }
+.mv-sec { padding-top: clamp(2rem, 5vw, 3.5rem); }
+.mv-sec .label { margin-bottom: 1.2rem; }
+.mv-sec .mv, .mv-sec .mv-cap { max-width: 52rem; }
+.mv { position: relative; display: block; aspect-ratio: 16 / 9; overflow: hidden; background: var(--paper-2); }
+.mv img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform 500ms cubic-bezier(.2,.7,.2,1); }
+.mv:hover img { transform: scale(1.02); }
+.mv-play { position: absolute; left: 50%; top: 50%; width: clamp(3.4rem, 8vw, 4.8rem); aspect-ratio: 1; transform: translate(-50%, -50%); border-radius: 50%; background: rgba(20, 20, 20, 0.78); transition: background 200ms; }
+.mv-play::after { content: ""; position: absolute; left: 54%; top: 50%; transform: translate(-50%, -50%); border-left: 1.15em solid #FFFFFF; border-top: 0.7em solid transparent; border-bottom: 0.7em solid transparent; font-size: clamp(0.85rem, 1.6vw, 1.15rem); }
+.mv:hover .mv-play { background: var(--hot); }
+.mv-cap { display: flex; justify-content: space-between; align-items: center; gap: 0.8rem 1.5rem; flex-wrap: wrap; margin-top: 1rem; }
+.mv-cap .title { margin: 0; }
+.mv-cap span { display: block; margin-top: 0.3rem; font-size: 0.8rem; color: var(--ink-3); }
 .tl { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 2rem 3rem; align-items: start; }
 @media (max-width: 720px) { .tl { grid-template-columns: 1fr; } .tl-fig { max-width: 24rem; } }
 .tl-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--ink); }
@@ -728,6 +740,17 @@ footer .fsmall { display: flex; justify-content: space-between; gap: 1rem; flex-
     <span class="fan-tag">비공식 팬사이트</span>
     <div class="hero-labels wrap" aria-hidden="true"><span>ISEGYE IDOL</span><span>THE 2ND MINI ALBUM</span><span>2026.11.09</span></div>
   </div>
+  <section class="sec wrap mv-sec" aria-labelledby="h-medley">
+    <div class="label">HIGHLIGHT MEDLEY</div>
+    <a class="mv" href="https://youtu.be/lFgCjRoFjyU" target="_blank" rel="noopener" aria-label="하이라이트 메들리 유튜브에서 보기">
+      <img src="news/medley-1102.webp" alt="Across Dimensions 하이라이트 메들리 영상 표지" width="1280" height="720"><span class="mv-play" aria-hidden="true"></span>
+    </a>
+    <div class="mv-cap">
+      <div><h2 class="title" id="h-medley">하이라이트 메들리</h2><span>11.02 공개 · 다섯 곡 미리 듣기 · ⓒ 패러블엔터테인먼트</span></div>
+      <a class="btn" href="https://youtu.be/lFgCjRoFjyU" target="_blank" rel="noopener">유튜브에서 보기</a>
+    </div>
+  </section>
+
   <section class="sec wrap" aria-labelledby="h-intro">
     <div class="label">ACROSS DIMENSIONS</div>
     <div class="statement">
