@@ -128,6 +128,11 @@ h2.title { margin: 0; font-size: clamp(1.6rem, 3vw, 2.3rem); font-weight: 500; l
 .mv-cap { display: flex; justify-content: space-between; align-items: center; gap: 0.8rem 1.5rem; flex-wrap: wrap; margin-top: 1rem; }
 .mv-cap .title { margin: 0; }
 .mv-cap span { display: block; margin-top: 0.3rem; font-size: 0.8rem; color: var(--ink-3); }
+.mv-more { display: flex; align-items: center; gap: 0.9rem; max-width: 52rem; margin-top: 1.4rem; padding-top: 1.1rem; border-top: 1px solid var(--rule); color: inherit; text-decoration: none; }
+.mv-more img { width: 8.5rem; aspect-ratio: 16 / 9; height: auto; object-fit: cover; display: block; flex: none; }
+.mv-more b { display: block; font-size: 0.95rem; font-weight: 600; }
+.mv-more small { display: block; margin-top: 0.2rem; font-size: 0.78rem; color: var(--ink-3); }
+.mv-more:hover b { text-decoration: underline; }
 .cal-day.popup { box-shadow: inset 0 -3px 0 #9B59B6; }
 .tl { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 2rem 3rem; align-items: start; }
 @media (max-width: 720px) { .tl { grid-template-columns: 1fr; } .tl-fig { max-width: 24rem; } }
@@ -742,14 +747,18 @@ footer .fsmall { display: flex; justify-content: space-between; gap: 1rem; flex-
     <div class="hero-labels wrap" aria-hidden="true"><span>ISEGYE IDOL</span><span>THE 2ND MINI ALBUM</span><span>2026.11.09</span></div>
   </div>
   <section class="sec wrap mv-sec" aria-labelledby="h-medley">
-    <div class="label">HIGHLIGHT MEDLEY</div>
-    <a class="mv" href="https://youtu.be/lFgCjRoFjyU" target="_blank" rel="noopener" aria-label="하이라이트 메들리 유튜브에서 보기">
-      <img src="news/medley-1102.webp" alt="Across Dimensions 하이라이트 메들리 영상 표지" width="1280" height="720"><span class="mv-play" aria-hidden="true"></span>
+    <div class="label">MV TEASER</div>
+    <a class="mv" href="https://youtu.be/1ELogGmCh9Q" target="_blank" rel="noopener" aria-label="REBELS MV 티저 유튜브에서 보기">
+      <img src="news/teaser-1104.webp" alt="REBELS 뮤직비디오 티저 영상 표지" width="1280" height="720"><span class="mv-play" aria-hidden="true"></span>
     </a>
     <div class="mv-cap">
-      <div><h2 class="title" id="h-medley">하이라이트 메들리</h2><span>11.02 공개 · 다섯 곡 미리 듣기 · ⓒ 패러블엔터테인먼트</span></div>
-      <a class="btn" href="https://youtu.be/lFgCjRoFjyU" target="_blank" rel="noopener">유튜브에서 보기</a>
+      <div><h2 class="title" id="h-medley">'REBELS' MV 티저</h2><span>11.04 공개 · 본편은 11.09 18:00 · ⓒ 패러블엔터테인먼트</span></div>
+      <a class="btn" href="https://youtu.be/1ELogGmCh9Q" target="_blank" rel="noopener">유튜브에서 보기</a>
     </div>
+    <a class="mv-more" href="https://youtu.be/lFgCjRoFjyU" target="_blank" rel="noopener">
+      <img src="news/medley-1102.webp" alt="" width="1280" height="720" loading="lazy">
+      <span><b>하이라이트 메들리</b><small>11.02 공개 · 다섯 곡 미리 듣기</small></span>
+    </a>
   </section>
 
   <section class="sec wrap" aria-labelledby="h-intro">
