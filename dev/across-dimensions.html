@@ -864,7 +864,7 @@ footer .fsmall { display: flex; justify-content: space-between; gap: 1rem; flex-
     </div>
     <div class="sched-next" id="sched-next"></div>
     <div class="sched-legend" id="sched-legend"></div>
-    <div class="cal" id="cal" role="group" aria-label="10월 11일부터 11월 14일까지 공개 일정 달력"></div>
+    <div class="cal" id="cal" role="group" aria-label="10월 11일부터 12월 12일까지 공개 일정 달력"></div>
     <div class="cal-detail" id="cal-detail" aria-live="polite"></div>
     <div class="ics-wrap">
       <button type="button" class="ics-btn" id="ics-btn">내 캘린더에 일정 추가</button>
@@ -883,7 +883,7 @@ footer .fsmall { display: flex; justify-content: space-between; gap: 1rem; flex-
     </div>
 
     <div class="u-grid" id="u-grid"></div>
-    <p class="u-src">출처: 이세계차트 X <a href="https://x.com/isegyechart/status/2111786168253899138" target="_blank" rel="noopener">연합 정리</a> · <a href="https://x.com/isegyechart/status/2111787485173084326" target="_blank" rel="noopener">인증 안내</a> · <a href="https://x.com/isegyechart/status/2112031015552389218" target="_blank" rel="noopener">알파드라이브원</a>, 기사 <a href="https://www.starnewskorea.com/star/2026/09/04/2026090414043351811" target="_blank" rel="noopener">AAA</a> · <a href="https://www.startuptimes.kr/article/2026-%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD-%ED%95%9C%EB%A5%98%EC%97%B0%EC%98%88%EB%8C%80%EC%83%81-%EA%B8%80%EB%A1%9C%EB%B2%8C-%ED%8C%AC-%ED%88%AC%ED%91%9C-%EA%B0%9C%EB%A7%89-8%EA%B0%9C-%EB%B6%80%EB%AC%B8-%EA%B2%BD%EC%9F%81" target="_blank" rel="noopener">한류연예대상</a>. MMA 부문별 투표 링크는 10.30에 다시 알려 줘요.</p>
+    <p class="u-src">출처: 이세계차트 X <a href="https://x.com/isegyechart/status/2111786168253899138" target="_blank" rel="noopener">연합 정리</a> · <a href="https://x.com/isegyechart/status/2111787485173084326" target="_blank" rel="noopener">인증 안내</a> · <a href="https://x.com/isegyechart/status/2112031015552389218" target="_blank" rel="noopener">알파드라이브원</a>, 기사 <a href="https://www.starnewskorea.com/star/2026/09/04/2026090414043351811" target="_blank" rel="noopener">AAA</a> · <a href="https://www.startuptimes.kr/article/2026-%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD-%ED%95%9C%EB%A5%98%EC%97%B0%EC%98%88%EB%8C%80%EC%83%81-%EA%B8%80%EB%A1%9C%EB%B2%8C-%ED%8C%AC-%ED%88%AC%ED%91%9C-%EA%B0%9C%EB%A7%89-8%EA%B0%9C-%EB%B6%80%EB%AC%B8-%EA%B2%BD%EC%9F%81" target="_blank" rel="noopener">한류연예대상</a>. · <a href="https://x.com/isegyechart/status/2120029832088367147" target="_blank" rel="noopener">빅뱅</a>.</p>
 
     <details class="u-fold">
       <summary>처음이라면 이렇게 하세요 <small>투표·스밍 방법, 인증 규칙</small></summary>
@@ -1349,7 +1349,7 @@ footer .fsmall { display: flex; justify-content: space-between; gap: 1rem; flex-
     const ymd = d => "2026" + d.replace("-", ""), nextYmd = d => new Date(new Date(`2026-${d}T12:00:00Z`).getTime() + 864e5).toISOString().slice(0, 10).replace(/-/g, "");
     const lines = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//mini2isegye//Across Dimensions//KO", "CALSCALE:GREGORIAN", "X-WR-CALNAME:이세계아이돌 Across Dimensions"];
     SCHEDULE.forEach(s => {
-      lines.push("BEGIN:VEVENT", `UID:${s.d}-${s.c}@mini2isegye.hehezone.com`, `DTSTAMP:${z(Date.now())}`);
+      lines.push("BEGIN:VEVENT", `UID:${s.d}-${s.c}${s.time ? "-" + s.time.replace(":", "") : ""}@mini2isegye.hehezone.com`, `DTSTAMP:${z(Date.now())}`);
       if (s.time) lines.push(`DTSTART:${z(s.start)}`, `DTEND:${z(s.start + 36e5)}`);
       else lines.push(`DTSTART;VALUE=DATE:${ymd(s.d)}`, `DTEND;VALUE=DATE:${nextYmd(s.d)}`);
       lines.push(`SUMMARY:[이세돌] ${s.title}`, `DESCRIPTION:${s.desc}`, "URL:https://mini2isegye.hehezone.com/", "END:VEVENT");
