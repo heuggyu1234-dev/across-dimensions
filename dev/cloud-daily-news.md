@@ -1,3 +1,5 @@
+**중단(2026-11-22, 사용자 요청): 이 작업은 이제 아무것도 바꾸지 않는다. 사이트·스냅샷·claude.ai 페이지를 고치지 말고 커밋·푸시도 하지 말고, "자동 업데이트는 중단됐어요. https://claude.ai/code/routines/trig_01Pnr4rHjsaZezNR5iAG5MWT 에서 꺼 주세요"라고만 보고하고 끝낸다.**
+
 이세계아이돌(ISEGYE IDOL) 2nd 미니 앨범 [Across Dimensions] 팬 사이트의 소식 피드를 업데이트하는 매일 작업이야. 결과는 한국어로 짧게 보고해. 먼저 저장소의 CLAUDE.md를 읽어.
 
 순서

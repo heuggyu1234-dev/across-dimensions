@@ -42,6 +42,7 @@
 - 공식 스케줄러: 10/20~23 STAR 컨셉 포토(단체·유닛·개인1·개인2), 10/26~29 RACE 컨셉 포토, 10/30 트랙리스트, 11/02 하이라이트 메들리, 11/04 MV 티저, 11/06 발매 전 스포일러, 11/09 MV와 앨범 발매
 
 ## 자동 업데이트
+- **2026-11-22부터 자동 업데이트 중단(사용자 요청).** 예약 작업 "이세돌 Across Dimensions 매일 소식"이 실행되면 사이트·스냅샷·claude.ai 페이지를 아무것도 바꾸지 말고, 커밋·푸시도 하지 말고, "자동 업데이트는 중단됐어요. https://claude.ai/code/routines/trig_01Pnr4rHjsaZezNR5iAG5MWT 에서 꺼 주세요"라고만 보고하고 끝낸다. 보고 예약("업데이트 보고 + 커뮤 단서 확인")은 꺼 두었다. 아래 내용은 사용자가 다시 켜 달라고 할 때를 위한 기록이다.
 - **매일 소식 작업을 하는 에이전트는 예약 작업 지침의 WebSearch 단계보다 먼저 `bash dev/check-news.sh`를 실행하고 그 결과를 주된 근거로 쓴다.** 최신 지침 전체는 `dev/cloud-daily-news.md`에 있다. 예약 작업에 저장된 지침이 이 파일과 다르면 이 파일을 따른다.
 - claude.ai 클라우드 예약 작업 "이세돌 Across Dimensions 매일 소식"(https://claude.ai/code/routines/trig_01Pnr4rHjsaZezNR5iAG5MWT)이 매일 10:07·18:07·21:07 KST에 돈다(공식 사진·공지는 보통 18:00, 연합 발표는 저녁 8시 전후). 사용자 대화에서 도는 "업데이트 보고 + 커뮤 단서 확인"(10:37·15:37·18:37·21:37)이 각 실행 결과를 사용자에게 보고하고 커뮤를 훑는다. PC가 꺼져 있어도 된다. 지침 원본은 `dev/cloud-daily-news.md`. 이 저장소를 받아 스냅샷을 고치고 빌드한 뒤 `main`에 푸시한다.
 - `bash dev/check-news.sh`의 출력은 grep·head로 자르지 말고 `bash dev/check-news.sh > /tmp/news.txt 2>&1` 로 저장한 뒤 파일 전체를 Read로 읽는다(Berriz·유튜브·KBS 부분을 놓치지 않게).
